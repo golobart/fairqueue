@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My resources page</title>
+  </head>
+  <body>
+    <p>
+{% if all_resources %}
+    <ul>
+    {% for resu in all_resources %}
+<!--        <li><a href="/adminapp/rsc/{{ resu.id }}/">{{ resu.name }}</a></li>
+-->
+        <li><a href="{% url 'adminapp:resource' resu.id %}">{{ resu.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No resources are available.</p>
+{% endif %}
+    </body>
+</html>
