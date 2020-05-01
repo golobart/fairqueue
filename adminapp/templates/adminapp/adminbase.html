@@ -1,0 +1,70 @@
+<!-- templates/adminapp/adminbase.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- TODO how to fallback from project stylesheet to app stylesheet? favicon? -->
+  <link rel="stylesheet" type="text/css" href='{% static "adminappstatic/styles_1.css" %}'>
+  <!-- It takes favicon from project, not from adminapp -->
+  <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+
+  <title>{% block title %}adminapp{% endblock %}</title>
+
+  {% block addtohead %}
+  <!-- i.e. include another stylesheet -->
+  {% endblock addtohead %}
+</head>
+<body>
+<main>
+  {% block header %}
+  <div class="header">
+    <h1>Fair Queues</h1>
+    Hi {{ user.username }}!
+    <p><a href="{% url 'logout' %}">logout</a></p>
+  </div>
+  {% endblock header %}
+
+
+  <div class="row">
+    {% block menu %}
+    <div class="col-3 col-s-3 menu">
+      <ul>
+        <li><a href="{% url 'adminapp:resources' %}">Resources</a></li>
+        <li>Calendars</li>
+        <li>Working time</li>
+      </ul>
+    </div>
+    {% endblock menu %}
+
+    {% block content %}
+    <div class="col-6 col-s-9">
+      <h1>The Purpose</h1>
+      <p>xxx xxx.</p>
+    </div>
+    {% endblock content %}
+
+    {% block lateral %}
+    <div class="col-3 col-s-12">
+      <div class="aside">
+        <h2>What?</h2>
+        <p>yyy.</p>
+        <h2>Where?</h2>
+        <p>yyy.</p>
+        <h2>How?</h2>
+        <p>zzz.</p>
+      </div>
+    </div>
+    {% endblock lateral %}
+
+  </div>
+
+  {% block footer %}
+  <div class="footer">
+    <p>Responsive.</p>
+  </div>
+  {% endblock footer %}
+</main>
+</body>
+</html>
