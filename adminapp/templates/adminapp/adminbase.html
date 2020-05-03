@@ -18,25 +18,32 @@
 </head>
 <body>
 <main>
-  {% block header %}
-  <div class="header">
-    <h1>Fair Queues</h1>
-    Hi {{ user.username }}!
-    <p><a href="{% url 'logout' %}">logout</a></p>
+
+  <div class="row">
+    {% block header %}
+    <div class="col-10 col-s-10 header">
+      <h1>Fair Queues</h1>
+    </div>
+    <div class="col-2 col-2 header">
+      {{ user.username }}
+      <a href="{% url 'logout' %}">logout</a>
+      <a href="{% url 'password_reset' %}">reset password</a>
+    </div>
+
+    {% endblock header %}
   </div>
-  {% endblock header %}
 
 
   <div class="row">
-    {% block menu %}
+    {% block mainmenu %}
     <div class="col-3 col-s-3 menu">
       <ul>
         <li><a href="{% url 'adminapp:resources' %}">Resources</a></li>
-        <li>Calendars</li>
-        <li>Working time</li>
+        <li><a href="{% url 'adminapp:calendars' %}">Calendars</a></li>
+        <li><a href="{% url 'adminapp:workingTimes' %}">Working time</a></li>
       </ul>
     </div>
-    {% endblock menu %}
+    {% endblock mainmenu %}
 
     {% block content %}
     <div class="col-6 col-s-9">

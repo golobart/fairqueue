@@ -20,8 +20,19 @@ html {
 .header {
   background-color: #5533cc;
   color: #ffffff;
-  padding: 15px;
+  padding: 0px;
+  margin: 0px;
   text-align: center;
+
+  height: 3em;
+}
+
+.header h1 {
+  vertical-align: middle;
+}
+
+.header a {
+  text-decoration: none;
 }
 
 .menu ul {
@@ -40,6 +51,11 @@ html {
 
 .menu li:hover {
   background-color: #0099cc;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #ffffff;
 }
 
 .aside {
