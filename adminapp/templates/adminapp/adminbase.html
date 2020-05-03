@@ -24,7 +24,7 @@
     <div class="col-10 col-s-10 header">
       <h1>Fair Queues</h1>
     </div>
-    <div class="col-2 col-2 header">
+    <div class="col-2 col-s-2 header" style="background:black;">
       {{ user.username }}
       <a href="{% url 'logout' %}">logout</a>
       <a href="{% url 'password_reset' %}">reset password</a>
@@ -46,14 +46,14 @@
     {% endblock mainmenu %}
 
     {% block content %}
-    <div class="col-6 col-s-9">
+    <div class="col-9 col-s-9"  style="background:orange;">
       <h1>The Purpose</h1>
       <p>xxx xxx.</p>
     </div>
     {% endblock content %}
 
     {% block lateral %}
-    <div class="col-3 col-s-12">
+    <div class="col-3 col-s-3">
       <div class="aside">
         <h2>What?</h2>
         <p>yyy.</p>

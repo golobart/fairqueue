@@ -1,6 +1,13 @@
 * {
   box-sizing: border-box;
 }
+.row{
+    width: 100%;
+    min-height: 3px;
+    margin: 0 auto;
+    /* display: -webkit-flex;  Safari */
+    /* display: flex;  Standard syntax */
+}
 
 .row::after {
   content: "";
@@ -17,23 +24,33 @@ html {
   font-family: "Lucida Sans", sans-serif;
 
 }
+
+body {
+  font-size: 100%;
+}
+
 .header {
   background-color: #5533cc;
   color: #ffffff;
-  padding: 0px;
+  padding: 1px;
   margin: 0px;
   text-align: center;
-
-  height: 3em;
+  height: auto;
 }
 
 .header h1 {
-  vertical-align: middle;
+
+  font-size: 1.5em;
 }
 
 .header a {
   text-decoration: none;
+  font-size: 1em;
+  color: #ffffff;
+
 }
+
+
 
 .menu ul {
   list-style-type: none;
