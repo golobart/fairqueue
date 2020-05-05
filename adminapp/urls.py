@@ -19,4 +19,8 @@ urlpatterns = [
     path('wts/', views.workingTime, name='workingTimes'),
     # ex: /adminapp/wt/5/
     path('wt/<int:testPar>/', views.workingTime, name='workingTime'),
+    # ex: /adminapp/searchrscs/
+    path('searchrscs/', views.search_resources, name='searchresources'),
+    # ex: /adminapp/searchrscsdo/
+    path('searchrscsdo/', views.search_resources_do, name='searchresourcesdo'),
 ]

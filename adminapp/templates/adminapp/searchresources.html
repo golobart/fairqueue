@@ -1,0 +1,16 @@
+{% extends 'adminapp/adminbase.html' %}
+
+{% block content %}
+<div class="col-9 col-s-9"  style="background:lavender;">
+    <form action="{% url 'adminapp:searchresourcesdo' %}" method="get">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit search">
+    </form>
+</div>
+{% endblock content %}
+
+
+{% block lateral %}
+<!-- just remove default content -->
+{% endblock lateral %}

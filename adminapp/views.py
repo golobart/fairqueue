@@ -8,6 +8,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 
 from .models import Calendar, DaysOff, WorkingTime, Resource, CalendarDefWT, DaySpecWT
+from .forms import SearchRscsForm
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.fair queue.")
@@ -26,6 +27,26 @@ def resources(request):
 ##    return HttpResponse(template.render(context, request))
     return render(request, 'adminapp/resources.html', context)
 
+
+def search_resources(request):
+    # Presenta el formulari per cercar recursos
+    form = SearchRscsForm()
+    context = { 'form': form }
+    return render(request, 'adminapp/searchresources.html', context)
+
+def search_resources_do(request):
+    # TODO passar-ho a GET
+    form = SearchRscsForm()
+    if request.method == "POST":
+        form = SearchRscsForm(request.POST) #if no files
+        #if form.is_valid():
+            # TODO fer la cerca de recursos
+
+    context = {
+        'form': form
+        # TODO passar resultats de la cerca de recursos
+    }
+    return render(request, 'adminapp/searchresourcesdo.html', context)
 
 #def resource(request, rsc_id):
 #    try:
