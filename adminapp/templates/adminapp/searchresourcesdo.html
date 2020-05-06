@@ -1,13 +1,45 @@
 {% extends 'adminapp/adminbase.html' %}
 
 {% block content %}
-<div class="col-9 col-s-9"  style="background:red;">
-    <form action="{% url 'adminapp:searchresourcesdo' %}" method="post">
-        {% csrf_token %}
+<div class="col-9 col-s-9"  style="background:lavender;">
+    <form action="{% url 'adminapp:searchresourcesdo' %}" method="get">
         {{ form }}
-        <input type="submit" value="Submit search dooooooooooooooooo">
+        <input type="submit" value="Search">
     </form>
 </div>
+<hr>
+<hr>
+<!-- {{ req_dict }} -->
+<hr>
+<table class="col-9 col-s-9"  style="background:orange;">
+    <tr><th> name </th> <th> description </th> <th> text_title </th> <th> calendar </th></tr>
+    {% for record in page_obj  %}
+    <tr>
+        <td><a href="{% url 'adminapp:resource' record.id %}">{{ record.name }}</a></td> <td>{{ record.description }}</td>
+        <td>{{ record.text_title }}</td> <td>{{ record.calendar }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<hr>
+
+<div class="pagination" style="align:center;">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
 {% endblock content %}
 
 

@@ -1,19 +1,18 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>My resources page</title>
-  </head>
-  <body>
-    <p>
-{% if rsc %}
-    <ul>
-<!--        <li><a href="/adminapp/rsc/{{ rsc.id }}/">aleluia time {{ rsc.name }}</a></li>
--->
-        <li><a href="{% url 'adminapp:resource' rsc.id %}">aleluia time {{ rsc.name }}</a></li>
-    </ul>
-{% else %}
-    <p>Resource {{rsc.id}} not available. An exception should have been happened before!!</p>
-{% endif %}
-    </body>
-</html>
+{% extends 'adminapp/adminbase.html' %}
+
+{% block content %}
+<div class="col-9 col-s-9"  style="background:lavender;">
+    <form action="{% url 'adminapp:resource' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Save">
+    </form>
+</div>
+
+
+{% endblock content %}
+
+{% block lateral %}
+<!-- just remove default content -->
+{% endblock lateral %}
+

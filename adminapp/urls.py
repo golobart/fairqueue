@@ -11,6 +11,7 @@ urlpatterns = [
     path('rscs/', views.resources, name='resources'),
     # ex: /adminapp/rsc/5/
     path('rsc/<int:rsc_id>/', views.resource, name='resource'),
+    # path('rsc/', views.resource, name='resource'),
     # ex: /adminapp/cals/
     path('cals/', views.calendar, name='calendars'),
     # ex: /adminapp/cal/5/
