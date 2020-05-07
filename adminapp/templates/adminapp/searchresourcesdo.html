@@ -11,12 +11,16 @@
 <hr>
 <!-- {{ req_dict }} -->
 <hr>
-<table class="col-9 col-s-9"  style="background:orange;">
-    <tr><th> name </th> <th> description </th> <th> text_title </th> <th> calendar </th></tr>
+<table class="col-9 col-s-9"  style="background:lightgrey;">
+    <tr><th> name </th> <th> description </th> <th> text_title </th> <th> calendar </th><th> </th></tr>
     {% for record in page_obj  %}
     <tr>
-        <td><a href="{% url 'adminapp:resource' record.id %}">{{ record.name }}</a></td> <td>{{ record.description }}</td>
-        <td>{{ record.text_title }}</td> <td>{{ record.calendar }}</td>
+        <td><a href="{% url 'adminapp:resource' record.id %}">{{ record.name }}</a></td>
+        <td>{{ record.description }}</td>
+        <td>{{ record.text_title }}</td>
+        <td>{{ record.calendar }}</td>
+        <td><a href="{% url 'adminapp:resource' record.id %}"><span> <i class="fas fa-pencil-alt"></i></span></a>
+            <a href="{% url 'password_reset' %}"><span> <i class="far fa-trash-alt"></i></span></a></td>
     </tr>
     {% endfor %}
 </table>

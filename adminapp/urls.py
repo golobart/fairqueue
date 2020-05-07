@@ -7,7 +7,7 @@ app_name = 'adminapp'
 urlpatterns = [
     # ex: /adminapp/
     path('', views.adminPage, name='adminPage'),
-    # ex: /adminapp/rscs/
+    # ex: /adminapp/rscs/ TODO eliminar, substituit per searchresources
     path('rscs/', views.resources, name='resources'),
     # ex: /adminapp/rsc/5/
     path('rsc/<int:rsc_id>/', views.resource, name='resource'),

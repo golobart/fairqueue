@@ -69,6 +69,7 @@ display: inline-block;
 .menu a {
   text-decoration: none;
   color: #ffffff;
+  display: block;
 }
 
 .aside {

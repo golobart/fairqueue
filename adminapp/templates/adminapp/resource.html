@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="col-9 col-s-9"  style="background:lavender;">
-    <form action="{% url 'adminapp:resource' %}" method="post">
+    <form action="{% url 'adminapp:resource' rsc.id %}" method="post">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Save">

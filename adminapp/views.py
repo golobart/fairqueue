@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect
 
 #  Create your views here.
@@ -7,6 +8,7 @@ from django.http import HttpResponse
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
 from .models import Calendar, DaysOff, WorkingTime, Resource, CalendarDefWT, DaySpecWT
 from .forms import SearchRscsForm, ResourceForm
@@ -18,7 +20,7 @@ def index(request):
 def adminPage(request):
     return render(request, 'adminapp/adminmain.html')
 
-
+# TODO eliminar
 def resources(request):
     all_resources = Resource.objects.all()
 
@@ -28,13 +30,14 @@ def resources(request):
 ##    return HttpResponse(template.render(context, request))
     return render(request, 'adminapp/resources.html', context)
 
-
+@login_required
 def search_resources(request):
     # Presenta el formulari per cercar recursos
     form = SearchRscsForm()
     context = { 'form': form }
     return render(request, 'adminapp/searchresources.html', context)
 
+@login_required
 def search_resources_do(request):
     # Es una request tipus GET
     if request.method == "GET":
@@ -79,6 +82,7 @@ def search_resources_do(request):
 #
 #    return render(request, 'adminapp/resource.html', context)
 
+@login_required
 def resource(request, rsc_id):
     rsc = get_object_or_404(Resource, pk=rsc_id)
     if request.method == "POST":
@@ -88,7 +92,8 @@ def resource(request, rsc_id):
             # post.author = request.user
             # post.published_date = timezone.now()
             rsc.save()
-            return redirect('resource', pk=rsc.pk)
+            return redirect('adminapp:searchresources')
+            # return redirect('adminapp:resources', pk=rsc.pk)
     else:
         form = ResourceForm(instance=rsc)
 
