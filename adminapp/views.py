@@ -102,6 +102,40 @@ def resource(request, rsc_id):
     return render(request, 'adminapp/resource.html', context)
 
 
+@login_required
+def delete_resource(request, rsc_id):
+    rsc = get_object_or_404(Resource, pk=rsc_id)
+    rsc.delete()
+    return redirect('adminapp:searchresources')
+
+
+@login_required
+def create_resource(request):
+    if request.method == "GET":
+        #form = ResourceForm(request.GET) intentava poblar els camps èr defecte amb el que venia del search, pero dona errors de validacio
+        form = ResourceForm()
+    else:
+        form = ResourceForm()
+    context = {'form': form}
+    return render(request, 'adminapp/createresource.html', context)
+
+
+@login_required
+def create_resource_do(request):
+    if request.method == "POST":
+        form = ResourceForm(request.POST)
+        if form.is_valid():
+            rsc = form.save(commit=False)
+            rsc.save()
+            return redirect('adminapp:searchresources')
+        else:
+            context = {'form': form}
+            return render(request, 'adminapp/createresource.html', context)
+    form = ResourceForm()
+    context = {'form': form}
+    return render(request, 'adminapp/createresource.html', context)
+
+
 def calendar(request, testPar):
     response = "You're looking at a calendar %s."
     return HttpResponse(response % testPar)

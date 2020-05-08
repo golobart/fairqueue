@@ -5,6 +5,8 @@
     <form action="{% url 'adminapp:searchresourcesdo' %}" method="get">
         {{ form }}
         <input type="submit" value="Search">
+        <input type="reset" value="Clear fields">
+        <input type="submit" value="New resource" formmethod="get" formaction="{% url 'adminapp:createresource' %}">
     </form>
 </div>
 <hr>
@@ -15,12 +17,13 @@
     <tr><th> name </th> <th> description </th> <th> text_title </th> <th> calendar </th><th> </th></tr>
     {% for record in page_obj  %}
     <tr>
-        <td><a href="{% url 'adminapp:resource' record.id %}">{{ record.name }}</a></td>
+        <td><a href="{% url 'adminapp:resource' record.id %}"  title="Read">{{ record.name }}</a></td>
         <td>{{ record.description }}</td>
         <td>{{ record.text_title }}</td>
         <td>{{ record.calendar }}</td>
-        <td><a href="{% url 'adminapp:resource' record.id %}"><span> <i class="fas fa-pencil-alt"></i></span></a>
-            <a href="{% url 'password_reset' %}"><span> <i class="far fa-trash-alt"></i></span></a></td>
+        <td><a href="{% url 'adminapp:resource' record.id %}"><span> <i class="far fa-eye" title="Read"></i></span></a>
+            <a href="{% url 'adminapp:resource' record.id %}"><span> <i class="fas fa-pencil-alt" title="Edit"></i></span></a>
+            <a href="{% url 'adminapp:deleteresource' record.id %}"><span> <i class="far fa-trash-alt" title="Delete"></i></span></a></td>
     </tr>
     {% endfor %}
 </table>
