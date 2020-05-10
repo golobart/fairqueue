@@ -8,6 +8,7 @@ from .models import Resource, Calendar
 
 from django.contrib.auth.models import User
 
+
 class ResourceModelTests(TestCase):
 
     def test_resource_basics(self):
@@ -22,6 +23,7 @@ class ResourceModelTests(TestCase):
         self.assertEqual(resource.calendar, calendar)
         self.assertEqual(calendar.name, "ccaall__nnaammee")
 
+
 class ViewTests(TestCase):
 
     def test_view_basics(self):
@@ -29,11 +31,9 @@ class ViewTests(TestCase):
         test_view_basics() returns True if access to view with login required is well done
         """
         self.client = Client()
-        self.user = User.objects.create_user('john', 'lennon@thebeatles.com', 'johnpassword')
-        login_res = self.client.login(username='john', password='johnpassword')
+        self.user = User.objects.create_user('Buzz', 'buzz@apollo11.net', 'AldrinPassword')
+        login_res = self.client.login(username='Buzz', password='AldrinPassword')
 
-
-#        login_res = self.client.login(username='miquel', password='marciano_1')
         self.assertTrue(login_res)
 
         response = self.client.get(reverse('adminapp:searchresources'))
