@@ -29,7 +29,7 @@ blocks:
           commands:
             - python manage.py makemigrations
             - python manage.py migrate
-            - python manage.py test adminapp.tests
+            - python manage.py test adminapp.tests.ResourceModelTests
         - name: Checklist
           commands:
             - python manage.py check --deploy
