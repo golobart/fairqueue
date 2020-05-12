@@ -1,0 +1,34 @@
+version: v1.0
+name: Pipeline 3
+blocks:
+  - name: Deploy to K8s
+    task:
+      jobs:
+        - name: Deploy
+          commands:
+            - checkout
+            - kubectl get nodes
+            - kubectl get pods
+            - envsubst < cicd/deployment.yml | tee cicd/deployment.yml
+            - kubectl apply -f cicd/deployment.yml
+      secrets:
+        - name: do-k8s
+        - name: dockerhub
+      env_vars:
+        - name: KUBECONFIG
+          value: /home/semaphore/.kube/dok8s.yaml
+  - name: Tag latest release
+    task:
+      secrets:
+        - name: dockerhub
+      jobs:
+        - name: Docker tag latest
+          commands:
+            - 'echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin'
+            - 'docker pull "${DOCKER_USERNAME}"/django-fairqueue-cicd:$SEMAPHORE_WORKFLOW_ID'
+            - 'docker tag "${DOCKER_USERNAME}"/django-fairqueue-cicd:$SEMAPHORE_WORKFLOW_ID "${DOCKER_USERNAME}"/django-fairqueue-cicd:latest'
+            - 'docker push "${DOCKER_USERNAME}"/django-fairqueue-cicd:latest'
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
