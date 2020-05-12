@@ -25,7 +25,7 @@ metadata:
 spec:
   selector:
     app: django-fairqueue-kubernetes
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 80
       targetPort: 8000
