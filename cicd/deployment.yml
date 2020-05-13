@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: django-fairqueue-kubernetes
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: django-fairqueue-kubernetes
