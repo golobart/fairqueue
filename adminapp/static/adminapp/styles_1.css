@@ -43,6 +43,28 @@ display: inline-block;
   font-size: 1.5em;
 }
 
+.alerter {
+  background-color: #dddddd;
+  color: #000000;
+  padding: 2px 15px;
+  margin: 0px;
+  #text-align: center;
+  height: auto;
+  font-size: 12px;
+}
+
+.alerter p {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  animation-name: textenter;
+  animation-duration: 6s;
+}
+
+@keyframes textenter {
+  from {left: 100%;}
+  to {left: 0%;}
+}
 
 .menu  {
 
@@ -55,6 +77,7 @@ display: inline-block;
 }
 
 .menu li {
+  #display: inline;
   padding: 8px;
   margin-bottom: 7px;
   background-color: #33b5e5;
@@ -92,10 +115,13 @@ display: inline-block;
 /* For mobile phones: */
 [class*="col-"] {
   width: 100%;
+  padding-left: 0;
 }
 
 @media only screen and (min-width: 600px) {
   /* For tablets: */
+  .menu li {display: inline;}
+  .menu a {display: inline;}
   .col-s-1 {width: 8.33%;}
   .col-s-2 {width: 16.66%;}
   .col-s-3 {width: 25%;}
@@ -111,6 +137,8 @@ display: inline-block;
 }
 @media only screen and (min-width: 768px) {
   /* For desktop: */
+   .menu li {display: block;}
+   .menu a {display: block;}
   .col-1 {width: 8.33%;}
   .col-2 {width: 16.66%;}
   .col-3 {width: 25%;}
@@ -135,6 +163,8 @@ display: inline-block;
   cursor: pointer;
   width: 100%;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .dropdown {
