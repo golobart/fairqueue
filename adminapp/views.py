@@ -34,7 +34,8 @@ def resources(request):
 def search_resources(request):
     # Presenta el formulari per cercar recursos
     form = SearchRscsForm()
-    context = { 'form': form }
+    context = { 'form': form,
+                'activemenu': 'resource',}
     return render(request, 'adminapp/searchresources.html', context)
 
 @login_required
@@ -69,6 +70,7 @@ def search_resources_do(request):
         'results': rscs_qset, # search results TODO remove innecessary
         'page_obj': page_obj,
         'paginator': paginator,
+        'activemenu': 'resource',
     }
     return render(request, 'adminapp/searchresourcesdo.html', context)
 
@@ -116,7 +118,8 @@ def create_resource(request):
         form = ResourceForm()
     else:
         form = ResourceForm()
-    context = {'form': form}
+    context = {'form': form,
+               'activemenu': 'resource',}
     return render(request, 'adminapp/createresource.html', context)
 
 
@@ -132,7 +135,8 @@ def create_resource_do(request):
             context = {'form': form}
             return render(request, 'adminapp/createresource.html', context)
     form = ResourceForm()
-    context = {'form': form}
+    context = {'form': form,
+               'activemenu': 'resource',}
     return render(request, 'adminapp/createresource.html', context)
 
 

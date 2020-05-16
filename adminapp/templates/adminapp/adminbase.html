@@ -54,10 +54,10 @@
     {% block mainmenu %}
     <div class="col-3 col-s-12 menu" >
       <ul>
-        <li><a href="{% url 'adminapp:searchresources' %}">Resources (new)</a></li>
-        <li><a href="{% url 'adminapp:resources' %}">Resources</a></li>
-        <li><a href="{% url 'adminapp:calendars' %}">Calendars</a></li>
-        <li><a href="{% url 'adminapp:workingTimes' %}">Working time</a></li>
+        <li {% if activemenu == 'resource' %}class="active" {% endif %}><a href="{% url 'adminapp:searchresources' %}">Resources (new)</a></li>
+        <li {% if activemenu == 'calendar' %}class="active" {% endif %}><a href="{% url 'adminapp:resources' %}">Resources</a></li>
+        <li {% if activemenu == 'calendar' %}class="active" {% endif %}><a href="{% url 'adminapp:calendars' %}">Calendars</a></li>
+        <li {% if activemenu == 'workingtime' %}class="active" {% endif %}><a href="{% url 'adminapp:workingTimes' %}">Working time</a></li>
       </ul>
     </div>
     {% endblock mainmenu %}
