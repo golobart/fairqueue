@@ -4,11 +4,18 @@
 <div class="col-9 col-s-12"  style="background:lavender;">
     <form action="{% url 'adminapp:searchresourcesdo' %}" method="get">
         <table class="as_table">
-        {{ form.as_table }}
+            {{ form.as_table }}
+            <tfoot>
+            <tr>
+                <td/>
+                <td style="text-align:left;" >
+                    <input type="submit" value="Search">
+                    <input type="reset" value="Clear fields">
+                    <input type="submit" value="New resource" formmethod="get" formaction="{% url 'adminapp:createresource' %}">
+                </td>
+            </tr>
+            </tfoot>
         </table>
-        <input type="submit" value="Search">
-        <input type="reset" value="Clear fields">
-        <input type="submit" value="New resource" formmethod="get" formaction="{% url 'adminapp:createresource' %}">
     </form>
 </div>
 
@@ -31,25 +38,29 @@
     </tr>
     {% endfor %}
     </tbody>
-    <tfoot><tr><td style="text-align:center;" colspan="5">
-<!-- <div class="pagination" style="align:center;">
-    <span class="step-links"> -->
-        {% if page_obj.has_previous %}
+    <tfoot>
+    <tr>
+        <td style="text-align:center;" colspan="5">
+            <!-- <div class="pagination" style="align:center;">
+                <span class="step-links"> -->
+            {% if page_obj.has_previous %}
             <a href="?page=1">&laquo; first</a>
             <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
+            {% endif %}
 
-        <span class="current">
+            <span class="current">
             Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
         </span>
 
-        {% if page_obj.has_next %}
+            {% if page_obj.has_next %}
             <a href="?page={{ page_obj.next_page_number }}">next</a>
             <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-<!--     </span>
-</div> -->
-</td></tr></tfoot>
+            {% endif %}
+            <!--     </span>
+            </div> -->
+        </td>
+    </tr>
+    </tfoot>
 </table>
 
 

@@ -6,11 +6,17 @@
         <!--        {# % csrf_token %} -->
         <table class="as_table">
             {{ form.as_table }}
+            <tfoot>
+            <tr>
+                <td/>
+                <td style="text-align:left;" >
+                    <input type="submit" value="Search">
+                    <input type="reset" value="Clear fields">
+                    <input type="submit" value="New resource" formmethod="get" formaction="{% url 'adminapp:createresource' %}">
+                </td>
+            </tr>
+            </tfoot>
         </table>
-        <input type="submit" value="Search">
-        <input type="reset" value="Clear fields">
-        <input type="submit" value="New resource" formmethod="get" formaction="{% url 'adminapp:createresource' %}">
-
     </form>
 </div>
 {% endblock content %}

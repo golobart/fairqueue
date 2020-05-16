@@ -17,3 +17,6 @@ class ResourceForm(forms.ModelForm):
         model = Resource
         # fields = ['name', 'description', 'text_title', 'calendar']
         fields = '__all__'
+        widgets = {
+            'name': forms.TextInput(attrs={'autofocus': ''}),
+        }
