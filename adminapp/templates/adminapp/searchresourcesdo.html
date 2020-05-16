@@ -1,20 +1,24 @@
 {% extends 'adminapp/adminbase.html' %}
 
 {% block content %}
-<div class="col-9 col-s-9"  style="background:lavender;">
+<div class="col-9 col-s-12"  style="background:lavender;">
     <form action="{% url 'adminapp:searchresourcesdo' %}" method="get">
-        {{ form }}
+        <table class="as_table">
+        {{ form.as_table }}
+        </table>
         <input type="submit" value="Search">
         <input type="reset" value="Clear fields">
         <input type="submit" value="New resource" formmethod="get" formaction="{% url 'adminapp:createresource' %}">
     </form>
 </div>
-<hr>
-<hr>
+
 <!-- {{ req_dict }} -->
-<hr>
-<table class="col-9 col-s-9"  style="background:lightgrey;">
+
+<table class="col-9 col-s-12"  style="background:lightgrey;">
+    <thead>
     <tr><th> name </th> <th> description </th> <th> text_title </th> <th> calendar </th><th> </th></tr>
+    </thead>
+    <tbody>
     {% for record in page_obj  %}
     <tr>
         <td><a href="{% url 'adminapp:resource' record.id %}"  title="Read">{{ record.name }}</a></td>
@@ -26,11 +30,10 @@
             <a href="{% url 'adminapp:deleteresource' record.id %}"><span> <i class="far fa-trash-alt" title="Delete"></i></span></a></td>
     </tr>
     {% endfor %}
-</table>
-<hr>
-
-<div class="pagination" style="align:center;">
-    <span class="step-links">
+    </tbody>
+    <tfoot><tr><td style="text-align:center;" colspan="5">
+<!-- <div class="pagination" style="align:center;">
+    <span class="step-links"> -->
         {% if page_obj.has_previous %}
             <a href="?page=1">&laquo; first</a>
             <a href="?page={{ page_obj.previous_page_number }}">previous</a>
@@ -44,8 +47,11 @@
             <a href="?page={{ page_obj.next_page_number }}">next</a>
             <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
-    </span>
-</div>
+<!--     </span>
+</div> -->
+</td></tr></tfoot>
+</table>
+
 
 {% endblock content %}
 

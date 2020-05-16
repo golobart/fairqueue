@@ -1,13 +1,16 @@
 {% extends 'adminapp/adminbase.html' %}
 
 {% block content %}
-<div class="col-9 col-s-9"  style="background:lavender;">
+<div class="col-9 col-s-12"  style="background:lavender;">
     <form action="{% url 'adminapp:searchresourcesdo' %}" method="get">
-<!--        {# % csrf_token %} -->
-        {{ form }}
+        <!--        {# % csrf_token %} -->
+        <table class="as_table">
+            {{ form.as_table }}
+        </table>
         <input type="submit" value="Search">
         <input type="reset" value="Clear fields">
         <input type="submit" value="New resource" formmethod="get" formaction="{% url 'adminapp:createresource' %}">
+
     </form>
 </div>
 {% endblock content %}

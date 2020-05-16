@@ -207,3 +207,10 @@ display: inline-block;
 .dropdown:hover .dropbtn {
   background-color: #220099;
 }
+
+.as_table {
+}
+
+.as_table  label {
+  float: right;
+}

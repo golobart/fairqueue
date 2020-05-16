@@ -99,7 +99,9 @@ def resource(request, rsc_id):
     else:
         form = ResourceForm(instance=rsc)
 
-    context = { 'rsc': rsc, 'form': form }
+    context = { 'rsc': rsc,
+                'form': form,
+                'activemenu': 'resource',}
 
     return render(request, 'adminapp/resource.html', context)
 
