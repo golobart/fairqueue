@@ -1,4 +1,5 @@
 {% extends 'adminapp/adminbase.html' %}
+{% load i18n %}
 
 {% comment %}
 <!-- put comments here -->
@@ -9,11 +10,11 @@
 <div class="col-9 col-s-9"  style="background:grey;">
     <form action="{% url 'adminapp:searchresources' %}" method="post">
         {% csrf_token %}
-        <label for="rscname">Name:</label>
-        <input type="text" id="rscname" name="rscname" placeholder="Resource name">
-        <label for="rscdesc">Description:</label>
-        <input type="text" id="rscdesc" name="rscdesc" placeholder="Resource description">
-        <input type="submit" value="Search">
+        <label for="rscname">{% trans 'Name:' %}</label>
+        <input type="text" id="rscname" name="rscname" placeholder="{% trans 'Resource name' %}">
+        <label for="rscdesc">{% trans 'Description:' %}</label>
+        <input type="text" id="rscdesc" name="rscdesc" placeholder="{% trans 'Resource description' %}">
+        <input type="submit" value="{% trans 'Search' %}">
     </form>
 </div>
 {% endblock content %}

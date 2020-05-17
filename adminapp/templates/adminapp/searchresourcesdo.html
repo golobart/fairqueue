@@ -1,4 +1,5 @@
 {% extends 'adminapp/adminbase.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="col-9 col-s-12"  style="background:lavender;">
@@ -9,9 +10,9 @@
             <tr>
                 <td/>
                 <td style="text-align:left;" >
-                    <input type="submit" value="Search">
-                    <input type="reset" value="Clear fields">
-                    <input type="submit" value="New resource" formmethod="get" formaction="{% url 'adminapp:createresource' %}">
+                    <input type="submit" value="{% trans 'Search' %}">
+                    <input type="reset" value="{% trans 'Restore fields' %}">
+                    <input type="submit" value="{% trans 'New resource' %}" formmethod="get" formaction="{% url 'adminapp:createresource' %}">
                 </td>
             </tr>
             </tfoot>
@@ -23,18 +24,18 @@
 
 <table class="col-9 col-s-12"  style="background:lightgrey;">
     <thead>
-    <tr><th> name </th> <th> description </th> <th> text_title </th> <th> calendar </th><th> </th></tr>
+    <tr><th> {% trans 'Name' %} </th> <th> {% trans 'Description' %} </th> <th> {% trans 'Title' %} </th> <th> {% trans 'Calendar' %} </th><th> </th></tr>
     </thead>
     <tbody>
     {% for record in page_obj  %}
     <tr>
-        <td><a href="{% url 'adminapp:resource' record.id %}"  title="Read">{{ record.name }}</a></td>
+        <td><a href="{% url 'adminapp:resource' record.id %}"  title="{% trans 'Read' %}">{{ record.name }}</a></td>
         <td>{{ record.description }}</td>
         <td>{{ record.text_title }}</td>
         <td>{{ record.calendar }}</td>
-        <td><a href="{% url 'adminapp:resource' record.id %}"><span> <i class="far fa-eye" title="Read"></i></span></a>
-            <a href="{% url 'adminapp:resource' record.id %}"><span> <i class="fas fa-pencil-alt" title="Edit"></i></span></a>
-            <a href="{% url 'adminapp:deleteresource' record.id %}"><span> <i class="far fa-trash-alt" title="Delete"></i></span></a></td>
+        <td><a href="{% url 'adminapp:resource' record.id %}"><span> <i class="far fa-eye" title="{% trans 'Read' %}"></i></span></a>
+            <a href="{% url 'adminapp:resource' record.id %}"><span> <i class="fas fa-pencil-alt" title="{% trans 'Edit' %}"></i></span></a>
+            <a href="{% url 'adminapp:deleteresource' record.id %}"><span> <i class="far fa-trash-alt" title="{% trans 'Delete' %}"></i></span></a></td>
     </tr>
     {% endfor %}
     </tbody>
@@ -44,17 +45,17 @@
             <!-- <div class="pagination" style="align:center;">
                 <span class="step-links"> -->
             {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            <a href="?page=1">&laquo; {% trans 'first' %}</a>
+            <a href="?page={{ page_obj.previous_page_number }}">{% trans 'previous' %}</a>
             {% endif %}
 
             <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            {% trans 'Page' %} {{ page_obj.number }} {% trans 'of' %} {{ page_obj.paginator.num_pages }}.
         </span>
 
             {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            <a href="?page={{ page_obj.next_page_number }}">{% trans 'next' %}</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">{% trans 'last' %} &raquo;</a>
             {% endif %}
             <!--     </span>
             </div> -->

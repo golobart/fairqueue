@@ -13,17 +13,29 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.views.generic.base import TemplateView
+from django.conf import settings
 
 from . import views
 
 urlpatterns = [
-#    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    # path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('', views.home, name='home'),
-    path('adminapp/', include('adminapp.urls')),
+    #path('adminapp/', include('adminapp.urls')),
     path('accounts/', include('signupapp.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
 ]
+
+urlpatterns += i18n_patterns(
+    # Django Admin
+    re_path(r'^{}/'.format('admin'), admin.site.urls),  # settings.DJANGO_ADMIN_URL -> admin/
+)
+urlpatterns += i18n_patterns(
+    # adminapp
+    re_path(r'^{}/'.format('adminapp'), include('adminapp.urls')),
+)

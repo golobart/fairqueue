@@ -1,4 +1,5 @@
 {% extends 'adminapp/adminbase.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="col-9 col-s-12"  style="background:lavender;">
@@ -10,9 +11,9 @@
             <tr>
                 <td/>
                 <td style="text-align:left;" >
-                    <input type="submit" value="Search">
-                    <input type="reset" value="Clear fields">
-                    <input type="submit" value="New resource" formmethod="get" formaction="{% url 'adminapp:createresource' %}">
+                    <input type="submit" value="{% trans 'Search' %}">
+                    <input type="reset" value="{% trans 'Clear fields' %}">
+                    <input type="submit" value="{% trans 'New resource' %}" formmethod="get" formaction="{% url 'adminapp:createresource' %}">
                 </td>
             </tr>
             </tfoot>
