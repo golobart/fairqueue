@@ -7,8 +7,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- TODO Fontawesome 5 icons: obtain personal code -->
-  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <!-- Fontawesome 5 icons: AVOID Javascript -->
+<!--  <script src="https://kit.fontawesome.com/a076d05399.js"></script>-->
+  <!-- Bootstrap icons: just CSS!!! -->
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
   <!-- TODO how to fallback from project stylesheet to app stylesheet? favicon? -->
   <link rel="stylesheet" type="text/css" href='{% static "adminappstatic/styles_1.css" %}'>
@@ -31,8 +34,9 @@
       <h1>Fair Queues - {{ request.resolver_match.app_name }}</h1>
     </div>
 
-    <div class=" col-1 col-s-1 header dropdown">
-      <button class="dropbtn" ><span> <i class="fas fa-globe fa-lg"></i></span></button>
+    <div class=" col-1 col-s-1  dropdown">
+<!--      <button class="dropbtn" ><span> <i class="fas fa-globe fa-lg"></i></span></button>-->
+      <button class="dropbtn" ><span> <i class="material-icons">language</i></span></button>
       <div class="dropdown-content" >
         {% get_available_languages as languages %}
         {% for lang_code, lang_name in languages %}
@@ -43,10 +47,13 @@
       </div>
     </div>
     <div class=" col-2 col-s-2 header dropdown">
-      <button class="dropbtn" ><span> <i class="fas fa-user-circle fa-lg"></i></span> {{ user.username }}</button>
+<!--      <button class="dropbtn" ><span> <i class="fas fa-user-circle fa-lg"></i></span> {{ user.username }}</button>-->
+      <button class="dropbtn" ><span> <i class="material-icons">account_circle</i></span> {{ user.username }}</button>
       <div class="dropdown-content" >
-        <a href="{% url 'password_change' %}"><span> <i class="fas fa-dice fa-lg"></i></span> {% trans 'change password' %}</a>
-        <a href="{% url 'logout' %}?next={% url 'login' %}"><span> <i class="fas fa-sign-out-alt fa-lg"></i></span> {% trans 'logout' %}</a>
+<!--        <a href="{% url 'password_change' %}"><span> <i class="fas fa-dice fa-lg"></i></span> {% trans 'change password' %}</a>-->
+<!--        <a href="{% url 'logout' %}?next={% url 'login' %}"><span> <i class="fas fa-sign-out-alt fa-lg"></i></span> {% trans 'logout' %}</a>-->
+         <a href="{% url 'password_change' %}"><span> <i class="material-icons">vpn_key</i></span> {% trans 'change password' %}</a>
+         <a href="{% url 'logout' %}?next={% url 'login' %}"><span> <i class="material-icons">power_settings_new</i></span> {% trans 'logout' %}</a>
       </div>
     </div>
 
