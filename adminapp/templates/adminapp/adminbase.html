@@ -28,7 +28,7 @@
     {% block header %}
     <!-- TODO make thin header -->
     <div class="col-9 col-s-9 header">
-      <h1>Fair Queues</h1>
+      <h1>Fair Queues - {{ request.resolver_match.app_name }}</h1>
     </div>
 
     <div class=" col-1 col-s-1 header dropdown">
@@ -45,8 +45,8 @@
     <div class=" col-2 col-s-2 header dropdown">
       <button class="dropbtn" ><span> <i class="fas fa-user-circle fa-lg"></i></span> {{ user.username }}</button>
       <div class="dropdown-content" >
-        <a href="{% url 'password_reset' %}"><span> <i class="fas fa-dice fa-lg"></i></span> {% trans 'reset password' %}</a>
-        <a href="{% url 'logout' %}"><span> <i class="fas fa-sign-out-alt fa-lg"></i></span> {% trans 'logout' %}</a>
+        <a href="{% url 'password_change' %}"><span> <i class="fas fa-dice fa-lg"></i></span> {% trans 'change password' %}</a>
+        <a href="{% url 'logout' %}?next={% url 'login' %}"><span> <i class="fas fa-sign-out-alt fa-lg"></i></span> {% trans 'logout' %}</a>
       </div>
     </div>
 

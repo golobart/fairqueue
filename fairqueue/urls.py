@@ -25,15 +25,31 @@ from . import views
 urlpatterns = [
     # path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('', views.home, name='home'),
-    #path('adminapp/', include('adminapp.urls')),
+    # path('adminapp/', include('adminapp.urls')),
     path('accounts/', include('signupapp.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    #path('admin/', admin.site.urls),
+    # path('accounts/', include('django.contrib.auth.urls')),
+    # path('admin/', admin.site.urls),
 ]
 
 urlpatterns += i18n_patterns(
     # Django Admin
     re_path(r'^{}/'.format('admin'), admin.site.urls),  # settings.DJANGO_ADMIN_URL -> admin/
+)
+
+# from django.contrib.auth import views as auth_views
+#
+# order is important, must be before ...format('accounts') to avoid redirect to pasword_change_done
+# urlpatterns += i18n_patterns(
+# path(
+#         'accounts/password_change/',
+#         auth_views.PasswordChangeView.as_view(success_url='/'),
+#         name='password_change'
+#     ),
+# )
+
+urlpatterns += i18n_patterns(
+    # login, change and reset pwd
+    re_path(r'^{}/'.format('accounts'), include('django.contrib.auth.urls')),
 )
 urlpatterns += i18n_patterns(
     # adminapp
