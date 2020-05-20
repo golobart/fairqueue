@@ -3,10 +3,12 @@
 
 {% block content %}
 <div class="col-9 col-s-12"  style="background:lavender;">
-    <form action="{% url 'adminapp:searchresourcesdo' %}" method="get">
+    <form id="gaga" action="{% url 'adminapp:searchresourcesdo' %}" method="get">
         <!--        {# % csrf_token %} -->
         <table class="as_table">
             {{ form.as_table }}
+
+
             <tfoot>
             <tr>
                 <td/>

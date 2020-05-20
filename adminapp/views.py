@@ -54,15 +54,34 @@ def search_resources_do(request):
         if 'cal_name' in req_dict:
             cal_name = req_dict.get('cal_name')
             rscs_qset = rscs_qset.filter(calendar__name__icontains=cal_name)
-        paginator = Paginator(rscs_qset.order_by('name'), 5)  # 5 per page.
+        if 'ord_name' in req_dict:
+            ord_name = req_dict.get('ord_name')
+            if ord_name == 'asc':
+                rscs_qset = rscs_qset.order_by('name')
+            elif ord_name == 'des':
+                rscs_qset = rscs_qset.order_by('-name')
+        if 'ord_desc' in req_dict:
+            ord_desc = req_dict.get('ord_desc')
+            if ord_desc == 'asc':
+                rscs_qset = rscs_qset.order_by('description')
+            elif ord_desc == 'des':
+                rscs_qset = rscs_qset.order_by('-description')
+        if 'ord_cal_name' in req_dict:
+            ord_cal_name = req_dict.get('ord_cal_name')
+            if ord_cal_name == 'asc':
+                rscs_qset = rscs_qset.order_by('calendar')
+            elif ord_cal_name == 'des':
+                rscs_qset = rscs_qset.order_by('-calendar')
+
+        paginator = Paginator(rscs_qset, 5)  # 5 per page.
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
-    # TODO eliminar
-    if request.method == "POST":
-        form = SearchRscsForm(request.POST) #if no files
-        #if form.is_valid():
-            # TODO fer la gravacio de recursos
+        # url params except 'page'
+        url_pars = ''
+        for par in req_dict:
+            if par != 'page':
+                url_pars += par + '=' + req_dict[par] + '&'
 
     context = {
         'form': form,
@@ -71,6 +90,7 @@ def search_resources_do(request):
         'page_obj': page_obj,
         'paginator': paginator,
         'activemenu': 'resource',
+        'url_pars': url_pars,
     }
     return render(request, 'adminapp/searchresourcesdo.html', context)
 
@@ -132,7 +152,8 @@ def create_resource_do(request):
         if form.is_valid():
             rsc = form.save(commit=False)
             rsc.save()
-            return redirect('adminapp:searchresources')
+            return redirect('adminapp:createresource')
+            # return redirect('adminapp:searchresources')
         else:
             context = {'form': form}
             return render(request, 'adminapp/createresource.html', context)

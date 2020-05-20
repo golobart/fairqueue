@@ -22,9 +22,9 @@
 
 <!-- {{ req_dict }} -->
 
-<table class="col-9 col-s-12"  style="background:lightgrey;">
+<table class="col-12 col-s-12"  style="background:lightgrey;">
     <thead>
-    <tr><th> {% trans 'Name' %} </th> <th> {% trans 'Description' %} </th> <th> {% trans 'Title' %} </th> <th> {% trans 'Calendar' %} </th><th> </th></tr>
+    <tr style="text-align:left;"><th> {% trans 'Name' %} </th> <th> {% trans 'Description' %} </th> <th> {% trans 'Title' %} </th> <th> {% trans 'Calendar' %} </th><th> {% trans 'Actions' %} </th></tr>
     </thead>
     <tbody>
     {% for record in page_obj  %}
@@ -52,8 +52,8 @@
             <!-- <div class="pagination" style="align:center;">
                 <span class="step-links"> -->
             {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; {% trans 'first' %}</a>
-            <a href="?page={{ page_obj.previous_page_number }}">{% trans 'previous' %}</a>
+            <a href="?page=1&{{ url_pars }}">&laquo; {% trans 'first' %}</a>
+            <a href="?page={{ page_obj.previous_page_number }}&{{ url_pars }}">{% trans 'previous' %}</a>
             {% endif %}
 
             <span class="current">
@@ -61,8 +61,8 @@
         </span>
 
             {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">{% trans 'next' %}</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">{% trans 'last' %} &raquo;</a>
+            <a href="?page={{ page_obj.next_page_number }}&{{ url_pars }}">{% trans 'next' %}</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}&{{ url_pars }}">{% trans 'last' %} &raquo;</a>
             {% endif %}
             <!--     </span>
             </div> -->

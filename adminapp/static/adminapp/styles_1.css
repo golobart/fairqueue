@@ -216,3 +216,15 @@ display: inline-block;
 .as_table  label {
   float: right;
 }
+.as_table  ul {
+  list-style-type: none;
+  padding: 1px;
+  margin: 1px;
+}
+.as_table  ul li{
+  display: inline;
+}
+
+.as_table  ul li label {
+  float: left;
+  margin-bottom: 9px;

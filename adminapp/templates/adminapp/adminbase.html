@@ -36,7 +36,9 @@
 
     <div class=" col-1 col-s-1  dropdown">
 <!--      <button class="dropbtn" ><span> <i class="fas fa-globe fa-lg"></i></span></button>-->
-      <button class="dropbtn" ><span> <i class="material-icons">language</i></span></button>
+      {% get_current_language as cur_lang %}
+      {% get_language_info for cur_lang as lang %}
+      <button class="dropbtn" ><span> <i class="material-icons">language</i></span> {{ lang.name_translated }}</button>
       <div class="dropdown-content" >
         {% get_available_languages as languages %}
         {% for lang_code, lang_name in languages %}
