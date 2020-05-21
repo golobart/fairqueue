@@ -11,7 +11,9 @@
             <tr>
                 <td/>
                 <td style="text-align:left;" >
+                    {% if perms.adminapp.add_resource %}
                     <input type="submit" value="{% trans 'Create' %}">
+                    {% endif %}
                     <input type="reset" value="{% trans 'Clear fields' %}">
                 </td>
             </tr>

@@ -15,7 +15,9 @@
                 <td style="text-align:left;" >
                     <input type="submit" value="{% trans 'Search' %}">
                     <input type="reset" value="{% trans 'Clear fields' %}">
+                    {% if perms.adminapp.add_resource %}
                     <input type="submit" value="{% trans 'New resource' %}" formmethod="get" formaction="{% url 'adminapp:createresource' %}">
+                    {% endif %}
                 </td>
             </tr>
             </tfoot>

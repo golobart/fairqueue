@@ -8,7 +8,7 @@ from django.http import HttpResponse
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 
 from .models import Calendar, DaysOff, WorkingTime, Resource, CalendarDefWT, DaySpecWT
 from .forms import SearchRscsForm, ResourceForm
@@ -105,6 +105,7 @@ def search_resources_do(request):
 #    return render(request, 'adminapp/resource.html', context)
 
 @login_required
+@permission_required('adminapp.change_resource', raise_exception=True)
 def resource(request, rsc_id):
     rsc = get_object_or_404(Resource, pk=rsc_id)
     if request.method == "POST":
@@ -127,13 +128,14 @@ def resource(request, rsc_id):
 
 
 @login_required
+@permission_required('adminapp.delete_resource', raise_exception=True)
 def delete_resource(request, rsc_id):
     rsc = get_object_or_404(Resource, pk=rsc_id)
     rsc.delete()
     return redirect('adminapp:searchresources')
 
-
 @login_required
+@permission_required('adminapp.add_resource', raise_exception=True)
 def create_resource(request):
     if request.method == "GET":
         #form = ResourceForm(request.GET) intentava poblar els camps èr defecte amb el que venia del search, pero dona errors de validacio
@@ -146,6 +148,7 @@ def create_resource(request):
 
 
 @login_required
+@permission_required('adminapp.add_resource', raise_exception=True)
 def create_resource_do(request):
     if request.method == "POST":
         form = ResourceForm(request.POST)
