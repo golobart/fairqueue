@@ -1,0 +1,30 @@
+{% extends 'adminapp/adminbase.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="col-9 col-s-12"  style="background:lavender;">
+    <form id="gaga" action="{% url 'adminapp:searchcalendarsdo' %}" method="get">
+        <!--        {# % csrf_token %} -->
+        <table class="as_table">
+            {{ form.as_table }}
+            <tfoot>
+            <tr>
+                <td/>
+                <td style="text-align:left;" >
+                    <input type="submit" value="{% trans 'Search' %}">
+                    <input type="reset" value="{% trans 'Clear fields' %}">
+                    {% if perms.adminapp.add_calendar %}
+                    <input type="submit" value="{% trans 'New resource' %}" formmethod="get" formaction="{% url 'adminapp:createcalendar' %}">
+                    {% endif %}
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+{% endblock content %}
+
+
+{% block lateral %}
+<!-- just remove default content -->
+{% endblock lateral %}

@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="col-9 col-s-12"  style="background:lavender;">
-    <form action="{% url 'adminapp:searchresourcesdo' %}" method="get">
+    <form action="{% url 'adminapp:searchcalendarsdo' %}" method="get">
         <table class="as_table">
             {{ form.as_table }}
             <tfoot>
@@ -12,8 +12,8 @@
                 <td style="text-align:left;" >
                     <input type="submit" value="{% trans 'Search' %}">
                     <input type="reset" value="{% trans 'Restore fields' %}">
-                    {% if perms.adminapp.add_resource %}
-                    <input type="submit" value="{% trans 'New resource' %}" formmethod="get" formaction="{% url 'adminapp:createresource' %}">
+                    {% if perms.adminapp.add_calendar %}
+                    <input type="submit" value="{% trans 'New resource' %}" formmethod="get" formaction="{% url 'adminapp:createcalendar' %}">
                     {% endif %}
                 </td>
             </tr>
@@ -26,27 +26,33 @@
 
 <table class="col-12 col-s-12"  style="background:lightgrey;">
     <thead>
-    <tr style="text-align:left;"><th> {% trans 'Name' %} </th> <th> {% trans 'Description' %} </th> <th> {% trans 'Title' %} </th> <th> {% trans 'Calendar' %} </th><th> {% trans 'Actions' %} </th></tr>
+    <tr style="text-align:left;"><th> {% trans 'Owner' %} </th><th> {% trans 'Name' %} </th>
+        <th> {% trans 'Description' %} </th>  <th> {% trans 'Year' %} </th>
+        <th> {% trans 'First day' %} </th>  <th> {% trans 'Last day' %} </th>
+        <th> {% trans 'Template' %} </th>  <th> {% trans 'Next calendar' %} </th>
+        <th> {% trans 'Previous calendar' %} </th>  <th> {% trans 'Is open' %} </th>
+        <th> {% trans 'Actions' %} </th></tr>
     </thead>
     <tbody>
     {% for record in page_obj  %}
     <tr>
 <!--        <td><a href="{% url 'adminapp:resource' record.id %}"  title="{% trans 'Read' %}">{{ record.name }}</a></td>-->
-        <td>{{ record.name }}</td>
-        <td>{{ record.description }}</td>
-        <td>{{ record.text_title }}</td>
-        <td>{{ record.calendar }}</td>
+        <td>{{ record.owner }}</td><td>{{ record.name }}</td>
+        <td>{{ record.description }}</td><td>{{ record.year }}</td>
+        <td>{{ record.ini_day }}</td><td>{{ record.end_day }}</td>
+        <td>{{ record.template }}</td><td>{{ record.next }}</td>
+        <td>{{ record.prev }}</td><td>{{ record.open }}</td>
 
 <!--        <td><a href="{% url 'adminapp:resource' record.id %}"><span> <i class="far fa-eye" title="{% trans 'Read' %}"></i></span></a>-->
 <!--            <a href="{% url 'adminapp:resource' record.id %}"><span> <i class="fas fa-pencil-alt" title="{% trans 'Edit' %}"></i></span></a>-->
 <!--            <a href="{% url 'adminapp:deleteresource' record.id %}"><span> <i class="far fa-trash-alt" title="{% trans 'Delete' %}"></i></span></a></td>-->
         <td>
-            <a href="{% url 'adminapp:resource' record.id %}"><span> <i class="material-icons" title="{% trans 'Read' %}">visibility</i></span></a>
+            <a href="{% url 'adminapp:calendar' record.id %}"><span> <i class="material-icons" title="{% trans 'Read' %}">visibility</i></span></a>
             {% if perms.adminapp.change_resource %}
-            <a href="{% url 'adminapp:resource' record.id %}"><span> <i class="material-icons" title="{% trans 'Edit' %}">edit</i></span></a>
+            <a href="{% url 'adminapp:calendar' record.id %}"><span> <i class="material-icons" title="{% trans 'Edit' %}">edit</i></span></a>
             {% endif %}
             {% if perms.adminapp.delete_resource %}
-            <a href="{% url 'adminapp:deleteresource' record.id %}"><span> <i class="material-icons" title="{% trans 'Delete' %}">delete</i></span></a>
+            <a href="{% url 'adminapp:deletecalendar' record.id %}"><span> <i class="material-icons" title="{% trans 'Delete' %}">delete</i></span></a>
             {% endif %}
         </td>
 
@@ -55,7 +61,7 @@
     </tbody>
     <tfoot>
     <tr>
-        <td style="text-align:center;" colspan="5">
+        <td style="text-align:center;" colspan="11">
             <!-- <div class="pagination" style="align:center;">
                 <span class="step-links"> -->
             {% if page_obj.has_previous %}

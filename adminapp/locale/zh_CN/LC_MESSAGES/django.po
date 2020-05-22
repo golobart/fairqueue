@@ -1,0 +1,271 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-19 13:08+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: adminapp/forms.py:8 adminapp/templates/adminapp/searchresourcesdo.html:27
+msgid "Name"
+msgstr ""
+
+#: adminapp/forms.py:10 adminapp/forms.py:23 adminapp/models.py:73
+#: adminapp/templates/adminapp/resources.html:14
+msgid "Resource name"
+msgstr "资源名称"
+
+#: adminapp/forms.py:11 adminapp/templates/adminapp/searchresourcesdo.html:27
+#, fuzzy
+#| msgid "Calendar description"
+msgid "Description"
+msgstr "日历说明"
+
+#: adminapp/forms.py:12 adminapp/forms.py:24 adminapp/models.py:74
+#: adminapp/templates/adminapp/resources.html:16
+msgid "Resource description"
+msgstr "资源说明"
+
+#: adminapp/forms.py:13 adminapp/templates/adminapp/searchresourcesdo.html:27
+#, fuzzy
+#| msgid "Calendar name"
+msgid "Calendar"
+msgstr "日历名称"
+
+#: adminapp/forms.py:14 adminapp/models.py:10
+msgid "Calendar name"
+msgstr "日历名称"
+
+#: adminapp/forms.py:25 adminapp/models.py:75
+msgid "Resource title"
+msgstr "资源标题"
+
+#: adminapp/models.py:9
+msgid "Calendar owner"
+msgstr "日历所有者"
+
+#: adminapp/models.py:11
+msgid "Calendar description"
+msgstr "日历说明"
+
+#: adminapp/models.py:12
+#, fuzzy
+#| msgid "Calendar owner"
+msgid "Calendar year"
+msgstr "日历所有者"
+
+#: adminapp/models.py:13
+#, fuzzy
+#| msgid "Calendar name"
+msgid "Calendar first day"
+msgstr "日历名称"
+
+#: adminapp/models.py:14
+#, fuzzy
+#| msgid "Calendar name"
+msgid "Calendar last day"
+msgstr "日历名称"
+
+#: adminapp/models.py:15
+#, fuzzy
+#| msgid "Calendar name"
+msgid "Is calendar template"
+msgstr "日历名称"
+
+#: adminapp/models.py:18
+#, fuzzy
+#| msgid "Calendar owner"
+msgid "Is calendar open"
+msgstr "日历所有者"
+
+#: adminapp/models.py:31 adminapp/models.py:97
+msgid "Single day"
+msgstr ""
+
+#: adminapp/models.py:32 adminapp/models.py:98
+msgid "Range of days"
+msgstr ""
+
+#: adminapp/models.py:33 adminapp/models.py:99
+msgid "Day of week"
+msgstr ""
+
+#: adminapp/models.py:34 adminapp/models.py:100
+msgid "Day of month"
+msgstr ""
+
+#: adminapp/models.py:35 adminapp/models.py:101
+msgid "Full month"
+msgstr ""
+
+#: adminapp/models.py:38
+msgid "Days off name"
+msgstr ""
+
+#: adminapp/models.py:39
+#, fuzzy
+#| msgid "Resource description"
+msgid "Days off description"
+msgstr "资源说明"
+
+#: adminapp/models.py:58
+msgid "Normal"
+msgstr ""
+
+#: adminapp/models.py:59
+msgid "Interday scheduling"
+msgstr ""
+
+#: adminapp/models.py:60
+msgid "More than 24 hours"
+msgstr ""
+
+#: adminapp/models.py:62
+msgid "Working time name"
+msgstr ""
+
+#: adminapp/models.py:63
+#, fuzzy
+#| msgid "Resource description"
+msgid "Working time description"
+msgstr "资源说明"
+
+#: adminapp/models.py:86
+msgid "Number of days granted to be booked"
+msgstr ""
+
+#: adminapp/models.py:87 adminapp/models.py:105
+msgid "Duration in minutes of each booking slot"
+msgstr ""
+
+#: adminapp/templates/adminapp/adminbase.html:48
+msgid "change password"
+msgstr ""
+
+#: adminapp/templates/adminapp/adminbase.html:49
+msgid "logout"
+msgstr ""
+
+#: adminapp/templates/adminapp/adminbase.html:69
+#, fuzzy
+#| msgid "Resource name"
+msgid "Resources"
+msgstr "资源名称"
+
+#: adminapp/templates/adminapp/adminbase.html:71
+#, fuzzy
+#| msgid "Calendar name"
+msgid "Calendars"
+msgstr "日历名称"
+
+#: adminapp/templates/adminapp/adminbase.html:72
+msgid "Working time"
+msgstr ""
+
+#: adminapp/templates/adminapp/adminmain.html:29
+msgid ""
+"Click on Resources button to define your resources and bind a calendar to "
+"them."
+msgstr ""
+
+#: adminapp/templates/adminapp/adminmain.html:35
+msgid "Use Calendars to define your working calendars"
+msgstr ""
+
+#: adminapp/templates/adminapp/adminmain.html:41
+msgid ""
+"Use Working Time to define your working days and schedules for yours "
+"calendars"
+msgstr ""
+
+#: adminapp/templates/adminapp/createresource.html:14
+msgid "Create"
+msgstr ""
+
+#: adminapp/templates/adminapp/createresource.html:15
+#: adminapp/templates/adminapp/searchresources.html:15
+msgid "Clear fields"
+msgstr "清除栏位"
+
+#: adminapp/templates/adminapp/resource.html:14
+msgid "Save"
+msgstr ""
+
+#: adminapp/templates/adminapp/resources.html:13
+msgid "Name:"
+msgstr ""
+
+#: adminapp/templates/adminapp/resources.html:15
+#, fuzzy
+#| msgid "Calendar description"
+msgid "Description:"
+msgstr "日历说明"
+
+#: adminapp/templates/adminapp/resources.html:17
+#: adminapp/templates/adminapp/searchresources.html:14
+#: adminapp/templates/adminapp/searchresourcesdo.html:13
+msgid "Search"
+msgstr "搜索"
+
+#: adminapp/templates/adminapp/searchresources.html:16
+#: adminapp/templates/adminapp/searchresourcesdo.html:15
+msgid "New resource"
+msgstr "新资源"
+
+#: adminapp/templates/adminapp/searchresourcesdo.html:14
+#, fuzzy
+#| msgid "Clear fields"
+msgid "Restore fields"
+msgstr "清除栏位"
+
+#: adminapp/templates/adminapp/searchresourcesdo.html:27
+msgid "Title"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchresourcesdo.html:32
+#: adminapp/templates/adminapp/searchresourcesdo.html:36
+msgid "Read"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchresourcesdo.html:37
+msgid "Edit"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchresourcesdo.html:38
+msgid "Delete"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchresourcesdo.html:48
+msgid "first"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchresourcesdo.html:49
+msgid "previous"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchresourcesdo.html:53
+msgid "Page"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchresourcesdo.html:53
+msgid "of"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchresourcesdo.html:57
+msgid "next"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchresourcesdo.html:58
+msgid "last"
+msgstr ""

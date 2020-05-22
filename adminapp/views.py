@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, redirect
 
 #  Create your views here.
@@ -9,9 +8,10 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required, permission_required
+from django.db.models import Q
 
 from .models import Calendar, DaysOff, WorkingTime, Resource, CalendarDefWT, DaySpecWT
-from .forms import SearchRscsForm, ResourceForm
+from .forms import SearchRscsForm, ResourceForm, SearchCalsForm, CalendarForm
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.fair queue.")
@@ -166,10 +166,158 @@ def create_resource_do(request):
     return render(request, 'adminapp/createresource.html', context)
 
 
-def calendar(request, testPar):
-    response = "You're looking at a calendar %s."
-    return HttpResponse(response % testPar)
+@login_required
+def search_calendars(request):
+    # Presenta el formulari per cercar calendaris
+    form = SearchCalsForm()
+    context = { 'form': form,
+                'activemenu': 'calendar',}
+    return render(request, 'adminapp/searchcalendars.html', context)
 
+@login_required
+def search_calendars_do(request):
+    # Es una request tipus GET
+    if request.method == "GET":
+        form = SearchCalsForm(request.GET)
+        cals_qset = Calendar.objects.all()
+        req_dict = request.GET
+        if 'cal_owner' in req_dict:
+            cal_owner = req_dict.get('cal_owner')
+            if cal_owner != '':
+                cals_qset = cals_qset.filter(owner__icontains=cal_owner)
+        if 'cal_name' in req_dict:
+            cal_name = req_dict.get('cal_name')
+            if cal_name != '':
+                cals_qset = cals_qset.filter(name__icontains=cal_name)
+        if 'cal_desc' in req_dict:
+            cal_desc = req_dict.get('cal_desc')
+            if cal_desc != '':
+                cals_qset = cals_qset.filter(description__icontains=cal_desc)
+            #else: el camp pot estar buit, llavors no es posa cap filtre
+                #cals_qset = cals_qset.filter(description__isnull=True) | cals_qset.filter(description__exact='')
+                #cals_qset = cals_qset.filter(Q(description__isnull=True) | Q(description__exact=''))
+        if 'cal_year' in req_dict:
+            cal_year = req_dict.get('cal_year')
+            if cal_year != '':
+                cals_qset = cals_qset.filter(year__icontains=cal_year)
+
+        if 'ord_owner' in req_dict:
+            ord_owner = req_dict.get('ord_owner')
+            if ord_owner == 'asc':
+                cals_qset = cals_qset.order_by('owner')
+            elif ord_owner == 'des':
+                cals_qset = cals_qset.order_by('-owner')
+        if 'ord_name' in req_dict:
+            ord_name = req_dict.get('ord_name')
+            if ord_name == 'asc':
+                cals_qset = cals_qset.order_by('name')
+            elif ord_name == 'des':
+                cals_qset = cals_qset.order_by('-name')
+        if 'ord_desc' in req_dict:
+            ord_desc = req_dict.get('ord_desc')
+            if ord_desc == 'asc':
+                cals_qset = cals_qset.order_by('description')
+            elif ord_desc == 'des':
+                cals_qset = cals_qset.order_by('-description')
+        if 'ord_year' in req_dict:
+            ord_year = req_dict.get('ord_year')
+            if ord_year == 'asc':
+                cals_qset = cals_qset.order_by('year')
+            elif ord_year == 'des':
+                cals_qset = cals_qset.order_by('-year')
+
+        paginator = Paginator(cals_qset, 5)  # 5 per page.
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        # url params except 'page'
+        url_pars = ''
+        for par in req_dict:
+            if par != 'page':
+                url_pars += par + '=' + req_dict[par] + '&'
+
+    context = {
+        'form': form,
+        'req_dict': req_dict, # query params TODO remove innecessary
+        'results': cals_qset, # search results TODO remove innecessary
+        'page_obj': page_obj,
+        'paginator': paginator,
+        'activemenu': 'calendar',
+        'url_pars': url_pars,
+    }
+    return render(request, 'adminapp/searchcalendarsdo.html', context)
+
+@login_required
+@permission_required('adminapp.add_calendar', raise_exception=True)
+def create_calendar(request):
+    if request.method == "GET":
+        #form = ResourceForm(request.GET) intentava poblar els camps èr defecte amb el que venia del search, pero dona errors de validacio
+        form = CalendarForm()
+    else:
+        form = CalendarForm()
+    context = {'form': form,
+               'activemenu': 'calendar',}
+    return render(request, 'adminapp/createcalendar.html', context)
+
+@login_required
+@permission_required('adminapp.add_calendar', raise_exception=True)
+def create_calendar_do(request):
+    if request.method == "POST":
+        form = CalendarForm(request.POST)
+        if form.is_valid():
+            cal = form.save(commit=False)
+            cal.save()
+            return redirect('adminapp:createcalendar')
+            # return redirect('adminapp:searchcalendars')
+        else:
+            context = {'form': form}
+            return render(request, 'adminapp/createcalendar.html', context)
+    form = CalendarForm()
+    context = {'form': form,
+               'activemenu': 'calendar',}
+    return render(request, 'adminapp/createcalendar.html', context)
+
+@login_required
+@permission_required('adminapp.change_calendar', raise_exception=True)
+def calendar(request, cal_id):
+    cal = get_object_or_404(Calendar, pk=cal_id)
+    if request.method == "POST":
+        form = CalendarForm(request.POST, instance=cal)
+        # TODO test form.has_changed()
+        if form.is_valid():
+            cal = form.save(commit=False)
+            # post.author = request.user
+            # post.published_date = timezone.now()
+            cal.save()
+            return redirect('adminapp:searchcalendars')
+            # return redirect('adminapp:calendars', pk=cal.pk)
+    else:
+        form = CalendarForm(instance=cal)
+
+    context = { 'cal': cal,
+                'form': form,
+                'activemenu': 'calendar',}
+
+    return render(request, 'adminapp/calendar.html', context)
+
+@login_required
+@permission_required('adminapp.delete_calendar', raise_exception=True)
+def delete_calendar(request, cal_id):
+    cal = get_object_or_404(Calendar, pk=cal_id)
+    cal.delete()
+    return redirect('adminapp:searchcalendars')
+
+@login_required
+@permission_required('adminapp.add_resource', raise_exception=True)
+def create_resource(request):
+    if request.method == "GET":
+        #form = ResourceForm(request.GET) intentava poblar els camps èr defecte amb el que venia del search, pero dona errors de validacio
+        form = ResourceForm()
+    else:
+        form = ResourceForm()
+    context = {'form': form,
+               'activemenu': 'resource',}
+    return render(request, 'adminapp/createresource.html', context)
 
 def workingTime(request, testPar):
     response = "You're looking at a workingTime %s."

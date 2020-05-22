@@ -5,16 +5,18 @@ from django.utils.translation import ugettext_lazy as _
 # Create your models here.
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+
 class Calendar(models.Model):
     owner = models.CharField( _('Calendar owner'), max_length=200)
     name = models.CharField( _('Calendar name'), max_length=200)
-    description = models.CharField( _('Calendar description'), max_length=200, blank=True)
-    year = models.DecimalField( _('Calendar year'), max_digits=4, decimal_places=0, blank=True)
-    ini_day = models.DateField( _('Calendar first day'), help_text="Please use the following format: <em>YYYY-MM-DD</em>.")
+    description = models.CharField( _('Calendar description'), max_length=200, null=True, blank=True)
+    year = models.DecimalField( _('Calendar year'), max_digits=4, decimal_places=0, null=True, blank=True)
+    ini_day = models.DateField( _('Calendar first day'),
+                                help_text="Please use the following format: <em>YYYY-MM-DD</em>.")
     end_day = models.DateField( _('Calendar last day'))
     template = models.BooleanField( _('Is calendar template'))
-    next = models.ForeignKey('self', on_delete=models.SET_NULL, related_name='next_cal', null=True)
-    prev = models.ForeignKey('self', on_delete=models.SET_NULL, related_name='prev_cal', null=True)
+    next = models.ForeignKey('self', on_delete=models.PROTECT, related_name='next_cal', null=True, blank=True, verbose_name=_('Next Calendar') )
+    prev = models.ForeignKey('self', on_delete=models.PROTECT, related_name='prev_cal', null=True, blank=True, verbose_name=_('Previous Calendar'))
     open = models.BooleanField( _('Is calendar open'))
 
     def __str__(self):
@@ -71,8 +73,8 @@ class WorkingTime(models.Model):
 
 class Resource(models.Model):
     name = models.CharField( _('Resource name'), max_length=200)
-    description = models.CharField( _('Resource description'), max_length=200, blank=True)
-    text_title = models.CharField( _('Resource title'), max_length=200, blank=True)
+    description = models.CharField( _('Resource description'), max_length=200, blank=True, null=True)
+    text_title = models.CharField( _('Resource title'), max_length=200, blank=True, null=True)
 #    calendar = models.ForeignKey(Calendar, on_delete=models.SET_NULL, blank=True, null=True)
     calendar = models.ForeignKey(Calendar, on_delete=models.PROTECT)
 

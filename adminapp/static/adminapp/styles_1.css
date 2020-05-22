@@ -86,8 +86,10 @@ display: inline-block;
 
 .menu li.active {
   background-color: #0000cc;
-  /*color: white;*/
+}
 
+.menu li.active:hover {
+  background-color: #0000cc;
 }
 
 .menu li:hover {
@@ -134,7 +136,9 @@ display: inline-block;
   /* For tablets: */
   .menu li {display: inline;}
   .menu a {display: inline;}
+  .menu li.active:hover {background-color: #0000cc;}
   .menu a.active {display: inline;}
+
   .col-s-1 {width: 8.33%;}
   .col-s-2 {width: 16.66%;}
   .col-s-3 {width: 25%;}
@@ -152,6 +156,9 @@ display: inline-block;
   /* For desktop: */
    .menu li {display: block;}
    .menu a {display: block;}
+   .menu li.active:hover {background-color: #0000cc;}
+   .menu a.active {display: block;}
+
   .col-1 {width: 8.33%;}
   .col-2 {width: 16.66%;}
   .col-3 {width: 25%;}

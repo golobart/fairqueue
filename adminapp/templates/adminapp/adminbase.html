@@ -83,7 +83,7 @@
     <div class="col-3 col-s-12 menu" >
       <ul>
         <li {% if activemenu == 'resource' %}class="active" {% endif %}><a href="{% url 'adminapp:searchresources' %}" {% if activemenu == 'resource' %}class="active" {% endif %}>{% trans 'Resources' %}</a></li>
-        <li {% if activemenu == 'calendar' %}class="active" {% endif %}><a href="{% url 'adminapp:calendars' %}">{% trans 'Calendars' %}</a></li>
+        <li {% if activemenu == 'calendar' %}class="active" {% endif %}><a href="{% url 'adminapp:searchcalendars' %}" {% if activemenu == 'calendar' %}class="active" {% endif %}>{% trans 'Calendars' %}</a></li>
         <li {% if activemenu == 'workingtime' %}class="active" {% endif %}><a href="{% url 'adminapp:workingTimes' %}">{% trans 'Working time' %}</a></li>
         {% if request.user.is_staff %}
         <li><a href="{% url 'admin:index' %}">Django</a></li>

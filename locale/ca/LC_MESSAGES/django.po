@@ -1,0 +1,135 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-19 13:07+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: fairqueue/settings.py:113
+msgid "English"
+msgstr "Anglès"
+
+#: fairqueue/settings.py:114
+msgid "Catalan"
+msgstr "Català"
+
+#: fairqueue/settings.py:115
+msgid "Spanish"
+msgstr "Castellà"
+
+#: fairqueue/settings.py:116
+msgid "Simplified Chinese"
+msgstr "Xinès simplificat"
+
+#: templates/registration/login.html:19
+msgid "reset password"
+msgstr "restaurar la contrasenya"
+
+#: templates/registration/password_change_done.html:5
+msgid "Password changed?"
+msgstr "Contrasenya canviada?"
+
+#: templates/registration/password_change_done.html:13
+msgid "Your password has been changed"
+msgstr "La contrasenya ha estat canviada"
+
+#: templates/registration/password_change_form.html:5
+#: templates/registration/password_reset_form.html:4
+msgid "Forgot Your Password?"
+msgstr "Ha oblidat la seva contrasenya?"
+
+#: templates/registration/password_change_form.html:12
+msgid "Change your password?"
+msgstr "Canviar la contrasenya?"
+
+#: templates/registration/password_change_form.html:17
+msgid "Change"
+msgstr "Canviar"
+
+#: templates/registration/password_reset_complete.html:7
+msgid "Password reset complete"
+msgstr "S'ha restaurat la contrasenya"
+
+#: templates/registration/password_reset_complete.html:9
+msgid "Your new password has been set. You can log in now on the"
+msgstr "La seva contrasenya ha estat canviada. Ja pot tornar a la"
+
+#: templates/registration/password_reset_complete.html:10
+msgid "log in page"
+msgstr "pàgina de login"
+
+#: templates/registration/password_reset_confirm.html:7
+msgid "Enter new password"
+msgstr "Escrigui la nova contrasenya"
+
+#: templates/registration/password_reset_confirm.html:13
+msgid "Set a new password!"
+msgstr "S'ha renovat la contrasenya!"
+
+#: templates/registration/password_reset_confirm.html:17
+msgid "Change my password"
+msgstr "Canviar la meva contrasenya"
+
+#: templates/registration/password_reset_confirm.html:23
+msgid ""
+"\n"
+"  The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset.\n"
+"  "
+
+msgstr "\nL'enllaç de restauració del mot de pas no és vàlid, possiblement ja hagi estat utilitzat. "
+"Si us plau, torni a restaurar el seu mot de pas.\n"
+"  "
+
+#: templates/registration/password_reset_done.html:5
+msgid "Email Sent"
+msgstr "Se li ha enviat un Email"
+
+#: templates/registration/password_reset_done.html:14
+msgid "Check your inbox."
+msgstr "Revisi la safata d'entrada del seu correu"
+
+#: templates/registration/password_reset_done.html:16
+msgid ""
+"\n"
+"      We've emailed you instructions for setting your password. You should "
+"receive the email shortly!\n"
+"      "
+
+msgstr "\nEn breu rebrà un correu amb les instruccions per completar la restauració de la seva contrasenya."
+"      "
+
+#: templates/registration/password_reset_done.html:21
+msgid "login"
+msgstr ""
+
+#: templates/registration/password_reset_form.html:11
+msgid "Forgot your password?"
+msgstr "Ha oblidat la seva contrasenya?"
+
+#: templates/registration/password_reset_form.html:13
+msgid ""
+"\n"
+"    Enter your email address below, and we'll email instructions for setting "
+"a new one.\n"
+"    "
+msgstr "\nEscrigui l'adreça del seu Email i li enviarem les instruccions per a "
+"restaurar-la\n"
+"    "
+
+#: templates/registration/password_reset_form.html:22
+msgid "Send me instructions!"
+msgstr "Enviar instrucions"

@@ -18,10 +18,18 @@ urlpatterns = [
     path('crersc/', views.create_resource, name='createresource'),
     # ex: /adminapp/crerscdo/
     path('crerscdo/', views.create_resource_do, name='createresourcedo'),
-    # ex: /adminapp/cals/
-    path('cals/', views.calendar, name='calendars'),
+    # ex: /adminapp/searchcals/
+    path('searchcals/', views.search_calendars, name='searchcalendars'),
+    # ex: /adminapp/searchcalsdo/
+    path('searchcalsdo/', views.search_calendars_do, name='searchcalendarsdo'),
     # ex: /adminapp/cal/5/
-    path('cal/<int:testPar>/', views.calendar, name='calendar'),
+    path('cal/<int:cal_id>/', views.calendar, name='calendar'),
+    # ex: /adminapp/delcal/5/
+    path('delcal/<int:cal_id>/', views.delete_calendar, name='deletecalendar'),
+    # ex: /adminapp/crecal/
+    path('crecal/', views.create_calendar, name='createcalendar'),
+    # ex: /adminapp/crecaldo/
+    path('crecaldo/', views.create_calendar_do, name='createcalendardo'),
     # ex: /adminapp/wts/
     path('wts/', views.workingTime, name='workingTimes'),
     # ex: /adminapp/wt/5/

@@ -1,0 +1,29 @@
+{% extends 'adminapp/adminbase.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="col-9 col-s-12"  style="background:lavender;">
+    <form action="{% url 'adminapp:createcalendardo' %}" method="post">
+        {% csrf_token %}
+        <table class="as_table">
+            {{ form.as_table }}
+            <tfoot>
+            <tr>
+                <td/>
+                <td style="text-align:left;" >
+                    {% if perms.adminapp.add_calendar %}
+                    <input type="submit" value="{% trans 'Create' %}">
+                    {% endif %}
+                    <input type="reset" value="{% trans 'Clear fields' %}">
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+{% endblock content %}
+
+
+{% block lateral %}
+<!-- just remove default content -->
+{% endblock lateral %}
