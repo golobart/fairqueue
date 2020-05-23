@@ -1,6 +1,16 @@
 {% extends 'adminapp/adminbase.html' %}
 {% load i18n %}
 
+{% block alerts %}
+<!-- just remove default content -->
+{% endblock alerts %}
+
+{% block resultmessage %}
+<div class="col-9 col-s-12 resultmessage">
+  <p>Message result from last action</p>
+</div>
+{% endblock resultmessage %}
+
 {% block content %}
 <div class="col-9 col-s-12"  style="background:lavender;">
     <form id="gaga" action="{% url 'adminapp:searchresourcesdo' %}" method="get">

@@ -1,6 +1,10 @@
 {% extends 'adminapp/adminbase.html' %}
 {% load i18n %}
 
+{% block alerts %}
+<!-- just remove default content -->
+{% endblock alerts %}
+
 {% block content %}
 <div class="col-9 col-s-12"  style="background:lavender;">
     <form action="{% url 'adminapp:createresourcedo' %}" method="post">

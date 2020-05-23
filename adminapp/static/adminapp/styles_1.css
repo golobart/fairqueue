@@ -66,6 +66,40 @@ display: inline-block;
   to {left: 0%;}
 }
 
+.resultmessage {
+  background-color: #bbddbb;
+  color: #000000;
+  padding: 2px 15px;
+  margin: 0px;
+  #text-align: center;
+  height: auto;
+  font-size: 14px;
+  opacity: 0;
+  animation-name: dialogdisappear;
+  animation-duration: 10s;
+  /* animation-delay: 1s; */
+}
+
+.resultmessage p {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  text-align: center;
+}
+
+@keyframes dialogdisappear {
+ /* from {opacity: 1;}
+  to {opacity: 0;} */
+ /* from {visibility: visible;}
+  to {visibility: hidden;}*/
+/*  from {display: block;}
+  to {display: none;}*/
+  0%   {opacity: 0;}
+  10%  {opacity: 1;}
+  85%  {opacity: 1;}
+  100% {opacity: 0;}
+}
+
 .menu  {
 
 }

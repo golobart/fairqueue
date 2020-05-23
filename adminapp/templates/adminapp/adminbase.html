@@ -71,7 +71,7 @@
     {% block alerts %}
     <!-- TODO make thin header -->
     <div class="alerter">
-      <p>For maintenances reasons system availability will be interrupted today from 01h to 03h CET</p>
+      <p>Alert message for maintenance or other reasons (i.e. System unavailable today from 01h to 02h CET)</p>
     </div>
     {% endblock alerts %}
   </mark>
@@ -92,11 +92,20 @@
     </div>
     {% endblock mainmenu %}
   </nav>
+
+  <mark>
+    {% block resultmessage %}
+    <div class="col-6 col-s-9 resultmessage">
+      <p>Message result from last action</p>
+    </div>
+    {% endblock resultmessage %}
+  </mark>
+
   <main>
     {% block content %}
     <div class="col-6 col-s-9"  style="background:orange;">
-      <h1>The Purpose</h1>
-      <p>xxx xxx.</p>
+      <h1>Header 1</h1>
+      <p>paragraph</p>
     </div>
     {% endblock content %}
   </main>
