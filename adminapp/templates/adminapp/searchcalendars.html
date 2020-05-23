@@ -14,7 +14,8 @@
                     <input type="submit" value="{% trans 'Search' %}">
                     <input type="reset" value="{% trans 'Clear fields' %}">
                     {% if perms.adminapp.add_calendar %}
-                    <input type="submit" value="{% trans 'New resource' %}" formmethod="get" formaction="{% url 'adminapp:createcalendar' %}">
+                    <input type="submit" value="{% trans 'New calendar' %}"
+                           formmethod="get" formaction="{% url 'adminapp:createcalendar' %}">
                     {% endif %}
                 </td>
             </tr>

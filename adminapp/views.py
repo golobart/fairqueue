@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.db.models import Q
 
 from .models import Calendar, DaysOff, WorkingTime, Resource, CalendarDefWT, DaySpecWT
@@ -104,24 +104,35 @@ def search_resources_do(request):
 #
 #    return render(request, 'adminapp/resource.html', context)
 
+def change_or_view_resource(user):
+    return user.has_perm('adminapp.change_resource') or user.has_perm('adminapp.view_resource')
+
 @login_required
-@permission_required('adminapp.change_resource', raise_exception=True)
+@user_passes_test(change_or_view_resource)
 def resource(request, rsc_id):
     rsc = get_object_or_404(Resource, pk=rsc_id)
+    readonly = ''
     if request.method == "POST":
         form = ResourceForm(request.POST, instance=rsc)
-        if form.is_valid():
-            rsc = form.save(commit=False)
-            # post.author = request.user
-            # post.published_date = timezone.now()
-            rsc.save()
-            return redirect('adminapp:searchresources')
-            # return redirect('adminapp:resources', pk=rsc.pk)
+        if request.user.has_perm('adminapp.change_resource'):
+            if form.is_valid():
+                rsc = form.save(commit=False)
+                # post.author = request.user
+                # post.published_date = timezone.now()
+                rsc.save()
+                return redirect('adminapp:searchresources')
+                # return redirect('adminapp:resources', pk=rsc.pk)
     else:
         form = ResourceForm(instance=rsc)
+        if request.GET.get('rd', '') != '':
+            readonly = 'readonly'
+            #for theField in form.fields:
+            #    theField.attrs['readonly'] = True
+            # considerar tb crispy-forms especialment en form.as_p
 
     context = { 'rsc': rsc,
                 'form': form,
+                'readonly': readonly,
                 'activemenu': 'resource',}
 
     return render(request, 'adminapp/resource.html', context)
@@ -277,25 +288,38 @@ def create_calendar_do(request):
                'activemenu': 'calendar',}
     return render(request, 'adminapp/createcalendar.html', context)
 
+
+def change_or_view_calendar(user):
+    return user.has_perm('adminapp.change_calendar') or user.has_perm('adminapp.view_calendar')
+
+
 @login_required
-@permission_required('adminapp.change_calendar', raise_exception=True)
+@user_passes_test(change_or_view_calendar)
 def calendar(request, cal_id):
     cal = get_object_or_404(Calendar, pk=cal_id)
+    readonly = ''
     if request.method == "POST":
         form = CalendarForm(request.POST, instance=cal)
         # TODO test form.has_changed()
-        if form.is_valid():
-            cal = form.save(commit=False)
-            # post.author = request.user
-            # post.published_date = timezone.now()
-            cal.save()
-            return redirect('adminapp:searchcalendars')
-            # return redirect('adminapp:calendars', pk=cal.pk)
+        if request.user.has_perm('adminapp.change_calendar'):
+            if form.is_valid():
+                cal = form.save(commit=False)
+                # post.author = request.user
+                # post.published_date = timezone.now()
+                cal.save()
+                return redirect('adminapp:searchcalendars')
+                # return redirect('adminapp:calendars', pk=cal.pk)
     else:
         form = CalendarForm(instance=cal)
+        if request.GET.get('rd', '') != '':
+            readonly = 'readonly'
+            #for theField in form.fields:
+            #    theField.attrs['readonly'] = True
+            # considerar tb crispy-forms especialment en form.as_p
 
     context = { 'cal': cal,
                 'form': form,
+                'readonly': readonly,
                 'activemenu': 'calendar',}
 
     return render(request, 'adminapp/calendar.html', context)
@@ -306,6 +330,32 @@ def delete_calendar(request, cal_id):
     cal = get_object_or_404(Calendar, pk=cal_id)
     cal.delete()
     return redirect('adminapp:searchcalendars')
+
+@login_required
+@permission_required('adminapp.delete_calendar', raise_exception=True)
+def delete_calendars(request):
+    if request.method == "POST":
+        req_dict = request.POST
+        if 'rectodel' in req_dict:
+            for par in req_dict.getlist('rectodel'):
+                if par != '':
+                    cal = get_object_or_404(Calendar, pk=par)
+                    cal.delete()
+    return redirect('adminapp:searchcalendars')
+
+
+@login_required
+@permission_required('adminapp.delete_resource', raise_exception=True)
+def delete_resources(request):
+    if request.method == "POST":
+        req_dict = request.POST
+        if 'rectodel' in req_dict:
+            for par in req_dict.getlist('rectodel'):
+                if par != '':
+                    cal = get_object_or_404(Resource, pk=par)
+                    cal.delete()
+    return redirect('adminapp:searchresources')
+
 
 @login_required
 @permission_required('adminapp.add_resource', raise_exception=True)

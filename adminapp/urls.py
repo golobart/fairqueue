@@ -14,6 +14,8 @@ urlpatterns = [
     # path('rsc/', views.resource, name='resource'),
     # ex: /adminapp/delrsc/5/
     path('delrsc/<int:rsc_id>/', views.delete_resource, name='deleteresource'),
+    # ex: /adminapp/delrscs/
+    path('delrscs/', views.delete_resources, name='deleteresources'),
     # ex: /adminapp/crersc/
     path('crersc/', views.create_resource, name='createresource'),
     # ex: /adminapp/crerscdo/
@@ -26,6 +28,8 @@ urlpatterns = [
     path('cal/<int:cal_id>/', views.calendar, name='calendar'),
     # ex: /adminapp/delcal/5/
     path('delcal/<int:cal_id>/', views.delete_calendar, name='deletecalendar'),
+    # ex: /adminapp/delcals/
+    path('delcals/', views.delete_calendars, name='deletecalendars'),
     # ex: /adminapp/crecal/
     path('crecal/', views.create_calendar, name='createcalendar'),
     # ex: /adminapp/crecaldo/
