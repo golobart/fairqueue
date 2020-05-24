@@ -15,34 +15,27 @@
 
 {% block content %}
 <div class="col-9 col-s-12"  style="background:lavender;">
-    <form action="{% url 'adminapp:resource' rsc.id %}" method="post">
+    <form action="{% url 'adminapp:createworkingtimedo' %}" method="post">
         {% csrf_token %}
-        {% if readonly == 'readonly' %}
-        <fieldset disabled="disabled" >
-        {% endif %}
         <table class="as_table">
             {{ form.as_table }}
             <tfoot>
             <tr>
                 <td/>
                 <td style="text-align:left;" >
-                    {% if perms.adminapp.change_resource %}
-                    <input type="submit" value="{% trans 'Save' %}">
+                    {% if perms.adminapp.add_workingtime %}
+                    <input type="submit" value="{% trans 'Create' %}">
                     {% endif %}
+                    <input type="reset" value="{% trans 'Clear fields' %}">
                 </td>
             </tr>
             </tfoot>
         </table>
-            {% if readonly == 'readonly' %}
-        </fieldset>
-        {% endif %}
     </form>
 </div>
-
-
 {% endblock content %}
+
 
 {% block lateral %}
 <!-- just remove default content -->
 {% endblock lateral %}
-

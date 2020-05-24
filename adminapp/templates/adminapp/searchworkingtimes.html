@@ -5,6 +5,7 @@
 <!-- just remove default content -->
 {% endblock alerts %}
 
+
 {% block resultmessage %}
 {% if resultmessage != '' %}
 <div class="col-9 col-s-12 resultmessage">
@@ -15,34 +16,28 @@
 
 {% block content %}
 <div class="col-9 col-s-12"  style="background:lavender;">
-    <form action="{% url 'adminapp:resource' rsc.id %}" method="post">
-        {% csrf_token %}
-        {% if readonly == 'readonly' %}
-        <fieldset disabled="disabled" >
-        {% endif %}
+    <form id="gaga" action="{% url 'adminapp:searchworkingtimesdo' %}" method="get">
+        <!--        {# % csrf_token %} -->
         <table class="as_table">
             {{ form.as_table }}
             <tfoot>
             <tr>
                 <td/>
                 <td style="text-align:left;" >
-                    {% if perms.adminapp.change_resource %}
-                    <input type="submit" value="{% trans 'Save' %}">
+                    <input type="submit" value="{% trans 'Search' %}">
+                    <input type="reset" value="{% trans 'Clear fields' %}">
+                    {% if perms.adminapp.add_workingtime %}
+                    <input type="submit" value="{% trans 'New working time' %}" formmethod="get" formaction="{% url 'adminapp:createworkingtime' %}">
                     {% endif %}
                 </td>
             </tr>
             </tfoot>
         </table>
-            {% if readonly == 'readonly' %}
-        </fieldset>
-        {% endif %}
     </form>
 </div>
-
-
 {% endblock content %}
+
 
 {% block lateral %}
 <!-- just remove default content -->
 {% endblock lateral %}
-

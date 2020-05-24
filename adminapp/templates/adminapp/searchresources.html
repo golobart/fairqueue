@@ -5,10 +5,13 @@
 <!-- just remove default content -->
 {% endblock alerts %}
 
+
 {% block resultmessage %}
+{% if resultmessage != '' %}
 <div class="col-9 col-s-12 resultmessage">
-  <p>Message result from last action</p>
+    <p>{{ resultmessage }}</p>
 </div>
+{% endif %}
 {% endblock resultmessage %}
 
 {% block content %}

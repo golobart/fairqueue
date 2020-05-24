@@ -5,6 +5,14 @@
 <!-- just remove default content -->
 {% endblock alerts %}
 
+{% block resultmessage %}
+{% if resultmessage != '' %}
+<div class="col-9 col-s-12 resultmessage">
+    <p>{{ resultmessage }}</p>
+</div>
+{% endif %}
+{% endblock resultmessage %}
+
 {% block content %}
 <div class="col-9 col-s-12"  style="background:lavender;">
     <form action="{% url 'adminapp:createresourcedo' %}" method="post">

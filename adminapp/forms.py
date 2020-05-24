@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Resource, Calendar
+from .models import Resource, Calendar, WorkingTime
 
 
 class SearchRscsForm(forms.Form):
@@ -93,4 +93,38 @@ class CalendarForm(forms.ModelForm):
             #'next': forms.TextInput(attrs={'placeholder': _('Next calendar name')}),
             #'prev': forms.TextInput(attrs={'placeholder': _('Previous calendar name')}),
             # 'open': forms.CheckboxInput(),
+        }
+
+
+class SearchWTsForm(forms.Form):
+    ORDER_BY = [('asc', _('asc.')),
+               ('des', _('desc.')),
+               ('no', _('no'))]
+
+    wt_name = forms.CharField(label= _('Name'), max_length=200, required=False,
+                               widget=forms.TextInput(attrs={'placeholder': _('Working time name')}))
+    ord_name = forms.ChoiceField(label='', choices=ORDER_BY, widget=forms.RadioSelect, initial='asc')
+    wt_desc = forms.CharField(label= _('Description'), max_length=200, required=False,
+                               widget=forms.TextInput(attrs={'placeholder': _('Working time description')}))
+    ord_desc = forms.ChoiceField(label='', choices=ORDER_BY, widget=forms.RadioSelect, initial='no')
+
+    wt_ini_hour = forms.DecimalField(label= _('Initial hour'), max_digits=4, decimal_places=0, required=False,
+                               widget=forms.NumberInput(attrs={'placeholder': _('Working time initial hour')}))
+    ord_ini_hour = forms.ChoiceField(label='', choices=ORDER_BY, widget=forms.RadioSelect, initial='no')
+
+    wt_end_hour = forms.DecimalField(label= _('Final hour'), max_digits=4, decimal_places=0, required=False,
+                               widget=forms.NumberInput(attrs={'placeholder': _('Working time ending hour')}))
+    ord_end_hour = forms.ChoiceField(label='', choices=ORDER_BY, widget=forms.RadioSelect, initial='no')
+
+
+class WorkingTimeForm(forms.ModelForm):
+    class Meta:
+        model = WorkingTime
+        fields = '__all__'
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': _('Working time name')}),
+            'description': forms.TextInput(attrs={'placeholder': _('Working time description')}),
+            'ini_hour': forms.TextInput(attrs={'placeholder': _('WT initial hour')}),
+            'end_hour': forms.TextInput(attrs={'placeholder': _('WT final hour')}),
+            'type': forms.TextInput(attrs={'placeholder': _('Calendar description')}),
         }

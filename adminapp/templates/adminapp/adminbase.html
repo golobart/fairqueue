@@ -67,14 +67,14 @@
 </div>
 
 <div class="row">
-  <mark>
+  <aside>
     {% block alerts %}
     <!-- TODO make thin header -->
     <div class="alerter">
       <p>Alert message for maintenance or other reasons (i.e. System unavailable today from 01h to 02h CET)</p>
     </div>
     {% endblock alerts %}
-  </mark>
+  </aside>
 </div>
 
 <div class="row">
@@ -82,9 +82,23 @@
     {% block mainmenu %}
     <div class="col-3 col-s-12 menu" >
       <ul>
-        <li {% if activemenu == 'resource' %}class="active" {% endif %}><a href="{% url 'adminapp:searchresources' %}" {% if activemenu == 'resource' %}class="active" {% endif %}>{% trans 'Resources' %}</a></li>
-        <li {% if activemenu == 'calendar' %}class="active" {% endif %}><a href="{% url 'adminapp:searchcalendars' %}" {% if activemenu == 'calendar' %}class="active" {% endif %}>{% trans 'Calendars' %}</a></li>
-        <li {% if activemenu == 'workingtime' %}class="active" {% endif %}><a href="{% url 'adminapp:workingTimes' %}">{% trans 'Working time' %}</a></li>
+        <li {% if activemenu == 'resource' %}class="active" {% endif %}>
+          <a href="{% url 'adminapp:searchresources' %}"
+           {% if activemenu == 'resource' %}class="active" {% endif %}>{% trans 'Resources' %}</a>
+        </li>
+        <li {% if activemenu == 'calendar' %}class="active" {% endif %}>
+          <a href="{% url 'adminapp:searchcalendars' %}"
+           {% if activemenu == 'calendar' %}class="active" {% endif %}>{% trans 'Calendars' %}</a>
+        </li>
+        <li {% if activemenu == 'workingtime' %}class="active" {% endif %}>
+          <a href="{% url 'adminapp:searchworkingtimes' %}"
+           {% if activemenu == 'workingtime' %}class="active" {% endif %}>{% trans 'Working time' %}</a>
+        </li>
+
+        <li {% if activemenu == 'xxx' %}class="active" {% endif %}>
+          <a href="{% url 'adminapp:searchworkingtimes' %}">{% trans 'Days off (*)' %}</a></li>
+        <li {% if activemenu == 'xxx' %}class="active" {% endif %}>
+          <a href="{% url 'adminapp:searchworkingtimes' %}">{% trans 'Special WT days (*)' %}</a></li>
         {% if request.user.is_staff %}
         <li><a href="{% url 'admin:index' %}">Django</a></li>
         {% endif %}
@@ -93,13 +107,13 @@
     {% endblock mainmenu %}
   </nav>
 
-  <mark>
+
     {% block resultmessage %}
     <div class="col-6 col-s-9 resultmessage">
       <p>Message result from last action</p>
     </div>
     {% endblock resultmessage %}
-  </mark>
+
 
   <main>
     {% block content %}

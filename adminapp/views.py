@@ -9,10 +9,12 @@ from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.db.models import Q
+from django.utils.translation import ugettext_lazy as _
 
 from .models import Calendar, DaysOff, WorkingTime, Resource, CalendarDefWT, DaySpecWT
-from .forms import SearchRscsForm, ResourceForm, SearchCalsForm, CalendarForm
+from .forms import SearchRscsForm, ResourceForm, SearchCalsForm, CalendarForm, SearchWTsForm, WorkingTimeForm
 
+# TODO eliminar
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.fair queue.")
 
@@ -30,17 +32,120 @@ def resources(request):
 ##    return HttpResponse(template.render(context, request))
     return render(request, 'adminapp/resources.html', context)
 
+
+# ----- RESOURCES VIEWS
+
+def change_or_view_resource(user):
+    return user.has_perm('adminapp.change_resource') or user.has_perm('adminapp.view_resource')
+
+@login_required
+@user_passes_test(change_or_view_resource)
+def resource(request, rsc_id):
+    rsc = get_object_or_404(Resource, pk=rsc_id)
+    readonly = ''
+    resultmessage = ''
+    if request.method == "POST":
+        form = ResourceForm(request.POST, instance=rsc)
+        if request.user.has_perm('adminapp.change_resource'):
+            if form.is_valid():
+                rsc = form.save(commit=False)
+                # post.author = request.user
+                # post.published_date = timezone.now()
+                rsc.save()
+                resultmessage = _('Resource updated.')
+                # return redirect('adminapp:searchresources')
+                # return redirect('adminapp:resources', pk=rsc.pk)
+    else:
+        form = ResourceForm(instance=rsc)
+        if request.GET.get('rd', '') != '':
+            readonly = 'readonly'
+            #for theField in form.fields:
+            #    theField.attrs['readonly'] = True
+            # considerar tb crispy-forms especialment en form.as_p
+
+    context = { 'rsc': rsc,
+                'form': form,
+                'readonly': readonly,
+                'resultmessage': resultmessage,
+                'activemenu': 'resource',}
+
+    return render(request, 'adminapp/resource.html', context)
+
+
+@login_required
+@permission_required('adminapp.delete_resource', raise_exception=True)
+def delete_resource(request, rsc_id):
+    rsc = get_object_or_404(Resource, pk=rsc_id)
+    rsc.delete()
+    return redirect('adminapp:searchresources')
+
+
+
+@login_required
+@permission_required('adminapp.delete_resource', raise_exception=True)
+def delete_resources(request):
+    if request.method == "POST":
+        req_dict = request.POST
+        if 'rectodel' in req_dict:
+            for par in req_dict.getlist('rectodel'):
+                if par != '':
+                    cal = get_object_or_404(Resource, pk=par)
+                    cal.delete()
+    return redirect('adminapp:searchresources')
+
+
+@login_required
+@permission_required('adminapp.add_resource', raise_exception=True)
+def create_resource(request):
+    resultmessage = ''
+    if request.method == "GET":
+        #form = ResourceForm(request.GET) intentava poblar els camps èr defecte amb el que venia del search, pero dona errors de validacio
+        form = ResourceForm()
+    else:
+        form = ResourceForm()
+    context = {'form': form,
+               'resultmessage': resultmessage,
+               'activemenu': 'resource',}
+    return render(request, 'adminapp/createresource.html', context)
+
+
+@login_required
+@permission_required('adminapp.add_resource', raise_exception=True)
+def create_resource_do(request):
+    resultmessage = ''
+    if request.method == "POST":
+        form = ResourceForm(request.POST)
+        if form.is_valid():
+            rsc = form.save(commit=False)
+            rsc.save()
+            resultmessage = _('Resource created.')
+            # return redirect('adminapp:createresource')
+            # return redirect('adminapp:searchresources')
+        else:
+            context = {'form': form}
+            return render(request, 'adminapp/createresource.html', context)
+    form = ResourceForm()
+    context = {'form': form,
+               'resultmessage': resultmessage,
+               'activemenu': 'resource',}
+    return render(request, 'adminapp/createresource.html', context)
+
+
 @login_required
 def search_resources(request):
     # Presenta el formulari per cercar recursos
+    resultmessage = ''
     form = SearchRscsForm()
     context = { 'form': form,
+                'resultmessage': resultmessage,
                 'activemenu': 'resource',}
     return render(request, 'adminapp/searchresources.html', context)
+
 
 @login_required
 def search_resources_do(request):
     # Es una request tipus GET
+    resultmessage = ''
     if request.method == "GET":
         form = SearchRscsForm(request.GET)
         rscs_qset = Resource.objects.all()
@@ -90,104 +195,123 @@ def search_resources_do(request):
         'page_obj': page_obj,
         'paginator': paginator,
         'activemenu': 'resource',
+        'resultmessage': resultmessage,
         'url_pars': url_pars,
     }
     return render(request, 'adminapp/searchresourcesdo.html', context)
 
-#def resource(request, rsc_id):
-#    try:
-#        rsc = Resource.objects.get(pk=rsc_id)
-#    except ResourceDoesNotExist:
-#        raise Http404("Resource does not exist")
-#
-#    context = { 'rsc': rsc }
-#
-#    return render(request, 'adminapp/resource.html', context)
 
-def change_or_view_resource(user):
-    return user.has_perm('adminapp.change_resource') or user.has_perm('adminapp.view_resource')
+# ----- CALENDARS VIEWS
+
+def change_or_view_calendar(user):
+    return user.has_perm('adminapp.change_calendar') or user.has_perm('adminapp.view_calendar')
+
 
 @login_required
-@user_passes_test(change_or_view_resource)
-def resource(request, rsc_id):
-    rsc = get_object_or_404(Resource, pk=rsc_id)
+@user_passes_test(change_or_view_calendar)
+def calendar(request, cal_id):
+    cal = get_object_or_404(Calendar, pk=cal_id)
     readonly = ''
+    resultmessage = ''
     if request.method == "POST":
-        form = ResourceForm(request.POST, instance=rsc)
-        if request.user.has_perm('adminapp.change_resource'):
+        form = CalendarForm(request.POST, instance=cal)
+        # TODO test form.has_changed()
+        if request.user.has_perm('adminapp.change_calendar'):
             if form.is_valid():
-                rsc = form.save(commit=False)
+                cal = form.save(commit=False)
                 # post.author = request.user
                 # post.published_date = timezone.now()
-                rsc.save()
-                return redirect('adminapp:searchresources')
-                # return redirect('adminapp:resources', pk=rsc.pk)
+                cal.save()
+                resultmessage = _('Calendar updated.')
+                # return redirect('adminapp:searchcalendars')
+                # return redirect('adminapp:calendars', pk=cal.pk)
     else:
-        form = ResourceForm(instance=rsc)
+        form = CalendarForm(instance=cal)
         if request.GET.get('rd', '') != '':
             readonly = 'readonly'
             #for theField in form.fields:
             #    theField.attrs['readonly'] = True
             # considerar tb crispy-forms especialment en form.as_p
 
-    context = { 'rsc': rsc,
+    context = { 'cal': cal,
                 'form': form,
                 'readonly': readonly,
-                'activemenu': 'resource',}
+                'resultmessage': resultmessage,
+                'activemenu': 'calendar',}
 
-    return render(request, 'adminapp/resource.html', context)
+    return render(request, 'adminapp/calendar.html', context)
+
+
+@login_required
+@permission_required('adminapp.delete_calendar', raise_exception=True)
+def delete_calendar(request, cal_id):
+    cal = get_object_or_404(Calendar, pk=cal_id)
+    cal.delete()
+    return redirect('adminapp:searchcalendars')
+
+@login_required
+@permission_required('adminapp.delete_calendar', raise_exception=True)
+def delete_calendars(request):
+    if request.method == "POST":
+        req_dict = request.POST
+        if 'rectodel' in req_dict:
+            for par in req_dict.getlist('rectodel'):
+                if par != '':
+                    cal = get_object_or_404(Calendar, pk=par)
+                    cal.delete()
+    return redirect('adminapp:searchcalendars')
 
 
 @login_required
-@permission_required('adminapp.delete_resource', raise_exception=True)
-def delete_resource(request, rsc_id):
-    rsc = get_object_or_404(Resource, pk=rsc_id)
-    rsc.delete()
-    return redirect('adminapp:searchresources')
-
-@login_required
-@permission_required('adminapp.add_resource', raise_exception=True)
-def create_resource(request):
+@permission_required('adminapp.add_calendar', raise_exception=True)
+def create_calendar(request):
     if request.method == "GET":
         #form = ResourceForm(request.GET) intentava poblar els camps èr defecte amb el que venia del search, pero dona errors de validacio
-        form = ResourceForm()
+        form = CalendarForm()
     else:
-        form = ResourceForm()
+        form = CalendarForm()
     context = {'form': form,
-               'activemenu': 'resource',}
-    return render(request, 'adminapp/createresource.html', context)
+               'activemenu': 'calendar',}
+    return render(request, 'adminapp/createcalendar.html', context)
 
 
 @login_required
-@permission_required('adminapp.add_resource', raise_exception=True)
-def create_resource_do(request):
+@permission_required('adminapp.add_calendar', raise_exception=True)
+def create_calendar_do(request):
+    resultmessage = ''
     if request.method == "POST":
-        form = ResourceForm(request.POST)
+        form = CalendarForm(request.POST)
         if form.is_valid():
-            rsc = form.save(commit=False)
-            rsc.save()
-            return redirect('adminapp:createresource')
-            # return redirect('adminapp:searchresources')
+            cal = form.save(commit=False)
+            cal.save()
+            resultmessage = _('Calendar created.')
+            # return redirect('adminapp:createcalendar')
+            # return redirect('adminapp:searchcalendars')
         else:
             context = {'form': form}
-            return render(request, 'adminapp/createresource.html', context)
-    form = ResourceForm()
+            return render(request, 'adminapp/createcalendar.html', context)
+    form = CalendarForm()
     context = {'form': form,
-               'activemenu': 'resource',}
-    return render(request, 'adminapp/createresource.html', context)
+               'resultmessage': resultmessage,
+               'activemenu': 'calendar',}
+    return render(request, 'adminapp/createcalendar.html', context)
 
 
 @login_required
 def search_calendars(request):
     # Presenta el formulari per cercar calendaris
+    resultmessage = ''
     form = SearchCalsForm()
     context = { 'form': form,
+                'resultmessage': resultmessage,
                 'activemenu': 'calendar',}
     return render(request, 'adminapp/searchcalendars.html', context)
+
 
 @login_required
 def search_calendars_do(request):
     # Es una request tipus GET
+    resultmessage = ''
     if request.method == "GET":
         form = SearchCalsForm(request.GET)
         cals_qset = Calendar.objects.all()
@@ -254,121 +378,159 @@ def search_calendars_do(request):
         'page_obj': page_obj,
         'paginator': paginator,
         'activemenu': 'calendar',
+        'resultmessage': resultmessage,
         'url_pars': url_pars,
     }
     return render(request, 'adminapp/searchcalendarsdo.html', context)
 
-@login_required
-@permission_required('adminapp.add_calendar', raise_exception=True)
-def create_calendar(request):
-    if request.method == "GET":
-        #form = ResourceForm(request.GET) intentava poblar els camps èr defecte amb el que venia del search, pero dona errors de validacio
-        form = CalendarForm()
-    else:
-        form = CalendarForm()
-    context = {'form': form,
-               'activemenu': 'calendar',}
-    return render(request, 'adminapp/createcalendar.html', context)
 
-@login_required
-@permission_required('adminapp.add_calendar', raise_exception=True)
-def create_calendar_do(request):
-    if request.method == "POST":
-        form = CalendarForm(request.POST)
-        if form.is_valid():
-            cal = form.save(commit=False)
-            cal.save()
-            return redirect('adminapp:createcalendar')
-            # return redirect('adminapp:searchcalendars')
-        else:
-            context = {'form': form}
-            return render(request, 'adminapp/createcalendar.html', context)
-    form = CalendarForm()
-    context = {'form': form,
-               'activemenu': 'calendar',}
-    return render(request, 'adminapp/createcalendar.html', context)
+# ----- WORKING TIME VIEWS
 
-
-def change_or_view_calendar(user):
-    return user.has_perm('adminapp.change_calendar') or user.has_perm('adminapp.view_calendar')
+def change_or_view_workingtime(user):
+    return user.has_perm('adminapp.change_workingtime') or user.has_perm('adminapp.view_workingtime')
 
 
 @login_required
-@user_passes_test(change_or_view_calendar)
-def calendar(request, cal_id):
-    cal = get_object_or_404(Calendar, pk=cal_id)
+@user_passes_test(change_or_view_workingtime)
+def workingtime(request, id):
+    wt = get_object_or_404(WorkingTime, pk=id)
     readonly = ''
+    resultmessage = ''
     if request.method == "POST":
-        form = CalendarForm(request.POST, instance=cal)
+        form = WorkingTimeForm(request.POST, instance=wt)
         # TODO test form.has_changed()
         if request.user.has_perm('adminapp.change_calendar'):
             if form.is_valid():
-                cal = form.save(commit=False)
+                wt = form.save(commit=False)
                 # post.author = request.user
                 # post.published_date = timezone.now()
-                cal.save()
-                return redirect('adminapp:searchcalendars')
+                wt.save()
+                resultmessage = _('WorkingTime updated.')
+                # return redirect('adminapp:searchcalendars')
                 # return redirect('adminapp:calendars', pk=cal.pk)
     else:
-        form = CalendarForm(instance=cal)
+        form = WorkingTimeForm(instance=wt)
         if request.GET.get('rd', '') != '':
             readonly = 'readonly'
             #for theField in form.fields:
             #    theField.attrs['readonly'] = True
             # considerar tb crispy-forms especialment en form.as_p
 
-    context = { 'cal': cal,
+    context = { 'wt': wt,
                 'form': form,
                 'readonly': readonly,
-                'activemenu': 'calendar',}
+                'resultmessage': resultmessage,
+                'activemenu': 'workingtime',}
 
-    return render(request, 'adminapp/calendar.html', context)
+    return render(request, 'adminapp/workingtime.html', context)
 
-@login_required
-@permission_required('adminapp.delete_calendar', raise_exception=True)
-def delete_calendar(request, cal_id):
-    cal = get_object_or_404(Calendar, pk=cal_id)
-    cal.delete()
-    return redirect('adminapp:searchcalendars')
 
 @login_required
-@permission_required('adminapp.delete_calendar', raise_exception=True)
-def delete_calendars(request):
+@permission_required('adminapp.delete_workingtime', raise_exception=True)
+def delete_workingtime(request, id):
+    wt = get_object_or_404(Calendar, pk=id)
+    wt.delete()
+    return redirect('adminapp:searchworkingtimes')
+
+@login_required
+@permission_required('adminapp.delete_workingtime', raise_exception=True)
+def delete_workingtimes(request):
     if request.method == "POST":
         req_dict = request.POST
         if 'rectodel' in req_dict:
             for par in req_dict.getlist('rectodel'):
                 if par != '':
-                    cal = get_object_or_404(Calendar, pk=par)
-                    cal.delete()
-    return redirect('adminapp:searchcalendars')
+                    wt = get_object_or_404(WorkingTime, pk=par)
+                    wt.delete()
+    return redirect('adminapp:searchworkingtimes')
 
 
 @login_required
-@permission_required('adminapp.delete_resource', raise_exception=True)
-def delete_resources(request):
-    if request.method == "POST":
-        req_dict = request.POST
-        if 'rectodel' in req_dict:
-            for par in req_dict.getlist('rectodel'):
-                if par != '':
-                    cal = get_object_or_404(Resource, pk=par)
-                    cal.delete()
-    return redirect('adminapp:searchresources')
-
-
-@login_required
-@permission_required('adminapp.add_resource', raise_exception=True)
-def create_resource(request):
+@permission_required('adminapp.add_workingtime', raise_exception=True)
+def create_workingtime(request):
     if request.method == "GET":
         #form = ResourceForm(request.GET) intentava poblar els camps èr defecte amb el que venia del search, pero dona errors de validacio
-        form = ResourceForm()
+        form = WorkingTimeForm()
     else:
-        form = ResourceForm()
+        form = WorkingTimeForm()
     context = {'form': form,
-               'activemenu': 'resource',}
-    return render(request, 'adminapp/createresource.html', context)
+               'activemenu': 'calendar',}
+    return render(request, 'adminapp/createworkingtime.html', context)
 
-def workingTime(request, testPar):
-    response = "You're looking at a workingTime %s."
-    return HttpResponse(response % testPar)
+
+@login_required
+@permission_required('adminapp.add_workingtime', raise_exception=True)
+def create_workingtime_do(request):
+    resultmessage = ''
+    if request.method == "POST":
+        form = WorkingTimeForm(request.POST)
+        if form.is_valid():
+            wt = form.save(commit=False)
+            wt.save()
+            resultmessage = _('WorkingTime created.')
+            # return redirect('adminapp:createcalendar')
+            # return redirect('adminapp:searchcalendars')
+        else:
+            context = {'form': form}
+            return render(request, 'adminapp/createworkingtime.html', context)
+    form = WorkingTimeForm()
+    context = {'form': form,
+               'resultmessage': resultmessage,
+               'activemenu': 'workingtime',}
+    return render(request, 'adminapp/createworkingtime.html', context)
+
+
+@login_required
+def search_workingtimes(request):
+    # Presenta el formulari per cercar calendaris
+    resultmessage = ''
+    form = SearchWTsForm()
+    context = { 'form': form,
+                'resultmessage': resultmessage,
+                'activemenu': 'workingtime',}
+    return render(request, 'adminapp/searchworkingtimes.html', context)
+
+
+@login_required
+def search_workingtimes_do(request):
+    # Es una request tipus GET
+    resultmessage = ''
+    if request.method == "GET":
+        form = SearchWTsForm(request.GET)
+        qset = WorkingTime.objects.all()
+        req_dict = request.GET
+        if 'xxxcal_owner' in req_dict:
+            xxxcal_owner = req_dict.get('xxxcal_owner')
+            if xxxcal_owner != '':
+                qset = qset.filter(owner__icontains=xxxcal_owner)
+
+
+        if 'ord_xxxowner' in req_dict:
+            ord_xxxowner = req_dict.get('ord_xxxowner')
+            if ord_xxxowner == 'asc':
+                qset = qset.order_by('owner')
+            elif ord_xxxowner == 'des':
+                qset = qset.order_by('-owner')
+
+
+        paginator = Paginator(qset, 5)  # 5 per page.
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        # url params except 'page'
+        url_pars = ''
+        for par in req_dict:
+            if par != 'page':
+                url_pars += par + '=' + req_dict[par] + '&'
+
+    context = {
+        'form': form,
+        'req_dict': req_dict, # query params TODO remove innecessary
+        'results': qset, # search results TODO remove innecessary
+        'page_obj': page_obj,
+        'paginator': paginator,
+        'activemenu': 'workingtime',
+        'resultmessage': resultmessage,
+        'url_pars': url_pars,
+    }
+    return render(request, 'adminapp/searchworkingtimesdo.html', context)
