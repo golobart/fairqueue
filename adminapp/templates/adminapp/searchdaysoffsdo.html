@@ -1,0 +1,122 @@
+{% extends 'adminapp/adminbase.html' %}
+{% load i18n %}
+
+{% block alerts %}
+<!-- just remove default content -->
+{% endblock alerts %}
+
+{% block resultmessage %}
+{% if resultmessage != '' %}
+<div class="col-9 col-s-12 resultmessage">
+    <p>{{ resultmessage }}</p>
+</div>
+{% endif %}
+{% endblock resultmessage %}
+
+{% block content %}
+<div class="col-9 col-s-12"  style="background:lavender;">
+    <form action="{% url 'adminapp:searchdaysoffsdo' %}" method="get">
+        <table class="as_table">
+            {{ form.as_table }}
+            <tfoot>
+            <tr>
+                <td/>
+                <td style="text-align:left;" >
+                    <input type="submit" value="{% trans 'Search' %}">
+                    <input type="reset" value="{% trans 'Restore fields' %}">
+                    {% if perms.adminapp.add_daysoff %}
+                    <input type="submit" value="{% trans 'New working time' %}" formmethod="get" formaction="{% url 'adminapp:createdaysoff' %}">
+                    {% endif %}
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+
+<!-- {{ req_dict }} -->
+<form action="{% url 'adminapp:deletedaysoffs' %}" method="post">
+    {% csrf_token %}
+    <table class="col-12 col-s-12"  style="background:lightgrey;">
+        <thead>
+        <tr style="text-align:left;">
+            <th> {% trans 'Name' %} </th> <th> {% trans 'Description' %} </th>
+            <th> {% trans 'Initial hour' %} </th> <th> {% trans 'Final hour' %} </th>
+            <th> {% trans 'Type' %} </th><th> {% trans 'Actions' %} </th>
+            <th>
+                {% if perms.adminapp.delete_daysoff %}
+                <!--            <input type="submit" value="{% trans 'Delete' %}" title="{% trans 'Delete WITHOUT CONFIRM' %}">-->
+                <button type="submit"  value="Submit" title="{% trans 'Delete WITHOUT CONFIRM' %}">
+                    <span> <i class="material-icons" >delete</i></span></button>
+                {% endif %}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for record in page_obj  %}
+        <tr>
+            <!--        <td><a href="{% url 'adminapp:daysoff' record.id %}"  title="{% trans 'Read' %}">{{ record.name }}</a></td>-->
+            <td>{{ record.name }}</td>
+            <td>{{ record.description }}</td>
+            <td>{{ record.ini_hour }}</td>
+            <td>{{ record.end_hour }}</td>
+            <td>{{ record.type }}</td>
+            <!--        <td><a href="{% url 'adminapp:daysoff' record.id %}"><span> <i class="far fa-eye" title="{% trans 'Read' %}"></i></span></a>-->
+            <!--            <a href="{% url 'adminapp:daysoff' record.id %}"><span> <i class="fas fa-pencil-alt" title="{% trans 'Edit' %}"></i></span></a>-->
+            <!--            <a href="{% url 'adminapp:deletedaysoff' record.id %}"><span> <i class="far fa-trash-alt" title="{% trans 'Delete' %}"></i></span></a></td>-->
+            <td>
+                <a href="{% url 'adminapp:daysoff' record.id %}?rd=t">
+                    <span> <i class="material-icons" title="{% trans 'Read' %}">visibility</i></span></a>
+                {% if perms.adminapp.change_daysoff %}
+                <a href="{% url 'adminapp:daysoff' record.id %}">
+                    <span> <i class="material-icons" title="{% trans 'Edit' %}">edit</i></span></a>
+                {% endif %}
+                {% if perms.adminapp.delete_daysoff %}
+                <!--            <a href="{% url 'adminapp:deletedaysoff' record.id %}">-->
+                <!--                <span> <i class="material-icons" title="{% trans 'Delete' %}">delete</i></span></a>-->
+                {% endif %}
+            </td>
+            <td>
+                {% if perms.adminapp.delete_daysoff %}
+                <input type="checkbox" id="rectodel{{ forloop.counter }}"
+                       name="rectodel" value="{{ record.id }}" title="{% trans 'Delete WITHOUT CONFIRM' %}">
+                <!--        <td> <input type="checkbox" id="rectodel{{ forloop.counter }}"-->
+                <!--                    name="rectodel{{ forloop.counter }}" value="{{ record.id }}">-->
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td style="text-align:center;" colspan="5">
+                <!-- <div class="pagination" style="align:center;">
+                    <span class="step-links"> -->
+                {% if page_obj.has_previous %}
+                <a href="?page=1&{{ url_pars }}">&laquo; {% trans 'first' %}</a>
+                <a href="?page={{ page_obj.previous_page_number }}&{{ url_pars }}">{% trans 'previous' %}</a>
+                {% endif %}
+
+                <span class="current">
+            {% trans 'Page' %} {{ page_obj.number }} {% trans 'of' %} {{ page_obj.paginator.num_pages }}.
+        </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}&{{ url_pars }}">{% trans 'next' %}</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}&{{ url_pars }}">{% trans 'last' %} &raquo;</a>
+                {% endif %}
+                <!--     </span>
+                </div> -->
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</form>
+
+
+{% endblock content %}
+
+
+{% block lateral %}
+<!-- just remove default content -->
+{% endblock lateral %}

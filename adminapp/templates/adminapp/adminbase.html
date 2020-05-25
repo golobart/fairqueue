@@ -94,9 +94,11 @@
           <a href="{% url 'adminapp:searchworkingtimes' %}"
            {% if activemenu == 'workingtime' %}class="active" {% endif %}>{% trans 'Working time' %}</a>
         </li>
+        <li {% if activemenu == 'daysoff' %}class="active" {% endif %}>
+          <a href="{% url 'adminapp:searchdaysoffs' %}"
+           {% if activemenu == 'daysoff' %}class="active" {% endif %}>{% trans 'Days off' %}</a>
+        </li>
 
-        <li {% if activemenu == 'xxx' %}class="active" {% endif %}>
-          <a href="{% url 'adminapp:searchworkingtimes' %}">{% trans 'Days off (*)' %}</a></li>
         <li {% if activemenu == 'xxx' %}class="active" {% endif %}>
           <a href="{% url 'adminapp:searchworkingtimes' %}">{% trans 'Special WT days (*)' %}</a></li>
         {% if request.user.is_staff %}

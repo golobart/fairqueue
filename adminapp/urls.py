@@ -55,4 +55,19 @@ urlpatterns = [
     path('searchwts/', views.search_workingtimes, name='searchworkingtimes'),
     # ex: /adminapp/searchwtsdo/
     path('searchwtsdo/', views.search_workingtimes_do, name='searchworkingtimesdo'),
+
+    # ex: /adminapp/dof/5/
+    path('dof/<int:id>/', views.daysoff, name='daysoff'),
+    # ex: /adminapp/deldof/5/
+    path('deldof/<int:id>/', views.delete_daysoff, name='deletedaysoff'),
+    # ex: /adminapp/deldofs/
+    path('deldofs/', views.delete_daysoffs, name='deletedaysoffs'),
+    # ex: /adminapp/credof/
+    path('credof/', views.create_daysoff, name='createdaysoff'),
+    # ex: /adminapp/credofdo/
+    path('credofdo/', views.create_daysoff_do, name='createdaysoffdo'),
+    # ex: /adminapp/searchdofs/
+    path('searchdofs/', views.search_daysoffs, name='searchdaysoffs'),
+    # ex: /adminapp/searchdofsdo/
+    path('searchdofsdo/', views.search_daysoffs_do, name='searchdaysoffsdo'),
 ]

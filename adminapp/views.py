@@ -12,7 +12,9 @@ from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
 from .models import Calendar, DaysOff, WorkingTime, Resource, CalendarDefWT, DaySpecWT
-from .forms import SearchRscsForm, ResourceForm, SearchCalsForm, CalendarForm, SearchWTsForm, WorkingTimeForm
+from .forms import SearchRscsForm, ResourceForm, SearchCalsForm, CalendarForm, SearchWTsForm, WorkingTimeForm, \
+    SearchDOsForm, DaysOffForm
+
 
 # TODO eliminar
 def index(request):
@@ -454,7 +456,7 @@ def create_workingtime(request):
     else:
         form = WorkingTimeForm()
     context = {'form': form,
-               'activemenu': 'calendar',}
+               'activemenu': 'workingtime',}
     return render(request, 'adminapp/createworkingtime.html', context)
 
 
@@ -499,19 +501,57 @@ def search_workingtimes_do(request):
         form = SearchWTsForm(request.GET)
         qset = WorkingTime.objects.all()
         req_dict = request.GET
-        if 'xxxcal_owner' in req_dict:
-            xxxcal_owner = req_dict.get('xxxcal_owner')
-            if xxxcal_owner != '':
-                qset = qset.filter(owner__icontains=xxxcal_owner)
+        if 'wt_name' in req_dict:
+            wt_name = req_dict.get('wt_name')
+            if wt_name != '':
+                qset = qset.filter(name__icontains=wt_name)
+        if 'wt_desc' in req_dict:
+            wt_desc = req_dict.get('wt_desc')
+            if wt_desc != '':
+                qset = qset.filter(description__icontains=wt_desc)
+        if 'wt_ini_hour' in req_dict:
+            wt_ini_hour = req_dict.get('wt_ini_hour')
+            if wt_ini_hour != '':
+                qset = qset.filter(ini_hour__icontains=wt_ini_hour)
+        if 'wt_end_hour' in req_dict:
+            wt_end_hour = req_dict.get('wt_end_hour')
+            if wt_end_hour != '':
+                qset = qset.filter(end_hour__icontains=wt_end_hour)
+        if 'wt_type' in req_dict:
+            wt_type = req_dict.get('wt_type')
+            if wt_type != '':
+                qset = qset.filter(type__icontains=wt_type)
 
-
-        if 'ord_xxxowner' in req_dict:
-            ord_xxxowner = req_dict.get('ord_xxxowner')
-            if ord_xxxowner == 'asc':
-                qset = qset.order_by('owner')
-            elif ord_xxxowner == 'des':
-                qset = qset.order_by('-owner')
-
+        if 'ord_name' in req_dict:
+            ord_name = req_dict.get('ord_name')
+            if ord_name == 'asc':
+                qset = qset.order_by('name')
+            elif ord_name == 'des':
+                qset = qset.order_by('-name')
+        if 'ord_desc' in req_dict:
+            ord_desc = req_dict.get('ord_desc')
+            if ord_desc == 'asc':
+                qset = qset.order_by('desc')
+            elif ord_desc == 'des':
+                qset = qset.order_by('-desc')
+        if 'ord_ini_hour' in req_dict:
+            ord_ini_hour = req_dict.get('ord_ini_hour')
+            if ord_ini_hour == 'asc':
+                qset = qset.order_by('ini_hour')
+            elif ord_ini_hour == 'des':
+                qset = qset.order_by('-ini_hour')
+        if 'ord_end_hour' in req_dict:
+            ord_end_hour = req_dict.get('ord_end_hour')
+            if ord_end_hour == 'asc':
+                qset = qset.order_by('end_hour')
+            elif ord_end_hour == 'des':
+                qset = qset.order_by('-end_hour')
+        if 'ord_wt' in req_dict:
+            ord_wt = req_dict.get('ord_wt')
+            if ord_wt == 'asc':
+                qset = qset.order_by('wt')
+            elif ord_wt == 'des':
+                qset = qset.order_by('-wt')
 
         paginator = Paginator(qset, 5)  # 5 per page.
         page_number = request.GET.get('page')
@@ -525,8 +565,8 @@ def search_workingtimes_do(request):
 
     context = {
         'form': form,
-        'req_dict': req_dict, # query params TODO remove innecessary
-        'results': qset, # search results TODO remove innecessary
+        #        'req_dict': req_dict,  query params TODO remove innecessary
+        #        'results': qset,  search results TODO remove innecessary
         'page_obj': page_obj,
         'paginator': paginator,
         'activemenu': 'workingtime',
@@ -534,3 +574,192 @@ def search_workingtimes_do(request):
         'url_pars': url_pars,
     }
     return render(request, 'adminapp/searchworkingtimesdo.html', context)
+
+
+# ----- DAYS OFF VIEWS
+
+def change_or_view_daysoff(user):
+    return user.has_perm('adminapp.change_daysoff') or user.has_perm('adminapp.view_daysoff')
+
+
+@login_required
+@user_passes_test(change_or_view_daysoff)
+def daysoff(request, id):
+    dof = get_object_or_404(WorkingTime, pk=id)
+    readonly = ''
+    resultmessage = ''
+    if request.method == "POST":
+        form = WorkingTimeForm(request.POST, instance=dof)
+        # TODO test form.has_changed()
+        if request.user.has_perm('adminapp.change_calendar'):
+            if form.is_valid():
+                dof = form.save(commit=False)
+                # post.author = request.user
+                # post.published_date = timezone.now()
+                dof.save()
+                resultmessage = _('WorkingTime updated.')
+                # return redirect('adminapp:searchcalendars')
+                # return redirect('adminapp:calendars', pk=cal.pk)
+    else:
+        form = WorkingTimeForm(instance=dof)
+        if request.GET.get('rd', '') != '':
+            readonly = 'readonly'
+            #for theField in form.fields:
+            #    theField.attrs['readonly'] = True
+            # considerar tb crispy-forms especialment en form.as_p
+
+    context = { 'dof': dof,
+                'form': form,
+                'readonly': readonly,
+                'resultmessage': resultmessage,
+                'activemenu': 'daysoff',}
+
+    return render(request, 'adminapp/daysoff.html', context)
+
+
+@login_required
+@permission_required('adminapp.delete_daysoff', raise_exception=True)
+def delete_daysoff(request, id):
+    dof = get_object_or_404(Calendar, pk=id)
+    dof.delete()
+    return redirect('adminapp:searchdaysoffs')
+
+@login_required
+@permission_required('adminapp.delete_daysoff', raise_exception=True)
+def delete_daysoffs(request):
+    if request.method == "POST":
+        req_dict = request.POST
+        if 'rectodel' in req_dict:
+            for par in req_dict.getlist('rectodel'):
+                if par != '':
+                    dof = get_object_or_404(WorkingTime, pk=par)
+                    dof.delete()
+    return redirect('adminapp:searchdaysoffs')
+
+
+@login_required
+@permission_required('adminapp.add_daysoff', raise_exception=True)
+def create_daysoff(request):
+    if request.method == "GET":
+        form = DaysOffForm()
+    else:
+        form = DaysOffForm()
+    context = {'form': form,
+               'activemenu': 'daysoff',}
+    return render(request, 'adminapp/createdaysoff.html', context)
+
+
+@login_required
+@permission_required('adminapp.add_daysoff', raise_exception=True)
+def create_daysoff_do(request):
+    resultmessage = ''
+    if request.method == "POST":
+        form = DaysOffForm(request.POST)
+        if form.is_valid():
+            dof = form.save(commit=False)
+            dof.save()
+            resultmessage = _('Days off created.')
+            # return redirect('adminapp:createcalendar')
+            # return redirect('adminapp:searchcalendars')
+        else:
+            context = {'form': form}
+            return render(request, 'adminapp/createdaysoff.html', context)
+    form = DaysOffForm()
+    context = {'form': form,
+               'resultmessage': resultmessage,
+               'activemenu': 'daysoff',}
+    return render(request, 'adminapp/createdaysoff.html', context)
+
+
+@login_required
+def search_daysoffs(request):
+    # Presenta el formulari per cercar calendaris
+    resultmessage = ''
+    form = SearchDOsForm()
+    context = { 'form': form,
+                'resultmessage': resultmessage,
+                'activemenu': 'daysoff',}
+    return render(request, 'adminapp/searchdaysoffs.html', context)
+
+
+@login_required
+def search_daysoffs_do(request):
+    # Es una request tipus GET
+    resultmessage = ''
+    if request.method == "GET":
+        form = SearchWTsForm(request.GET)
+        qset = WorkingTime.objects.all()
+        req_dict = request.GET
+        if 'dof_name' in req_dict:
+            dof_name = req_dict.get('dof_name')
+            if dof_name != '':
+                qset = qset.filter(name__icontains=dof_name)
+        if 'dof_desc' in req_dict:
+            dof_desc = req_dict.get('dof_desc')
+            if dof_desc != '':
+                qset = qset.filter(description__icontains=dof_desc)
+        if 'dof_ini_hour' in req_dict:
+            dof_ini_hour = req_dict.get('dof_ini_hour')
+            if dof_ini_hour != '':
+                qset = qset.filter(ini_hour__icontains=dof_ini_hour)
+        if 'dof_end_hour' in req_dict:
+            dof_end_hour = req_dict.get('dof_end_hour')
+            if dof_end_hour != '':
+                qset = qset.filter(end_hour__icontains=dof_end_hour)
+        if 'dof_type' in req_dict:
+            dof_type = req_dict.get('dof_type')
+            if dof_type != '':
+                qset = qset.filter(type__icontains=dof_type)
+
+        if 'ord_name' in req_dict:
+            ord_name = req_dict.get('ord_name')
+            if ord_name == 'asc':
+                qset = qset.order_by('name')
+            elif ord_name == 'des':
+                qset = qset.order_by('-name')
+        if 'ord_desc' in req_dict:
+            ord_desc = req_dict.get('ord_desc')
+            if ord_desc == 'asc':
+                qset = qset.order_by('desc')
+            elif ord_desc == 'des':
+                qset = qset.order_by('-desc')
+        if 'ord_ini_hour' in req_dict:
+            ord_ini_hour = req_dict.get('ord_ini_hour')
+            if ord_ini_hour == 'asc':
+                qset = qset.order_by('ini_hour')
+            elif ord_ini_hour == 'des':
+                qset = qset.order_by('-ini_hour')
+        if 'ord_end_hour' in req_dict:
+            ord_end_hour = req_dict.get('ord_end_hour')
+            if ord_end_hour == 'asc':
+                qset = qset.order_by('end_hour')
+            elif ord_end_hour == 'des':
+                qset = qset.order_by('-end_hour')
+        if 'ord_wt' in req_dict:
+            ord_wt = req_dict.get('ord_wt')
+            if ord_wt == 'asc':
+                qset = qset.order_by('wt')
+            elif ord_wt == 'des':
+                qset = qset.order_by('-wt')
+
+        paginator = Paginator(qset, 5)  # 5 per page.
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        # url params except 'page'
+        url_pars = ''
+        for par in req_dict:
+            if par != 'page':
+                url_pars += par + '=' + req_dict[par] + '&'
+
+    context = {
+        'form': form,
+        #        'req_dict': req_dict,  query params TODO remove innecessary
+        #        'results': qset,  search results TODO remove innecessary
+        'page_obj': page_obj,
+        'paginator': paginator,
+        'activemenu': 'daysoff',
+        'resultmessage': resultmessage,
+        'url_pars': url_pars,
+    }
+    return render(request, 'adminapp/searchdaysoffsdo.html', context)
