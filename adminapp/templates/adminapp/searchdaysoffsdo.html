@@ -25,7 +25,7 @@
                     <input type="submit" value="{% trans 'Search' %}">
                     <input type="reset" value="{% trans 'Restore fields' %}">
                     {% if perms.adminapp.add_daysoff %}
-                    <input type="submit" value="{% trans 'New working time' %}" formmethod="get" formaction="{% url 'adminapp:createdaysoff' %}">
+                    <input type="submit" value="{% trans 'New day off' %}" formmethod="get" formaction="{% url 'adminapp:createdaysoff' %}">
                     {% endif %}
                 </td>
             </tr>
@@ -41,8 +41,11 @@
         <thead>
         <tr style="text-align:left;">
             <th> {% trans 'Name' %} </th> <th> {% trans 'Description' %} </th>
-            <th> {% trans 'Initial hour' %} </th> <th> {% trans 'Final hour' %} </th>
-            <th> {% trans 'Type' %} </th><th> {% trans 'Actions' %} </th>
+            <th> {% trans 'Type' %} </th> <th> {% trans 'Day' %} </th>
+            <th> {% trans 'End day' %} </th><th> {% trans 'Week day' %} </th>
+            <th> {% trans 'Month day' %} </th><th> {% trans 'Month' %} </th>
+            <th> {% trans 'From day' %} </th><th> {% trans 'To day' %} </th>
+            <th> {% trans 'Actions' %} </th>
             <th>
                 {% if perms.adminapp.delete_daysoff %}
                 <!--            <input type="submit" value="{% trans 'Delete' %}" title="{% trans 'Delete WITHOUT CONFIRM' %}">-->
@@ -58,9 +61,14 @@
             <!--        <td><a href="{% url 'adminapp:daysoff' record.id %}"  title="{% trans 'Read' %}">{{ record.name }}</a></td>-->
             <td>{{ record.name }}</td>
             <td>{{ record.description }}</td>
-            <td>{{ record.ini_hour }}</td>
-            <td>{{ record.end_hour }}</td>
-            <td>{{ record.type }}</td>
+            <td>{{ record.get_type_display }}</td>
+            <td>{{ record.day }}</td>
+            <td>{{ record.end_day }}</td>
+            <td>{{ record.get_week_day_display }}</td>
+            <td>{{ record.month_day }}</td>
+            <td>{{ record.get_month_display }}</td>
+            <td>{{ record.from_day }}</td>
+            <td>{{ record.to_day }}</td>
             <!--        <td><a href="{% url 'adminapp:daysoff' record.id %}"><span> <i class="far fa-eye" title="{% trans 'Read' %}"></i></span></a>-->
             <!--            <a href="{% url 'adminapp:daysoff' record.id %}"><span> <i class="fas fa-pencil-alt" title="{% trans 'Edit' %}"></i></span></a>-->
             <!--            <a href="{% url 'adminapp:deletedaysoff' record.id %}"><span> <i class="far fa-trash-alt" title="{% trans 'Delete' %}"></i></span></a></td>-->

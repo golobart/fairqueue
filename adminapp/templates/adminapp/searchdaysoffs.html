@@ -27,7 +27,7 @@
                     <input type="submit" value="{% trans 'Search' %}">
                     <input type="reset" value="{% trans 'Clear fields' %}">
                     {% if perms.adminapp.add_daysoff %}
-                    <input type="submit" value="{% trans 'New working time' %}" formmethod="get" formaction="{% url 'adminapp:createdaysoff' %}">
+                    <input type="submit" value="{% trans 'New day off' %}" formmethod="get" formaction="{% url 'adminapp:createdaysoff' %}">
                     {% endif %}
                 </td>
             </tr>

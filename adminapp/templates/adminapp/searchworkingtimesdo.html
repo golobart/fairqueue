@@ -60,7 +60,7 @@
             <td>{{ record.description }}</td>
             <td>{{ record.ini_hour }}</td>
             <td>{{ record.end_hour }}</td>
-            <td>{{ record.type }}</td>
+            <td>{{ record.get_type_display }}</td>
             <!--        <td><a href="{% url 'adminapp:workingtime' record.id %}"><span> <i class="far fa-eye" title="{% trans 'Read' %}"></i></span></a>-->
             <!--            <a href="{% url 'adminapp:workingtime' record.id %}"><span> <i class="fas fa-pencil-alt" title="{% trans 'Edit' %}"></i></span></a>-->
             <!--            <a href="{% url 'adminapp:deleteworkingtime' record.id %}"><span> <i class="far fa-trash-alt" title="{% trans 'Delete' %}"></i></span></a></td>-->

@@ -585,11 +585,11 @@ def change_or_view_daysoff(user):
 @login_required
 @user_passes_test(change_or_view_daysoff)
 def daysoff(request, id):
-    dof = get_object_or_404(WorkingTime, pk=id)
+    dof = get_object_or_404(DaysOff, pk=id)
     readonly = ''
     resultmessage = ''
     if request.method == "POST":
-        form = WorkingTimeForm(request.POST, instance=dof)
+        form = DaysOffForm(request.POST, instance=dof)
         # TODO test form.has_changed()
         if request.user.has_perm('adminapp.change_calendar'):
             if form.is_valid():
@@ -601,7 +601,7 @@ def daysoff(request, id):
                 # return redirect('adminapp:searchcalendars')
                 # return redirect('adminapp:calendars', pk=cal.pk)
     else:
-        form = WorkingTimeForm(instance=dof)
+        form = DaysOffForm(instance=dof)
         if request.GET.get('rd', '') != '':
             readonly = 'readonly'
             #for theField in form.fields:
@@ -620,7 +620,7 @@ def daysoff(request, id):
 @login_required
 @permission_required('adminapp.delete_daysoff', raise_exception=True)
 def delete_daysoff(request, id):
-    dof = get_object_or_404(Calendar, pk=id)
+    dof = get_object_or_404(DaysOff, pk=id)
     dof.delete()
     return redirect('adminapp:searchdaysoffs')
 
@@ -632,7 +632,7 @@ def delete_daysoffs(request):
         if 'rectodel' in req_dict:
             for par in req_dict.getlist('rectodel'):
                 if par != '':
-                    dof = get_object_or_404(WorkingTime, pk=par)
+                    dof = get_object_or_404(DaysOff, pk=par)
                     dof.delete()
     return redirect('adminapp:searchdaysoffs')
 
@@ -645,6 +645,7 @@ def create_daysoff(request):
     else:
         form = DaysOffForm()
     context = {'form': form,
+               'resultmessage': '',
                'activemenu': 'daysoff',}
     return render(request, 'adminapp/createdaysoff.html', context)
 
@@ -687,29 +688,29 @@ def search_daysoffs_do(request):
     # Es una request tipus GET
     resultmessage = ''
     if request.method == "GET":
-        form = SearchWTsForm(request.GET)
-        qset = WorkingTime.objects.all()
+        form = SearchDOsForm(request.GET)
+        qset = DaysOff.objects.all()
         req_dict = request.GET
-        if 'dof_name' in req_dict:
-            dof_name = req_dict.get('dof_name')
-            if dof_name != '':
-                qset = qset.filter(name__icontains=dof_name)
-        if 'dof_desc' in req_dict:
-            dof_desc = req_dict.get('dof_desc')
-            if dof_desc != '':
-                qset = qset.filter(description__icontains=dof_desc)
-        if 'dof_ini_hour' in req_dict:
-            dof_ini_hour = req_dict.get('dof_ini_hour')
-            if dof_ini_hour != '':
-                qset = qset.filter(ini_hour__icontains=dof_ini_hour)
-        if 'dof_end_hour' in req_dict:
-            dof_end_hour = req_dict.get('dof_end_hour')
-            if dof_end_hour != '':
-                qset = qset.filter(end_hour__icontains=dof_end_hour)
-        if 'dof_type' in req_dict:
-            dof_type = req_dict.get('dof_type')
-            if dof_type != '':
-                qset = qset.filter(type__icontains=dof_type)
+        if 'do_name' in req_dict:
+            do_name = req_dict.get('do_name')
+            if do_name != '':
+                qset = qset.filter(name__icontains=do_name)
+        if 'do_desc' in req_dict:
+            do_desc = req_dict.get('do_desc')
+            if do_desc != '':
+                qset = qset.filter(description__icontains=do_desc)
+        if 'do_type' in req_dict:
+            do_type = req_dict.get('do_type')
+            if do_type != '':
+                qset = qset.filter(type__icontains=do_type)
+        if 'do_fromday_ini' in req_dict:
+            do_fromday_ini = req_dict.get('do_fromday_ini')
+            if do_fromday_ini != '':
+                qset = qset.filter(from_day__gte=do_fromday_ini)
+        if 'do_fromday_end' in req_dict:
+            do_fromday_end = req_dict.get('do_fromday_end')
+            if do_fromday_end != '':
+                qset = qset.filter(from_day__lte=do_fromday_end)
 
         if 'ord_name' in req_dict:
             ord_name = req_dict.get('ord_name')
@@ -720,28 +721,22 @@ def search_daysoffs_do(request):
         if 'ord_desc' in req_dict:
             ord_desc = req_dict.get('ord_desc')
             if ord_desc == 'asc':
-                qset = qset.order_by('desc')
+                qset = qset.order_by('description')
             elif ord_desc == 'des':
-                qset = qset.order_by('-desc')
-        if 'ord_ini_hour' in req_dict:
-            ord_ini_hour = req_dict.get('ord_ini_hour')
-            if ord_ini_hour == 'asc':
-                qset = qset.order_by('ini_hour')
-            elif ord_ini_hour == 'des':
-                qset = qset.order_by('-ini_hour')
-        if 'ord_end_hour' in req_dict:
-            ord_end_hour = req_dict.get('ord_end_hour')
-            if ord_end_hour == 'asc':
-                qset = qset.order_by('end_hour')
-            elif ord_end_hour == 'des':
-                qset = qset.order_by('-end_hour')
-        if 'ord_wt' in req_dict:
-            ord_wt = req_dict.get('ord_wt')
-            if ord_wt == 'asc':
-                qset = qset.order_by('wt')
-            elif ord_wt == 'des':
-                qset = qset.order_by('-wt')
-
+                qset = qset.order_by('-description')
+        if 'ord_type' in req_dict:
+            ord_type = req_dict.get('ord_type')
+            if ord_type == 'asc':
+                qset = qset.order_by('type')
+            elif ord_type == 'des':
+                qset = qset.order_by('-type')
+        if 'ord_fromday' in req_dict:
+            ord_fromday = req_dict.get('ord_fromday')
+            if ord_fromday == 'asc':
+                qset = qset.order_by('from_day')
+            elif ord_fromday == 'des':
+                qset = qset.order_by('-from_day')
+        #qset.update(type=Self.get_type_display())
         paginator = Paginator(qset, 5)  # 5 per page.
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)

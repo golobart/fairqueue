@@ -1,6 +1,13 @@
+import locale
+
 from django import forms
+
 from django.utils.dates import WEEKDAYS, MONTHS
 from django.utils.translation import ugettext_lazy as _
+
+# from fairqueue import settings
+from django.conf import settings
+from django.utils import formats
 
 from .models import Resource, Calendar, WorkingTime, DaysOff
 
@@ -139,6 +146,7 @@ class SearchDOsForm(forms.Form):
     ORDER_BY = [('asc', _('asc.')),
                ('des', _('desc.')),
                ('no', _('no'))]
+    typeday = [('', '--------')] + DaysOff.TYPE_OF_DAY_CHOICES
 
     do_name = forms.CharField(label= _('Name'), max_length=200, required=False,
                               widget=forms.TextInput(attrs={'placeholder': _('Working time name')}))
@@ -148,12 +156,14 @@ class SearchDOsForm(forms.Form):
     ord_desc = forms.ChoiceField(label='', choices=ORDER_BY, widget=forms.RadioSelect, initial='no')
 
     do_type = forms.CharField(label= _('Day off type'), max_length=5, required=False,
-                               widget=forms.Select(choices=DaysOff.TYPE_OF_DAY_CHOICES))
+                               widget=forms.Select(choices=typeday))
     ord_type = forms.ChoiceField(label='', choices=ORDER_BY, widget=forms.RadioSelect, initial='no')
 
-    do_day = forms.DateField(label= _('Day'), required=False,
-                               widget=forms.DateInput())
-    ord_day = forms.ChoiceField(label='', choices=ORDER_BY, widget=forms.RadioSelect, initial='no')
+    do_fromday_ini = forms.DateField(label= _('From day (from)'), required=False,
+                                    widget=forms.DateInput(attrs={'type': 'date'}))
+    do_fromday_end = forms.DateField(label= _('From day (to)'), required=False,
+                                    widget=forms.DateInput(attrs={'type': 'date'}))
+    ord_fromday = forms.ChoiceField(label='', choices=ORDER_BY, widget=forms.RadioSelect, initial='no')
 
 
     # name = models.CharField( _('Days off name'), max_length=200)
@@ -173,15 +183,19 @@ class DaysOffForm(forms.ModelForm):
         # django.utils.dates.WEEKDAYS and MONTHS int are not iterables
         model = DaysOff
         fields = '__all__'
+        localized_fields = ( 'day', 'end_day', 'from_day', 'to_day',)
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': _('Days off name')}),
             'description': forms.TextInput(attrs={'placeholder': _('Days off description')}),
             #'type': forms.Select(choices=DaysOff.TYPE_OF_DAY_CHOICES),
             #'day': forms.SelectDateWidget(),
-            'end_day': forms.SelectDateWidget(),
+            'day': forms.DateInput(attrs={'placeholder': formats.get_format_lazy("SHORT_DATE_FORMAT")}),
+            'end_day': forms.DateInput(attrs={'placeholder': formats.get_format_lazy("SHORT_DATE_FORMAT")}),
             'week_day': forms.Select(choices=DaysOff.WEEKDAY_CHOICES), # Monday='MO' ...
             'month': forms.Select(choices=DaysOff.MONTH_CHOICES), # January='JAN' ...
-            'from_day': forms.DateInput(attrs={'type': 'Date'}),
-            'to_day': forms.DateInput(),
+            'from_day': forms.DateInput(attrs={'placeholder': formats.get_format_lazy("SHORT_DATE_FORMAT")}),
+            #'to_day': forms.DateInput(attrs={'placeholder': formats.dateformat}),
+            'to_day': forms.DateInput(attrs={'placeholder': formats.get_format_lazy("SHORT_DATE_FORMAT")}),
+            #'to_day': forms.DateInput(attrs={'placeholder': locale.D_FMT}),
 
         }
