@@ -14,7 +14,7 @@
 {% endblock resultmessage %}
 
 {% block content %}
-<div class="col-9 col-s-12"  style="background:lavender;">
+<div class="col-9 col-s-12"  >
     <form action="{% url 'adminapp:createresourcedo' %}" method="post">
         {% csrf_token %}
         <table class="as_table">
@@ -22,7 +22,7 @@
             <tfoot>
             <tr>
                 <td/>
-                <td style="text-align:left;" >
+                <td  >
                     {% if perms.adminapp.add_resource %}
                     <input type="submit" value="{% trans 'Create' %}">
                     {% endif %}

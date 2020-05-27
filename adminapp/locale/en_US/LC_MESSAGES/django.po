@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-19 13:08+0200\n"
+"POT-Creation-Date: 2020-05-27 16:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,167 +17,368 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: adminapp/forms.py:8 adminapp/templates/adminapp/searchresourcesdo.html:27
+#: adminapp/forms.py:16 adminapp/forms.py:45 adminapp/forms.py:108
+#: adminapp/forms.py:146
+msgid "asc."
+msgstr ""
+
+#: adminapp/forms.py:17 adminapp/forms.py:46 adminapp/forms.py:109
+#: adminapp/forms.py:147
+msgid "desc."
+msgstr ""
+
+#: adminapp/forms.py:18 adminapp/forms.py:47 adminapp/forms.py:110
+#: adminapp/forms.py:148
+msgid "no"
+msgstr ""
+
+#: adminapp/forms.py:20 adminapp/forms.py:53 adminapp/forms.py:113
+#: adminapp/forms.py:151 adminapp/templates/adminapp/searchcalendarsdo.html:42
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:46
+#: adminapp/templates/adminapp/searchresourcesdo.html:43
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:43
 msgid "Name"
 msgstr ""
 
-#: adminapp/forms.py:10 adminapp/forms.py:23 adminapp/models.py:73
+#: adminapp/forms.py:22 adminapp/forms.py:38 adminapp/models.py:112
 #: adminapp/templates/adminapp/resources.html:14
 msgid "Resource name"
 msgstr ""
 
-#: adminapp/forms.py:11 adminapp/templates/adminapp/searchresourcesdo.html:27
+#: adminapp/forms.py:24 adminapp/forms.py:56 adminapp/forms.py:116
+#: adminapp/forms.py:154 adminapp/templates/adminapp/searchcalendarsdo.html:43
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:46
+#: adminapp/templates/adminapp/searchresourcesdo.html:43
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:43
 msgid "Description"
 msgstr ""
 
-#: adminapp/forms.py:12 adminapp/forms.py:24 adminapp/models.py:74
+#: adminapp/forms.py:25 adminapp/forms.py:39 adminapp/models.py:113
 #: adminapp/templates/adminapp/resources.html:16
 msgid "Resource description"
 msgstr ""
 
-#: adminapp/forms.py:13 adminapp/templates/adminapp/searchresourcesdo.html:27
+#: adminapp/forms.py:27 adminapp/templates/adminapp/searchresourcesdo.html:44
 msgid "Calendar"
 msgstr ""
 
-#: adminapp/forms.py:14 adminapp/models.py:10
+#: adminapp/forms.py:28 adminapp/forms.py:54 adminapp/forms.py:95
+#: adminapp/models.py:15
 msgid "Calendar name"
 msgstr ""
 
-#: adminapp/forms.py:25 adminapp/models.py:75
+#: adminapp/forms.py:40 adminapp/models.py:114
 msgid "Resource title"
 msgstr ""
 
-#: adminapp/models.py:9
+#: adminapp/forms.py:49 adminapp/templates/adminapp/searchcalendarsdo.html:42
+msgid "Owner"
+msgstr ""
+
+#: adminapp/forms.py:51 adminapp/models.py:14
 msgid "Calendar owner"
 msgstr ""
 
-#: adminapp/models.py:11
+#: adminapp/forms.py:57 adminapp/forms.py:96 adminapp/models.py:16
 msgid "Calendar description"
 msgstr ""
 
-#: adminapp/models.py:12
-msgid "Calendar year"
+#: adminapp/forms.py:60 adminapp/forms.py:61 adminapp/forms.py:97
+#: adminapp/templates/adminapp/searchcalendarsdo.html:43
+msgid "Year"
 msgstr ""
 
-#: adminapp/models.py:13
+#: adminapp/forms.py:94
+msgid "Calendar owner name"
+msgstr ""
+
+#: adminapp/forms.py:98 adminapp/models.py:18
 msgid "Calendar first day"
 msgstr ""
 
-#: adminapp/models.py:14
+#: adminapp/forms.py:99 adminapp/models.py:20
 msgid "Calendar last day"
 msgstr ""
 
-#: adminapp/models.py:15
-msgid "Is calendar template"
-msgstr ""
-
-#: adminapp/models.py:18
-msgid "Is calendar open"
-msgstr ""
-
-#: adminapp/models.py:31 adminapp/models.py:97
-msgid "Single day"
-msgstr ""
-
-#: adminapp/models.py:32 adminapp/models.py:98
-msgid "Range of days"
-msgstr ""
-
-#: adminapp/models.py:33 adminapp/models.py:99
-msgid "Day of week"
-msgstr ""
-
-#: adminapp/models.py:34 adminapp/models.py:100
-msgid "Day of month"
-msgstr ""
-
-#: adminapp/models.py:35 adminapp/models.py:101
-msgid "Full month"
-msgstr ""
-
-#: adminapp/models.py:38
-msgid "Days off name"
-msgstr ""
-
-#: adminapp/models.py:39
-msgid "Days off description"
-msgstr ""
-
-#: adminapp/models.py:58
-msgid "Normal"
-msgstr ""
-
-#: adminapp/models.py:59
-msgid "Interday scheduling"
-msgstr ""
-
-#: adminapp/models.py:60
-msgid "More than 24 hours"
-msgstr ""
-
-#: adminapp/models.py:62
+#: adminapp/forms.py:114 adminapp/forms.py:137 adminapp/forms.py:152
+#: adminapp/models.py:97
 msgid "Working time name"
 msgstr ""
 
-#: adminapp/models.py:63
+#: adminapp/forms.py:117 adminapp/forms.py:138 adminapp/forms.py:155
+#: adminapp/models.py:98
 msgid "Working time description"
 msgstr ""
 
-#: adminapp/models.py:86
+#: adminapp/forms.py:120 adminapp/models.py:99
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:44
+msgid "Initial hour"
+msgstr ""
+
+#: adminapp/forms.py:121
+msgid "Working time initial hour hh:mm"
+msgstr ""
+
+#: adminapp/forms.py:124 adminapp/models.py:102
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:44
+msgid "Final hour"
+msgstr ""
+
+#: adminapp/forms.py:125
+msgid "Working time ending hour hh:mm"
+msgstr ""
+
+#: adminapp/forms.py:128 adminapp/templates/adminapp/searchdaysoffsdo.html:47
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:45
+msgid "Type"
+msgstr ""
+
+#: adminapp/forms.py:139
+msgid "WT initial hour hh:mm"
+msgstr ""
+
+#: adminapp/forms.py:140
+msgid "WT final hour hh:mm"
+msgstr ""
+
+#: adminapp/forms.py:158
+msgid "Day off type"
+msgstr ""
+
+#: adminapp/forms.py:162
+msgid "From day (from)"
+msgstr ""
+
+#: adminapp/forms.py:164
+msgid "From day (to)"
+msgstr ""
+
+#: adminapp/forms.py:188 adminapp/models.py:63
+msgid "Days off name"
+msgstr ""
+
+#: adminapp/forms.py:189 adminapp/models.py:64
+msgid "Days off description"
+msgstr ""
+
+#: adminapp/models.py:17
+msgid "Calendar year"
+msgstr ""
+
+#: adminapp/models.py:21
+msgid "Is calendar template"
+msgstr ""
+
+#: adminapp/models.py:22
+msgid "Next Calendar"
+msgstr ""
+
+#: adminapp/models.py:23
+msgid "Previous Calendar"
+msgstr ""
+
+#: adminapp/models.py:24
+msgid "Is calendar open"
+msgstr ""
+
+#: adminapp/models.py:37 adminapp/models.py:136
+msgid "Single day"
+msgstr ""
+
+#: adminapp/models.py:38 adminapp/models.py:137
+msgid "Range of days"
+msgstr ""
+
+#: adminapp/models.py:39 adminapp/models.py:138
+msgid "Day of week"
+msgstr ""
+
+#: adminapp/models.py:40 adminapp/models.py:139
+msgid "Day of month"
+msgstr ""
+
+#: adminapp/models.py:41 adminapp/models.py:140
+msgid "Full month"
+msgstr ""
+
+#: adminapp/models.py:50
+msgid "Monday"
+msgstr ""
+
+#: adminapp/models.py:51
+msgid "Tuesday"
+msgstr ""
+
+#: adminapp/models.py:52
+msgid "Wednesday"
+msgstr ""
+
+#: adminapp/models.py:53
+msgid "Thursday"
+msgstr ""
+
+#: adminapp/models.py:54
+msgid "Friday"
+msgstr ""
+
+#: adminapp/models.py:55
+msgid "Saturday"
+msgstr ""
+
+#: adminapp/models.py:56
+msgid "Sunday"
+msgstr ""
+
+#: adminapp/models.py:58
+msgid "January"
+msgstr ""
+
+#: adminapp/models.py:58
+msgid "February"
+msgstr ""
+
+#: adminapp/models.py:58
+msgid "March"
+msgstr ""
+
+#: adminapp/models.py:59
+msgid "April"
+msgstr ""
+
+#: adminapp/models.py:59
+msgid "May"
+msgstr ""
+
+#: adminapp/models.py:59
+msgid "June"
+msgstr ""
+
+#: adminapp/models.py:60
+msgid "July"
+msgstr ""
+
+#: adminapp/models.py:60
+msgid "August"
+msgstr ""
+
+#: adminapp/models.py:60
+msgid "September"
+msgstr ""
+
+#: adminapp/models.py:61
+msgid "October"
+msgstr ""
+
+#: adminapp/models.py:61
+msgid "November"
+msgstr ""
+
+#: adminapp/models.py:61
+msgid "December"
+msgstr ""
+
+#: adminapp/models.py:84
+#, python-format
+msgid "%(value) format is not HH:MM"
+msgstr ""
+
+#: adminapp/models.py:93
+msgid "Normal"
+msgstr ""
+
+#: adminapp/models.py:94
+msgid "Interday scheduling"
+msgstr ""
+
+#: adminapp/models.py:95
+msgid "More than 24 hours"
+msgstr ""
+
+#: adminapp/models.py:100 adminapp/models.py:103
+msgid "Please use the following format: <em>hh:mm</em>."
+msgstr ""
+
+#: adminapp/models.py:105
+msgid "Type of WT"
+msgstr ""
+
+#: adminapp/models.py:125
 msgid "Number of days granted to be booked"
 msgstr ""
 
-#: adminapp/models.py:87 adminapp/models.py:105
+#: adminapp/models.py:126 adminapp/models.py:144
 msgid "Duration in minutes of each booking slot"
 msgstr ""
 
-#: adminapp/templates/adminapp/adminbase.html:48
+#: adminapp/templates/adminapp/adminbase.html:58
+#: adminapp/templates/adminapp/adminbase.html:60
 msgid "change password"
 msgstr ""
 
-#: adminapp/templates/adminapp/adminbase.html:49
+#: adminapp/templates/adminapp/adminbase.html:59
+#: adminapp/templates/adminapp/adminbase.html:61
 msgid "logout"
 msgstr ""
 
-#: adminapp/templates/adminapp/adminbase.html:69
+#: adminapp/templates/adminapp/adminbase.html:88
 msgid "Resources"
 msgstr ""
 
-#: adminapp/templates/adminapp/adminbase.html:71
+#: adminapp/templates/adminapp/adminbase.html:92
 msgid "Calendars"
 msgstr ""
 
-#: adminapp/templates/adminapp/adminbase.html:72
+#: adminapp/templates/adminapp/adminbase.html:96
 msgid "Working time"
 msgstr ""
 
-#: adminapp/templates/adminapp/adminmain.html:29
+#: adminapp/templates/adminapp/adminbase.html:100
+msgid "Days off"
+msgstr ""
+
+#: adminapp/templates/adminapp/adminbase.html:104
+msgid "WT days (TODO)"
+msgstr ""
+
+#: adminapp/templates/adminapp/adminmain.html:30
 msgid ""
 "Click on Resources button to define your resources and bind a calendar to "
 "them."
 msgstr ""
 
-#: adminapp/templates/adminapp/adminmain.html:35
+#: adminapp/templates/adminapp/adminmain.html:33
 msgid "Use Calendars to define your working calendars"
 msgstr ""
 
-#: adminapp/templates/adminapp/adminmain.html:41
+#: adminapp/templates/adminapp/adminmain.html:37
 msgid ""
 "Use Working Time to define your working days and schedules for yours "
 "calendars"
 msgstr ""
 
-#: adminapp/templates/adminapp/createresource.html:14
+#: adminapp/templates/adminapp/calendar.html:30
+#: adminapp/templates/adminapp/daysoff.html:30
+#: adminapp/templates/adminapp/resource.html:30
+#: adminapp/templates/adminapp/workingtime.html:30
+msgid "Save"
+msgstr ""
+
+#: adminapp/templates/adminapp/createcalendar.html:27
+#: adminapp/templates/adminapp/createdaysoff.html:27
+#: adminapp/templates/adminapp/createresource.html:27
+#: adminapp/templates/adminapp/createworkingtime.html:27
 msgid "Create"
 msgstr ""
 
-#: adminapp/templates/adminapp/createresource.html:15
-#: adminapp/templates/adminapp/searchresources.html:15
+#: adminapp/templates/adminapp/createcalendar.html:29
+#: adminapp/templates/adminapp/createdaysoff.html:29
+#: adminapp/templates/adminapp/createresource.html:29
+#: adminapp/templates/adminapp/createworkingtime.html:29
+#: adminapp/templates/adminapp/searchcalendars.html:27
+#: adminapp/templates/adminapp/searchdaysoffs.html:29
+#: adminapp/templates/adminapp/searchresources.html:30
+#: adminapp/templates/adminapp/searchworkingtimes.html:28
 msgid "Clear fields"
-msgstr ""
-
-#: adminapp/templates/adminapp/resource.html:14
-msgid "Save"
 msgstr ""
 
 #: adminapp/templates/adminapp/resources.html:13
@@ -189,57 +390,229 @@ msgid "Description:"
 msgstr ""
 
 #: adminapp/templates/adminapp/resources.html:17
-#: adminapp/templates/adminapp/searchresources.html:14
-#: adminapp/templates/adminapp/searchresourcesdo.html:13
+#: adminapp/templates/adminapp/searchcalendars.html:26
+#: adminapp/templates/adminapp/searchcalendarsdo.html:25
+#: adminapp/templates/adminapp/searchdaysoffs.html:28
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:26
+#: adminapp/templates/adminapp/searchresources.html:29
+#: adminapp/templates/adminapp/searchresourcesdo.html:25
+#: adminapp/templates/adminapp/searchworkingtimes.html:27
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:25
 msgid "Search"
 msgstr ""
 
-#: adminapp/templates/adminapp/searchresources.html:16
-#: adminapp/templates/adminapp/searchresourcesdo.html:15
-msgid "New resource"
+#: adminapp/templates/adminapp/searchcalendars.html:29
+#: adminapp/templates/adminapp/searchcalendarsdo.html:28
+msgid "New calendar"
 msgstr ""
 
-#: adminapp/templates/adminapp/searchresourcesdo.html:14
+#: adminapp/templates/adminapp/searchcalendarsdo.html:26
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:27
+#: adminapp/templates/adminapp/searchresourcesdo.html:26
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:26
 msgid "Restore fields"
 msgstr ""
 
-#: adminapp/templates/adminapp/searchresourcesdo.html:27
-msgid "Title"
+#: adminapp/templates/adminapp/searchcalendarsdo.html:44
+msgid "First day"
 msgstr ""
 
-#: adminapp/templates/adminapp/searchresourcesdo.html:32
-#: adminapp/templates/adminapp/searchresourcesdo.html:36
-msgid "Read"
+#: adminapp/templates/adminapp/searchcalendarsdo.html:44
+msgid "Last day"
 msgstr ""
 
-#: adminapp/templates/adminapp/searchresourcesdo.html:37
-msgid "Edit"
+#: adminapp/templates/adminapp/searchcalendarsdo.html:45
+msgid "Template"
 msgstr ""
 
-#: adminapp/templates/adminapp/searchresourcesdo.html:38
+#: adminapp/templates/adminapp/searchcalendarsdo.html:45
+msgid "Next calendar"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchcalendarsdo.html:46
+msgid "Previous calendar"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchcalendarsdo.html:46
+msgid "Is open"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchcalendarsdo.html:47
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:51
+#: adminapp/templates/adminapp/searchresourcesdo.html:45
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:45
+msgid "Actions"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchcalendarsdo.html:50
+#: adminapp/templates/adminapp/searchcalendarsdo.html:69
+#: adminapp/templates/adminapp/searchcalendarsdo.html:79
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:54
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:77
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:87
+#: adminapp/templates/adminapp/searchresourcesdo.html:48
+#: adminapp/templates/adminapp/searchresourcesdo.html:66
+#: adminapp/templates/adminapp/searchresourcesdo.html:76
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:48
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:66
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:76
 msgid "Delete"
 msgstr ""
 
+#: adminapp/templates/adminapp/searchcalendarsdo.html:50
+#: adminapp/templates/adminapp/searchcalendarsdo.html:51
+#: adminapp/templates/adminapp/searchcalendarsdo.html:85
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:54
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:55
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:93
 #: adminapp/templates/adminapp/searchresourcesdo.html:48
+#: adminapp/templates/adminapp/searchresourcesdo.html:49
+#: adminapp/templates/adminapp/searchresourcesdo.html:82
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:48
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:49
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:82
+msgid "Delete WITHOUT CONFIRM"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchcalendarsdo.html:60
+#: adminapp/templates/adminapp/searchcalendarsdo.html:67
+#: adminapp/templates/adminapp/searchcalendarsdo.html:72
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:64
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:75
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:80
+#: adminapp/templates/adminapp/searchresourcesdo.html:58
+#: adminapp/templates/adminapp/searchresourcesdo.html:64
+#: adminapp/templates/adminapp/searchresourcesdo.html:69
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:58
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:64
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:69
+msgid "Read"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchcalendarsdo.html:68
+#: adminapp/templates/adminapp/searchcalendarsdo.html:75
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:76
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:83
+#: adminapp/templates/adminapp/searchresourcesdo.html:65
+#: adminapp/templates/adminapp/searchresourcesdo.html:72
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:65
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:72
+msgid "Edit"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchcalendarsdo.html:97
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:105
+#: adminapp/templates/adminapp/searchresourcesdo.html:94
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:94
 msgid "first"
 msgstr ""
 
-#: adminapp/templates/adminapp/searchresourcesdo.html:49
+#: adminapp/templates/adminapp/searchcalendarsdo.html:98
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:106
+#: adminapp/templates/adminapp/searchresourcesdo.html:95
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:95
 msgid "previous"
 msgstr ""
 
-#: adminapp/templates/adminapp/searchresourcesdo.html:53
+#: adminapp/templates/adminapp/searchcalendarsdo.html:102
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:110
+#: adminapp/templates/adminapp/searchresourcesdo.html:99
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:99
 msgid "Page"
 msgstr ""
 
-#: adminapp/templates/adminapp/searchresourcesdo.html:53
+#: adminapp/templates/adminapp/searchcalendarsdo.html:102
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:110
+#: adminapp/templates/adminapp/searchresourcesdo.html:99
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:99
 msgid "of"
 msgstr ""
 
-#: adminapp/templates/adminapp/searchresourcesdo.html:57
+#: adminapp/templates/adminapp/searchcalendarsdo.html:106
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:114
+#: adminapp/templates/adminapp/searchresourcesdo.html:103
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:103
 msgid "next"
 msgstr ""
 
-#: adminapp/templates/adminapp/searchresourcesdo.html:58
+#: adminapp/templates/adminapp/searchcalendarsdo.html:107
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:115
+#: adminapp/templates/adminapp/searchresourcesdo.html:104
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:104
 msgid "last"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchdaysoffs.html:31
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:29
+msgid "New day off"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:47
+msgid "Day"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:48
+msgid "End day"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:48
+msgid "Week day"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:49
+msgid "Month day"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:49
+msgid "Month"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:50
+msgid "From day"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchdaysoffsdo.html:50
+msgid "To day"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchresources.html:32
+#: adminapp/templates/adminapp/searchresourcesdo.html:28
+msgid "New resource"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchresourcesdo.html:44
+msgid "Title"
+msgstr ""
+
+#: adminapp/templates/adminapp/searchworkingtimes.html:30
+#: adminapp/templates/adminapp/searchworkingtimesdo.html:28
+msgid "New working time"
+msgstr ""
+
+#: adminapp/views.py:57
+msgid "Resource updated."
+msgstr ""
+
+#: adminapp/views.py:123
+msgid "Resource created."
+msgstr ""
+
+#: adminapp/views.py:227
+msgid "Calendar updated."
+msgstr ""
+
+#: adminapp/views.py:289
+msgid "Calendar created."
+msgstr ""
+
+#: adminapp/views.py:410 adminapp/views.py:600
+msgid "WorkingTime updated."
+msgstr ""
+
+#: adminapp/views.py:472
+msgid "WorkingTime created."
+msgstr ""
+
+#: adminapp/views.py:662
+msgid "Days off created."
 msgstr ""

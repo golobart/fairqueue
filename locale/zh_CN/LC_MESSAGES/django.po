@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-19 13:08+0200\n"
+"POT-Creation-Date: 2020-05-27 16:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,7 +46,7 @@ msgid "Your password has been changed"
 msgstr ""
 
 #: templates/registration/password_change_form.html:5
-#: templates/registration/password_reset_form.html:4
+#: templates/registration/password_reset_form.html:5
 msgid "Forgot Your Password?"
 msgstr ""
 
@@ -58,31 +58,31 @@ msgstr ""
 msgid "Change"
 msgstr ""
 
-#: templates/registration/password_reset_complete.html:7
+#: templates/registration/password_reset_complete.html:8
 msgid "Password reset complete"
 msgstr ""
 
-#: templates/registration/password_reset_complete.html:9
+#: templates/registration/password_reset_complete.html:10
 msgid "Your new password has been set. You can log in now on the"
 msgstr ""
 
-#: templates/registration/password_reset_complete.html:10
+#: templates/registration/password_reset_complete.html:11
 msgid "log in page"
 msgstr ""
 
-#: templates/registration/password_reset_confirm.html:7
+#: templates/registration/password_reset_confirm.html:8
 msgid "Enter new password"
 msgstr ""
 
-#: templates/registration/password_reset_confirm.html:13
+#: templates/registration/password_reset_confirm.html:14
 msgid "Set a new password!"
 msgstr ""
 
-#: templates/registration/password_reset_confirm.html:17
+#: templates/registration/password_reset_confirm.html:18
 msgid "Change my password"
 msgstr ""
 
-#: templates/registration/password_reset_confirm.html:23
+#: templates/registration/password_reset_confirm.html:24
 msgid ""
 "\n"
 "  The password reset link was invalid, possibly because it has already been "
@@ -110,11 +110,11 @@ msgstr ""
 msgid "login"
 msgstr ""
 
-#: templates/registration/password_reset_form.html:11
+#: templates/registration/password_reset_form.html:12
 msgid "Forgot your password?"
 msgstr ""
 
-#: templates/registration/password_reset_form.html:13
+#: templates/registration/password_reset_form.html:14
 msgid ""
 "\n"
 "    Enter your email address below, and we'll email instructions for setting "
@@ -122,6 +122,6 @@ msgid ""
 "    "
 msgstr ""
 
-#: templates/registration/password_reset_form.html:22
+#: templates/registration/password_reset_form.html:23
 msgid "Send me instructions!"
 msgstr ""

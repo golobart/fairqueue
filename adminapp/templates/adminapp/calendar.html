@@ -14,7 +14,7 @@
 {% endblock resultmessage %}
 
 {% block content %}
-<div class="col-9 col-s-12"  style="background:lavender;">
+<div class="col-9 col-s-12">
     <form action="{% url 'adminapp:calendar' cal.id %}" method="post">
         {% csrf_token %}
         {% if readonly == 'readonly' %}
@@ -25,7 +25,7 @@
             <tfoot>
             <tr>
                 <td/>
-                <td style="text-align:left;" >
+                <td>
                     {% if perms.adminapp.change_calendar %}
                     <input type="submit" value="{% trans 'Save' %}">
                     {% endif %}

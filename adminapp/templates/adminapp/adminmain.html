@@ -12,7 +12,7 @@
 {# % endblock header %}
 
 {# % block alerts %}
-<!-- just remove default content -->
+<!-- uncomment to just remove default content -->
 {# % endblock alerts %}
 
 {% comment %}
@@ -25,22 +25,14 @@
 
 {% block content %}
 <!-- TODO put search engine and results, paginate -->
-<div class="col-9 col-s-12"  style="background:white;">
-    <div style="width: 300px; height: 100px; background-color: yellow;
-                    #border: 1px solid black;
-                    box-shadow: 0 10px 30px rgba(0,0,0,0.50), 0 10px 20px rgba(0,0,0,0.24);
-                    transform: rotate(9deg) translate(50%, 0px)">
+<div class="col-9 col-s-12"  >
+    <div class="postit_tra50rot9">
         <p>{% trans 'Click on Resources button to define your resources and bind a calendar to them.' %}</p>
     </div>
-    <div style="width: 300px; height: 100px; background-color: yellow;
-                    box-shadow: 0 10px 30px rgba(0,0,0,0.50), 0 10px 20px rgba(0,0,0,0.24);
-                    transform: rotate(20deg) translate(10%, 10px)">
-
+    <div class="postit_tra10rot20">
         <p>{% trans 'Use Calendars to define your working calendars' %}</p>
     </div>
-    <div style="width: 300px; height: 100px; background-color: yellow;
-                    box-shadow: 0 10px 30px rgba(0,0,0,0.50), 0 10px 20px rgba(0,0,0,0.24);
-                    transform: rotate(5deg) translate(300px, -90px)">
+    <div class="postit_tra300rot5">
 
         <p>{% trans 'Use Working Time to define your working days and schedules for yours calendars' %}</p>
     </div>

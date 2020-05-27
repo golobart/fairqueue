@@ -101,7 +101,7 @@
         </li>
 
         <li {% if activemenu == 'xxx' %}class="active" {% endif %}>
-          <a href="{% url 'adminapp:searchworkingtimes' %}">{% trans 'Special WT days (*)' %}</a></li>
+          <a href="{% url 'adminapp:searchworkingtimes' %}">{% trans 'WT days (TODO)' %}</a></li>
         {% if request.user.is_staff %}
         <li><a href="{% url 'admin:index' %}">Django</a></li>
         {% endif %}
