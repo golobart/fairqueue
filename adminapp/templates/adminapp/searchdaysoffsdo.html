@@ -14,14 +14,15 @@
 {% endblock resultmessage %}
 
 {% block content %}
-<div class="col-9 col-s-12"  style="background:lavender;">
+
+<div class="col-9 col-s-12"  >
     <form action="{% url 'adminapp:searchdaysoffsdo' %}" method="get">
         <table class="as_table">
             {{ form.as_table }}
             <tfoot>
             <tr>
                 <td/>
-                <td style="text-align:left;" >
+                <td  >
                     <input type="submit" value="{% trans 'Search' %}">
                     <input type="reset" value="{% trans 'Restore fields' %}">
                     {% if perms.adminapp.add_daysoff %}
@@ -35,11 +36,13 @@
 </div>
 
 <!-- {{ req_dict }} -->
+
 <form action="{% url 'adminapp:deletedaysoffs' %}" method="post">
     {% csrf_token %}
-    <table class="col-12 col-s-12"  style="background:lightgrey;">
+
+    <table class="col-12 col-s-12 result_table"  >
         <thead>
-        <tr style="text-align:left;">
+        <tr >
             <th> {% trans 'Name' %} </th> <th> {% trans 'Description' %} </th>
             <th> {% trans 'Type' %} </th> <th> {% trans 'Day' %} </th>
             <th> {% trans 'End day' %} </th><th> {% trans 'Week day' %} </th>
@@ -59,16 +62,16 @@
         {% for record in page_obj  %}
         <tr>
             <!--        <td><a href="{% url 'adminapp:daysoff' record.id %}"  title="{% trans 'Read' %}">{{ record.name }}</a></td>-->
-            <td>{{ record.name }}</td>
-            <td>{{ record.description }}</td>
-            <td>{{ record.get_type_display }}</td>
-            <td>{{ record.day }}</td>
-            <td>{{ record.end_day }}</td>
-            <td>{{ record.get_week_day_display }}</td>
-            <td>{{ record.month_day }}</td>
-            <td>{{ record.get_month_display }}</td>
-            <td>{{ record.from_day }}</td>
-            <td>{{ record.to_day }}</td>
+            <td>{{ record.name|default_if_none:"&nbsp;" }}</td>
+            <td>{{ record.description|default_if_none:"&nbsp;" }}</td>
+            <td>{{ record.get_type_display|default_if_none:"&nbsp;" }}</td>
+            <td>{{ record.day|default_if_none:"&nbsp;" }}</td>
+            <td>{{ record.end_day|default_if_none:"&nbsp;" }}</td>
+            <td>{{ record.get_week_day_display|default_if_none:"&nbsp;" }}</td>
+            <td>{{ record.month_day|default_if_none:"&nbsp;" }}</td>
+            <td>{{ record.get_month_display|default_if_none:"&nbsp;" }}</td>
+            <td>{{ record.from_day |default_if_none:"&nbsp;"}}</td>
+            <td>{{ record.to_day|default_if_none:"&nbsp;" }}</td>
             <!--        <td><a href="{% url 'adminapp:daysoff' record.id %}"><span> <i class="far fa-eye" title="{% trans 'Read' %}"></i></span></a>-->
             <!--            <a href="{% url 'adminapp:daysoff' record.id %}"><span> <i class="fas fa-pencil-alt" title="{% trans 'Edit' %}"></i></span></a>-->
             <!--            <a href="{% url 'adminapp:deletedaysoff' record.id %}"><span> <i class="far fa-trash-alt" title="{% trans 'Delete' %}"></i></span></a></td>-->
@@ -97,9 +100,7 @@
         </tbody>
         <tfoot>
         <tr>
-            <td style="text-align:center;" colspan="5">
-                <!-- <div class="pagination" style="align:center;">
-                    <span class="step-links"> -->
+            <td  colspan="12">
                 {% if page_obj.has_previous %}
                 <a href="?page=1&{{ url_pars }}">&laquo; {% trans 'first' %}</a>
                 <a href="?page={{ page_obj.previous_page_number }}&{{ url_pars }}">{% trans 'previous' %}</a>
@@ -113,14 +114,13 @@
                 <a href="?page={{ page_obj.next_page_number }}&{{ url_pars }}">{% trans 'next' %}</a>
                 <a href="?page={{ page_obj.paginator.num_pages }}&{{ url_pars }}">{% trans 'last' %} &raquo;</a>
                 {% endif %}
-                <!--     </span>
-                </div> -->
             </td>
         </tr>
         </tfoot>
     </table>
-</form>
 
+</form>
+<!--    </div>-->
 
 {% endblock content %}
 

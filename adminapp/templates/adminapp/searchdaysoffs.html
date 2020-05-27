@@ -15,7 +15,8 @@
 {% endblock resultmessage %}
 
 {% block content %}
-<div class="col-9 col-s-12"  style="background:lavender;">
+
+<div class="col-9 col-s-12" >
     <form id="gaga" action="{% url 'adminapp:searchdaysoffsdo' %}" method="get">
         <!--        {# % csrf_token %} -->
         <table class="as_table">
@@ -23,7 +24,7 @@
             <tfoot>
             <tr>
                 <td/>
-                <td style="text-align:left;" >
+                <td  >
                     <input type="submit" value="{% trans 'Search' %}">
                     <input type="reset" value="{% trans 'Clear fields' %}">
                     {% if perms.adminapp.add_daysoff %}
