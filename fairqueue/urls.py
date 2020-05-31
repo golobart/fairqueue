@@ -29,6 +29,8 @@ urlpatterns = [
     path('accounts/', include('signupapp.urls')),
     # path('accounts/', include('django.contrib.auth.urls')),
     # path('admin/', admin.site.urls),
+    path('fqapi/', include('apifqapp.urls')),  # Acces to fairqueue API
+    path('api-auth/', include('rest_framework.urls')),  # Login to browsable rest API
 ]
 
 urlpatterns += i18n_patterns(

@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'adminapp.apps.AdminappConfig',
     'signupapp.apps.SignupappConfig',
+    'rest_framework',
+    'apifqapp.apps.ApifqappConfig'
 ]
 
 MIDDLEWARE = [
@@ -143,3 +145,8 @@ LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
     'adminapp/locale',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
