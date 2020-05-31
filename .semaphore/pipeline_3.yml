@@ -7,7 +7,7 @@ blocks:
         - name: Deploy
           commands:
             - checkout
-            - '#kubectl get nodes'
+            - '#kubectl get  nodes'
             - kubectl get pods
             - envsubst < cicd/deployment.yml | tee cicd/deployment.yml
             - kubectl apply -f cicd/deployment.yml
