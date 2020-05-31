@@ -1,13 +1,17 @@
 <!-- templates/adminapp/adminbase.html -->
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- TODO Fontawesome 5 icons: obtain personal code -->
-  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <!-- Fontawesome 5 icons: AVOID Javascript -->
+  <!--  <script src="https://kit.fontawesome.com/a076d05399.js"></script>-->
+  <!-- Bootstrap icons: just CSS!!! -->
+  <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
   <!-- TODO how to fallback from project stylesheet to app stylesheet? favicon? -->
   <link rel="stylesheet" type="text/css" href='{% static "adminappstatic/styles_1.css" %}'>
@@ -21,45 +25,108 @@
   {% endblock addtohead %}
 </head>
 <body>
-<main>
 
-  <div class="row">
+
+<div class="row">
+  <header>
     {% block header %}
-    <div class="col-10 col-s-10 header">
-      <h1>Fair Queues</h1>
+    <!-- TODO make thin header -->
+    <div class="col-9 col-s-9 header">
+      <h1>Fair Queues - {{ request.resolver_match.app_name }}</h1>
     </div>
-
-    <div class=" col-2 col-s-2 header dropdown">
-      <button class="dropbtn"><span> <i class="fas fa-user-circle fa-lg"></i></span> {{ user.username }}</button>
-      <div class="dropdown-content">
-        <a href="{% url 'password_reset' %}"><span> <i class="fas fa-dice fa-lg"></i></span> reset password</a>
-        <a href="{% url 'logout' %}"><span> <i class="fas fa-sign-out-alt fa-lg"></i></span> logout</a>
-        <i class="fas fa-car"></i>
+    <nav>
+      <div class=" col-1 col-s-1  dropdown">
+        <!--      <button class="dropbtn" ><span> <i class="fas fa-globe fa-lg"></i></span></button>-->
+        {% get_current_language as cur_lang %}
+        {% get_language_info for cur_lang as lang %}
+        <button class="dropbtn" ><span> <i class="material-icons">language</i></span> {{ lang.name_translated }}</button>
+        <div class="dropdown-content" >
+          {% get_available_languages as languages %}
+          {% for lang_code, lang_name in languages %}
+          {% language lang_code %}
+          <a href="{% url 'adminapp:adminPage' %}">{{ lang_name }}</a>
+          {% endlanguage %}
+          {% endfor %}
+        </div>
       </div>
-    </div>
-
+    </nav>
+    <nav>
+      <div class=" col-2 col-s-2 header dropdown">
+        <!--      <button class="dropbtn" ><span> <i class="fas fa-user-circle fa-lg"></i></span> {{ user.username }}</button>-->
+        <button class="dropbtn" ><span> <i class="material-icons">account_circle</i></span> {{ user.username }}</button>
+        <div class="dropdown-content" >
+          <!--        <a href="{% url 'password_change' %}"><span> <i class="fas fa-dice fa-lg"></i></span> {% trans 'change password' %}</a>-->
+          <!--        <a href="{% url 'logout' %}?next={% url 'login' %}"><span> <i class="fas fa-sign-out-alt fa-lg"></i></span> {% trans 'logout' %}</a>-->
+          <a href="{% url 'password_change' %}"><span> <i class="material-icons">vpn_key</i></span> {% trans 'change password' %}</a>
+          <a href="{% url 'logout' %}?next={% url 'login' %}"><span> <i class="material-icons">power_settings_new</i></span> {% trans 'logout' %}</a>
+        </div>
+      </div>
+    </nav>
     {% endblock header %}
-  </div>
+  </header>
+</div>
 
+<div class="row">
+  <aside>
+    {% block alerts %}
+    <!-- TODO make thin header -->
+    <div class="alerter">
+      <p>Alert message for maintenance or other reasons (i.e. System unavailable today from 01h to 02h CET)</p>
+    </div>
+    {% endblock alerts %}
+  </aside>
+</div>
 
-  <div class="row">
+<div class="row" >
+  <nav>
     {% block mainmenu %}
-    <div class="col-3 col-s-3 menu" >
+<!--    style="background:#efefef;"-->
+    <div class="col-3 col-s-12 menu" >
       <ul>
-        <li><a href="{% url 'adminapp:resources' %}">Resources</a></li>
-        <li><a href="{% url 'adminapp:calendars' %}">Calendars</a></li>
-        <li><a href="{% url 'adminapp:workingTimes' %}">Working time</a></li>
+        <li {% if activemenu == 'resource' %}class="active" {% endif %}>
+          <a href="{% url 'adminapp:searchresources' %}"
+           {% if activemenu == 'resource' %}class="active" {% endif %}>{% trans 'Resources' %}</a>
+        </li>
+        <li {% if activemenu == 'calendar' %}class="active" {% endif %}>
+          <a href="{% url 'adminapp:searchcalendars' %}"
+           {% if activemenu == 'calendar' %}class="active" {% endif %}>{% trans 'Calendars' %}</a>
+        </li>
+        <li {% if activemenu == 'workingtime' %}class="active" {% endif %}>
+          <a href="{% url 'adminapp:searchworkingtimes' %}"
+           {% if activemenu == 'workingtime' %}class="active" {% endif %}>{% trans 'Working time' %}</a>
+        </li>
+        <li {% if activemenu == 'daysoff' %}class="active" {% endif %}>
+          <a href="{% url 'adminapp:searchdaysoffs' %}"
+           {% if activemenu == 'daysoff' %}class="active" {% endif %}>{% trans 'Days off' %}</a>
+        </li>
+
+        <li {% if activemenu == 'xxx' %}class="active" {% endif %}>
+          <a href="{% url 'adminapp:searchworkingtimes' %}">{% trans 'WT days (TODO)' %}</a></li>
+        {% if request.user.is_staff %}
+        <li><a href="{% url 'admin:index' %}">Django</a></li>
+        {% endif %}
       </ul>
     </div>
     {% endblock mainmenu %}
+  </nav>
 
+
+    {% block resultmessage %}
+    <div class="col-6 col-s-9 resultmessage">
+      <p>Message result from last action</p>
+    </div>
+    {% endblock resultmessage %}
+
+
+  <main>
     {% block content %}
-    <div class="col-6 col-s-6"  style="background:orange;">
-      <h1>The Purpose</h1>
-      <p>xxx xxx.</p>
+    <div class="col-6 col-s-9"  style="background:orange;">
+      <h1>Header 1</h1>
+      <p>paragraph</p>
     </div>
     {% endblock content %}
-
+  </main>
+  <aside>
     {% block lateral %}
     <div class="col-3 col-s-3">
       <div class="aside">
@@ -72,14 +139,15 @@
       </div>
     </div>
     {% endblock lateral %}
-
-  </div>
-
+  </aside>
+</div>
+<footer>
   {% block footer %}
   <div class="footer">
-    <p>Responsive.</p>
+    <p>Javascript free</p>
   </div>
   {% endblock footer %}
-</main>
+</footer>
+
 </body>
 </html>
