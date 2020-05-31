@@ -1,12 +1,36 @@
 {% extends 'adminapp/adminbase.html' %}
+{% load i18n %}
+
+{% block alerts %}
+<!-- just remove default content -->
+{% endblock alerts %}
+
+{% block resultmessage %}
+{% if resultmessage != '' %}
+<div class="col-9 col-s-12 resultmessage">
+    <p>{{ resultmessage }}</p>
+</div>
+{% endif %}
+{% endblock resultmessage %}
 
 {% block content %}
-<div class="col-9 col-s-9"  style="background:lavender;">
+<div class="col-9 col-s-12"  >
     <form action="{% url 'adminapp:createresourcedo' %}" method="post">
         {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Create">
-        <input type="reset" value="Clear fields">
+        <table class="as_table">
+            {{ form.as_table }}
+            <tfoot>
+            <tr>
+                <td/>
+                <td  >
+                    {% if perms.adminapp.add_resource %}
+                    <input type="submit" value="{% trans 'Create' %}">
+                    {% endif %}
+                    <input type="reset" value="{% trans 'Clear fields' %}">
+                </td>
+            </tr>
+            </tfoot>
+        </table>
     </form>
 </div>
 {% endblock content %}

@@ -1,13 +1,40 @@
 {% extends 'adminapp/adminbase.html' %}
+{% load i18n %}
+
+{% block alerts %}
+<!-- just remove default content -->
+{% endblock alerts %}
+
+
+{% block resultmessage %}
+{% if resultmessage != '' %}
+<div class="col-9 col-s-12 resultmessage">
+    <p>{{ resultmessage }}</p>
+</div>
+{% endif %}
+{% endblock resultmessage %}
 
 {% block content %}
-<div class="col-9 col-s-9"  style="background:lavender;">
-    <form action="{% url 'adminapp:searchresourcesdo' %}" method="get">
-<!--        {# % csrf_token %} -->
-        {{ form }}
-        <input type="submit" value="Search">
-        <input type="reset" value="Clear fields">
-        <input type="submit" value="New resource" formmethod="get" formaction="{% url 'adminapp:createresource' %}">
+<div class="col-9 col-s-12" >
+    <form id="gaga" action="{% url 'adminapp:searchresourcesdo' %}" method="get">
+        <!--        {# % csrf_token %} -->
+        <table class="as_table">
+            {{ form.as_table }}
+
+
+            <tfoot>
+            <tr>
+                <td/>
+                <td >
+                    <input type="submit" value="{% trans 'Search' %}">
+                    <input type="reset" value="{% trans 'Clear fields' %}">
+                    {% if perms.adminapp.add_resource %}
+                    <input type="submit" value="{% trans 'New resource' %}" formmethod="get" formaction="{% url 'adminapp:createresource' %}">
+                    {% endif %}
+                </td>
+            </tr>
+            </tfoot>
+        </table>
     </form>
 </div>
 {% endblock content %}

@@ -1,4 +1,5 @@
 {% extends 'adminapp/adminbase.html' %}
+{% load i18n %}
 
 {# % block header %}
 
@@ -10,16 +11,32 @@
 
 {# % endblock header %}
 
+{# % block alerts %}
+<!-- uncomment to just remove default content -->
+{# % endblock alerts %}
+
 {% comment %}
 <!-- put comments here -->
 {% endcomment %}
 
+{% block resultmessage %}
+<!-- just remove default content -->
+{% endblock resultmessage %}
+
 {% block content %}
 <!-- TODO put search engine and results, paginate -->
-    <div class="col-9 col-s-9"  style="background:orange;">
-      <h1>The Purpose</h1>
-      <p>xxx xxx.</p>
+<div class="col-9 col-s-12"  >
+    <div class="postit_tra50rot9">
+        <p>{% trans 'Click on Resources button to define your resources and bind a calendar to them.' %}</p>
     </div>
+    <div class="postit_tra10rot20">
+        <p>{% trans 'Use Calendars to define your working calendars' %}</p>
+    </div>
+    <div class="postit_tra300rot5">
+
+        <p>{% trans 'Use Working Time to define your working days and schedules for yours calendars' %}</p>
+    </div>
+</div>
 {% endblock content %}
 
 

@@ -1,51 +1,116 @@
 {% extends 'adminapp/adminbase.html' %}
+{% load i18n %}
+
+{% block alerts %}
+<!-- just remove default content -->
+{% endblock alerts %}
+
+{% block resultmessage %}
+{% if resultmessage != '' %}
+<div class="col-9 col-s-12 resultmessage">
+    <p>{{ resultmessage }}</p>
+</div>
+{% endif %}
+{% endblock resultmessage %}
 
 {% block content %}
-<div class="col-9 col-s-9"  style="background:lavender;">
+<div class="col-9 col-s-12" >
     <form action="{% url 'adminapp:searchresourcesdo' %}" method="get">
-        {{ form }}
-        <input type="submit" value="Search">
-        <input type="reset" value="Clear fields">
-        <input type="submit" value="New resource" formmethod="get" formaction="{% url 'adminapp:createresource' %}">
+        <table class="as_table">
+            {{ form.as_table }}
+            <tfoot>
+            <tr>
+                <td/>
+                <td  >
+                    <input type="submit" value="{% trans 'Search' %}">
+                    <input type="reset" value="{% trans 'Restore fields' %}">
+                    {% if perms.adminapp.add_resource %}
+                    <input type="submit" value="{% trans 'New resource' %}" formmethod="get" formaction="{% url 'adminapp:createresource' %}">
+                    {% endif %}
+                </td>
+            </tr>
+            </tfoot>
+        </table>
     </form>
 </div>
-<hr>
-<hr>
+
 <!-- {{ req_dict }} -->
-<hr>
-<table class="col-9 col-s-9"  style="background:lightgrey;">
-    <tr><th> name </th> <th> description </th> <th> text_title </th> <th> calendar </th><th> </th></tr>
-    {% for record in page_obj  %}
-    <tr>
-        <td><a href="{% url 'adminapp:resource' record.id %}"  title="Read">{{ record.name }}</a></td>
-        <td>{{ record.description }}</td>
-        <td>{{ record.text_title }}</td>
-        <td>{{ record.calendar }}</td>
-        <td><a href="{% url 'adminapp:resource' record.id %}"><span> <i class="far fa-eye" title="Read"></i></span></a>
-            <a href="{% url 'adminapp:resource' record.id %}"><span> <i class="fas fa-pencil-alt" title="Edit"></i></span></a>
-            <a href="{% url 'adminapp:deleteresource' record.id %}"><span> <i class="far fa-trash-alt" title="Delete"></i></span></a></td>
-    </tr>
-    {% endfor %}
-</table>
-<hr>
+<form action="{% url 'adminapp:deleteresources' %}" method="post">
+    {% csrf_token %}
+    <table class="col-12 col-s-12 result_table">
+        <thead>
+        <tr >
+            <th> {% trans 'Name' %} </th> <th> {% trans 'Description' %} </th>
+            <th> {% trans 'Title' %} </th> <th> {% trans 'Calendar' %} </th>
+            <th> {% trans 'Actions' %} </th>
+            <th>
+                {% if perms.adminapp.delete_resource %}
+                <!--            <input type="submit" value="{% trans 'Delete' %}" title="{% trans 'Delete WITHOUT CONFIRM' %}">-->
+                <button type="submit"  value="Submit" title="{% trans 'Delete WITHOUT CONFIRM' %}">
+                    <span> <i class="material-icons" >delete</i></span></button>
+                {% endif %}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for record in page_obj  %}
+        <tr>
+            <!--        <td><a href="{% url 'adminapp:resource' record.id %}"  title="{% trans 'Read' %}">{{ record.name }}</a></td>-->
+            <td>{{ record.name|default_if_none:"&nbsp;" }}</td>
+            <td>{{ record.description|default_if_none:"&nbsp;" }}</td>
+            <td>{{ record.text_title|default_if_none:"&nbsp;" }}</td>
+            <td>{{ record.calendar|default_if_none:"&nbsp;" }}</td>
 
-<div class="pagination" style="align:center;">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
+            <!--        <td><a href="{% url 'adminapp:resource' record.id %}"><span> <i class="far fa-eye" title="{% trans 'Read' %}"></i></span></a>-->
+            <!--            <a href="{% url 'adminapp:resource' record.id %}"><span> <i class="fas fa-pencil-alt" title="{% trans 'Edit' %}"></i></span></a>-->
+            <!--            <a href="{% url 'adminapp:deleteresource' record.id %}"><span> <i class="far fa-trash-alt" title="{% trans 'Delete' %}"></i></span></a></td>-->
+            <td>
+                <a href="{% url 'adminapp:resource' record.id %}?rd=t">
+                    <span> <i class="material-icons" title="{% trans 'Read' %}">visibility</i></span></a>
+                {% if perms.adminapp.change_resource %}
+                <a href="{% url 'adminapp:resource' record.id %}">
+                    <span> <i class="material-icons" title="{% trans 'Edit' %}">edit</i></span></a>
+                {% endif %}
+                {% if perms.adminapp.delete_resource %}
+                <!--            <a href="{% url 'adminapp:deleteresource' record.id %}">-->
+                <!--                <span> <i class="material-icons" title="{% trans 'Delete' %}">delete</i></span></a>-->
+                {% endif %}
+            </td>
+            <td>
+                {% if perms.adminapp.delete_resource %}
+                <input type="checkbox" id="rectodel{{ forloop.counter }}"
+                       name="rectodel" value="{{ record.id }}" title="{% trans 'Delete WITHOUT CONFIRM' %}">
+                <!--        <td> <input type="checkbox" id="rectodel{{ forloop.counter }}"-->
+                <!--                    name="rectodel{{ forloop.counter }}" value="{{ record.id }}">-->
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="5">
+                {% if page_obj.has_previous %}
+                <a href="?page=1&{{ url_pars }}">&laquo; {% trans 'first' %}</a>
+                <a href="?page={{ page_obj.previous_page_number }}&{{ url_pars }}">{% trans 'previous' %}</a>
+                {% endif %}
 
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                <span class="current">
+            {% trans 'Page' %} {{ page_obj.number }} {% trans 'of' %} {{ page_obj.paginator.num_pages }}.
         </span>
 
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}&{{ url_pars }}">{% trans 'next' %}</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}&{{ url_pars }}">{% trans 'last' %} &raquo;</a>
+                {% endif %}
+                <!--     </span>
+                </div> -->
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</form>
+
 
 {% endblock content %}
 
