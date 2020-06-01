@@ -1,19 +1,48 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>My resources page</title>
-  </head>
-  <body>
-    <p>
-{% if rsc %}
-    <ul>
-<!--        <li><a href="/adminapp/rsc/{{ rsc.id }}/">aleluia time {{ rsc.name }}</a></li>
--->
-        <li><a href="{% url 'adminapp:resource' rsc.id %}">aleluia time {{ rsc.name }}</a></li>
-    </ul>
-{% else %}
-    <p>Resource {{rsc.id}} not available. An exception should have been happened before!!</p>
+{% extends 'adminapp/adminbase.html' %}
+{% load i18n %}
+
+{% block alerts %}
+<!-- just remove default content -->
+{% endblock alerts %}
+
+{% block resultmessage %}
+{% if resultmessage != '' %}
+<div class="col-9 col-s-12 resultmessage">
+    <p>{{ resultmessage }}</p>
+</div>
 {% endif %}
-    </body>
-</html>
+{% endblock resultmessage %}
+
+{% block content %}
+<div class="col-9 col-s-12"  >
+    <form action="{% url 'adminapp:resource' rsc.id %}" method="post">
+        {% csrf_token %}
+        {% if readonly == 'readonly' %}
+        <fieldset disabled="disabled" >
+        {% endif %}
+        <table class="as_table">
+            {{ form.as_table }}
+            <tfoot>
+            <tr>
+                <td/>
+                <td  >
+                    {% if perms.adminapp.change_resource %}
+                    <input type="submit" value="{% trans 'Save' %}">
+                    {% endif %}
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+            {% if readonly == 'readonly' %}
+        </fieldset>
+        {% endif %}
+    </form>
+</div>
+
+
+{% endblock content %}
+
+{% block lateral %}
+<!-- just remove default content -->
+{% endblock lateral %}
+

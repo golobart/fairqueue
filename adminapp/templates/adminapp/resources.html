@@ -1,21 +1,27 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>My resources page</title>
-  </head>
-  <body>
-    <p>
-{% if all_resources %}
-    <ul>
-    {% for resu in all_resources %}
-<!--        <li><a href="/adminapp/rsc/{{ resu.id }}/">{{ resu.name }}</a></li>
--->
-        <li><a href="{% url 'adminapp:resource' resu.id %}">{{ resu.name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No resources are available.</p>
-{% endif %}
-    </body>
-</html>
+{% extends 'adminapp/adminbase.html' %}
+{% load i18n %}
+
+{% comment %}
+<!-- put comments here -->
+{% endcomment %}
+
+{% block content %}
+<!-- TODO put search engine and results, paginate -->
+<div class="col-9 col-s-9"  style="background:grey;">
+    <form action="{% url 'adminapp:searchresources' %}" method="post">
+        {% csrf_token %}
+        <label for="rscname">{% trans 'Name:' %}</label>
+        <input type="text" id="rscname" name="rscname" placeholder="{% trans 'Resource name' %}">
+        <label for="rscdesc">{% trans 'Description:' %}</label>
+        <input type="text" id="rscdesc" name="rscdesc" placeholder="{% trans 'Resource description' %}">
+        <input type="submit" value="{% trans 'Search' %}">
+    </form>
+</div>
+{% endblock content %}
+
+
+{% block lateral %}
+<!-- just remove default content -->
+{% endblock lateral %}
+
+

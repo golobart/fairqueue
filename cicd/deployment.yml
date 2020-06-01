@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-fairqueue-kubernetes
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django-fairqueue-kubernetes
+  template:
+    metadata:
+      labels:
+        app: django-fairqueue-kubernetes
+    spec:
+      containers:
+        - name: django-fairqueue-kubernetes
+          image: $DOCKER_USERNAME/django-fairqueue-cicd:$SEMAPHORE_WORKFLOW_ID
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: django-fairqueue-kubernetes-lb
+spec:
+  selector:
+    app: django-fairqueue-kubernetes
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8000

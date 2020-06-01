@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,11 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'adminapp.apps.AdminappConfig',
     'signupapp.apps.SignupappConfig',
+    'rest_framework',
+    'apifqapp.apps.ApifqappConfig'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -107,6 +111,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
+LANGUAGES = (
+    ('en-us', _('English')),
+    ('ca', _('Catalan')),
+    ('es', _('Spanish')),
+    ('zh-cn', _('Simplified Chinese')),
+)
+
 # TIME_ZONE = 'UTC'
 TIME_ZONE = 'Europe/Madrid'
 
@@ -129,3 +140,13 @@ LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+    'adminapp/locale',
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
