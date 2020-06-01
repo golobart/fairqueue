@@ -11,5 +11,16 @@ pipeline {
                 '''
             }
         }
+        stage('Deploy') {
+            steps {
+                retry(3) {
+                    sh 'ls DDeeppllooyy'
+                }
+
+                timeout(time: 3, unit: 'MINUTES') {
+                    sh 'ls -ltr'
+                }
+            }
+        }
     }
 }
