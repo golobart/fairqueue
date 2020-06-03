@@ -1,6 +1,8 @@
 <!-- templates/registration/login.html -->
 {% extends 'base.html' %}
+{% load static %}
 {% load i18n %}
+{% load socialaccount %}
 
 {% block title %}Login{% endblock %}
 
@@ -9,13 +11,25 @@
   width: 60%;
   #border: 3px solid green;
   padding: 10px;">
-<h2>Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_table }}
-  <button type="submit">Login</button>
-</form>
+    <fieldset>
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <button type="submit">Login</button>
+    </form>
     <p/>
-   <a href="{% url 'password_reset' %}"> {% trans 'reset password' %}</a>
-  </div>
+    <a href="{% url 'password_reset' %}"> {% trans 'reset password' %}</a>
+    </fieldset>
+    <p/>
+    <fieldset>
+    <a href="{% provider_login_url 'github' %}">
+        <img src="{% static 'GitHub-Mark-32px.png' %}" alt="{% trans 'Sign in with github' %}">
+        {% trans 'Sign in with github' %}</a>
+    <p/>
+    <a href="{% provider_login_url 'linkedin_oauth2' %}">
+        <img src="{% static 'Sign-In-Small---Default.png' %}" alt="{% trans 'linkedin login' %}">
+        </a>
+    </fieldset>
+</div>
 {% endblock %}

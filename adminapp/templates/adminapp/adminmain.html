@@ -33,9 +33,13 @@
         <p>{% trans 'Use Calendars to define your working calendars' %}</p>
     </div>
     <div class="postit_tra300rot5">
-
         <p>{% trans 'Use Working Time to define your working days and schedules for yours calendars' %}</p>
     </div>
+    {% if user.groups.count <= 0 and not user.is_superuser %}
+    <div class="postit_tra-100rot-5">
+        <p>{% trans 'You are an unprivileged user, if you want to test this app with more permissions login again as qcreator, qbooker or qdispatcher user (in any case pwd: comein_1)' %}</p>
+    </div>
+    {% endif %}
 </div>
 {% endblock content %}
 
