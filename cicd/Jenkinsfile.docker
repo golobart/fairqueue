@@ -1,6 +1,7 @@
 pipeline {
     agent {
-        label 'docker-agent-1' { image 'node:7-alpine' }
+        docker { image 'node:7-alpine'
+                 args '-u root:sudo' }
     }
     stages {
         stage('Test') {
