@@ -47,7 +47,7 @@ pipeline {
                 retry(2) {
                     withCredentials([usernamePassword( credentialsId: 'mydockerhubcred', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
                     sh '''
-                       docker login -p $USER -u $PASSWORD
+                       docker login -u $USER -p $PASSWORD
                        docker push golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER}'
                     '''
                     }
