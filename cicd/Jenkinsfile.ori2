@@ -3,36 +3,40 @@ pipeline {
     stages {
         stage('Preparation') {
             steps {
-                sh 'echo "OOOK Test!"; exit 0'
+                sh 'echo "Preparation begins"'
                 sh 'pwd'
                 sh '''
                    virtualenv -p python3 jenkinscienv
                    . jenkinscienv/bin/activate
                    pip install -r cicd/requirements.txt
-                   python manage.py makemigrations
-                   python manage.py migrate
-                   python manage.py test
-                   deactivate
-                   rm -rf jenkinscienv
                 '''
             }
         }
         stage('Test') {
             steps {
-                sh 'echo "OOOK Test!"; exit 0'
+                sh 'echo "Tests begin"'
+                sh '''
+                   python manage.py makemigrations
+                   python manage.py migrate
+                   python manage.py test
+                   deactivate
+                   rm -rf jenkinscienv
+                   rm -rf .semaphore
+                   rm -rf .git
+                   rm  .gitignore
+                '''
             }
         }
         stage('Build') {
             steps {
-                sh 'python --version'
-                sh 'echo "Hello World"'
+                sh 'echo "Build steps begin"'
                 sh '''
                    #!/bin/bash
                    ps
                    ls
                    docker info
                    #docker build -t golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER} -f cicd/Dockerfile .
-                   #docker tag golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER} golobart/django-fairqueue-jenkinsci:latest
+                   docker tag golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER} golobart/django-fairqueue-jenkinsci:latest
                    docker images
                 '''
             }
@@ -40,7 +44,12 @@ pipeline {
         stage('Delivery') {
             steps {
                 retry(2) {
-                    sh '#docker push golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER}'
+                    withCredentials([usernamePassword( credentialsId: 'mydockerhubcred', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+                    sh '''
+                       docker login -p $USER -u $PASSWORD
+                       docker push golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER}'
+                    '''
+                    }
                 }
 
                 timeout(time: 3, unit: 'MINUTES') {
