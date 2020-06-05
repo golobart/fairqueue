@@ -1,29 +1,36 @@
 pipeline {
     agent any
     stages {
-        stage('test') {
+        stage('Preparation') {
+            steps {
+                sh 'echo "OOOK Test!"; exit 0'
+                sh 'pwd'
+            }
+        }
+        stage('Test') {
             steps {
                 sh 'echo "OOOK Test!"; exit 0'
             }
         }
-        stage('build') {
+        stage('Build') {
             steps {
                 sh 'python --version'
                 sh 'echo "Hello World"'
                 sh '''
                    #!/bin/bash
+                   ps
                    ls
                    docker info
-                   docker build -t golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER} -f cicd/Dockerfile .
-                   docker tag golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER} golobart/django-fairqueue-jenkinsci:latest
+                   #docker build -t golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER} -f cicd/Dockerfile .
+                   #docker tag golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER} golobart/django-fairqueue-jenkinsci:latest
                    docker images
                 '''
             }
         }
-        stage('Deploy') {
+        stage('Delivery') {
             steps {
-                retry(3) {
-                    sh 'ls '
+                retry(2) {
+                    sh '#docker push golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER}'
                 }
 
                 timeout(time: 3, unit: 'MINUTES') {
