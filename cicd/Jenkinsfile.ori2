@@ -1,0 +1,53 @@
+pipeline {
+    agent any
+    stages {
+        stage('test') {
+            steps {
+                sh 'echo "OOOK Test!"; exit 0'
+            }
+        }
+        stage('build') {
+            steps {
+                sh 'python --version'
+                sh 'echo "Hello World"'
+                sh '''
+                   #!/bin/bash
+                   ls
+                   docker info
+                   docker build -t golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER} -f cicd/Dockerfile .
+                   docker tag golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER} golobart/django-fairqueue-jenkinsci:latest
+                   docker images
+                '''
+            }
+        }
+        stage('Deploy') {
+            steps {
+                retry(3) {
+                    sh 'ls '
+                }
+
+                timeout(time: 3, unit: 'MINUTES') {
+                    sh 'ls -ltr'
+                }
+            }
+        }
+    }
+    post {
+        always {
+            echo 'This will always run'
+        }
+        success {
+            echo 'This will run only if successful'
+        }
+        failure {
+            echo 'This will run only if failed'
+        }
+        unstable {
+            echo 'This will run only if the run was marked as unstable'
+        }
+        changed {
+            echo 'This will run only if the state of the Pipeline has changed'
+            echo 'For example, if the Pipeline was previously failing but is now successful'
+        }
+    }
+}
