@@ -16,6 +16,7 @@ pipeline {
             steps {
                 sh 'echo "Tests begin"'
                 sh '''
+                   . jenkinscienv/bin/activate
                    python manage.py makemigrations
                    python manage.py migrate
                    python manage.py test
