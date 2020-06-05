@@ -36,7 +36,7 @@ pipeline {
                    ps
                    ls
                    docker info
-                   #docker build -t golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER} -f cicd/Dockerfile .
+                   docker build -t golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER} -f cicd/Dockerfile .
                    docker tag golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER} golobart/django-fairqueue-jenkinsci:latest
                    docker images
                 '''
