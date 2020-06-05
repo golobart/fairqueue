@@ -5,6 +5,16 @@ pipeline {
             steps {
                 sh 'echo "OOOK Test!"; exit 0'
                 sh 'pwd'
+                sh '''
+                   virtualenv -p python3 jenkinscienv
+                   . jenkinscienv/bin/activate
+                   pip install -r cicd/requirements.txt
+                   python manage.py makemigrations
+                   python manage.py migrate
+                   python manage.py test
+                   deactivate
+                   rm -rf jenkinscienv
+                '''
             }
         }
         stage('Test') {
