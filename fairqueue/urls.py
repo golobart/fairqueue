@@ -31,6 +31,7 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     path('fqapi/', include('apifqapp.urls')),  # Acces to fairqueue API
     path('api-auth/', include('rest_framework.urls')),  # Login to browsable rest API
+    path('accounts2/', include('allauth.urls')),
 ]
 
 urlpatterns += i18n_patterns(
@@ -49,6 +50,9 @@ urlpatterns += i18n_patterns(
 #     ),
 # )
 
+# Note that you do not necessarily need the URLs provided by django.contrib.auth.urls.
+# Instead of the URLs login, logout, and password_change (among others),
+# you can use the URLs provided by allauth: account_login, account_logout, account_set_password
 urlpatterns += i18n_patterns(
     # login, change and reset pwd
     re_path(r'^{}/'.format('accounts'), include('django.contrib.auth.urls')),
@@ -57,3 +61,7 @@ urlpatterns += i18n_patterns(
     # adminapp
     re_path(r'^{}/'.format('adminapp'), include('adminapp.urls')),
 )
+# urlpatterns += i18n_patterns(
+#     # login, change and reset pwd
+#     re_path(r'^{}/'.format('accounts2'), include('allauth.urls')),
+# )

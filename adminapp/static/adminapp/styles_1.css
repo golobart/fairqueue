@@ -338,3 +338,10 @@ padding: 4px;
 .postit_tra300rot5{
   transform: rotate(5deg) translate(300px, -90px);
 }
+
+.postit_tra-100rot-5{
+  width: 400px;
+  height: 150px;
+  transform: rotate(-5deg) translate(-100px, -50px);
+  background-color: pink;
+}
