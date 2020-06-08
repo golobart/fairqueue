@@ -3,5 +3,5 @@
 if [ -n "$DJANGO_SUPERUSER_USERNAME" ] && [ -n "$DJANGO_SUPERUSER_PASSWORD" ] ; then
     (cd fairqueue; python manage.py createsuperuser --no-input)
 fi
-(cd fairqueue; python manage.py runserver 0.0.0.0:8000)
+(cd fairqueue; python manage.py makemigrations; pithon manage.py migrate; python manage.py runserver 0.0.0.0:8000)
 #(. ./django_queue_venv/bin/activate; cd fairqueue; python manage.py runserver)

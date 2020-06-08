@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMG = 'golobart/django-fairqueue-jenkinsci'
+        DOCKER_IMAGE = 'golobart/django-fairqueue-jenkinsci'
     }
 
     options {
@@ -64,9 +64,20 @@ pipeline {
         }
         stage('Promotion') {
             steps {
-                timeout(time: 2, unit: 'MINUTES') {
+                timeout(time: 5, unit: 'MINUTES') {
                     input 'Deploy to Production?'
                 }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                kubernetesDeploy configs: 'cicd/jenkinsk8sdeployment.yml', kubeConfig: [path: ''], kubeconfigId: '7bf19a6f-6693-405a-a48e-93c33df14ca1', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+
+
+            /*    sh '''
+                   kubectl get pods
+                   kubectl apply -f cicd/deployment.yml
+                ''' */
             }
         }
     }
@@ -76,14 +87,14 @@ pipeline {
         }
         success {
             echo 'SUCCESSFUL'
-            publishHTML target: [
+/*            publishHTML target: [
               allowMissing: false,
               alwaysLinkToLastBuild: false,
               keepAll: true,
               reportDir: 'coverage',
               reportFiles: 'index.html',
               reportName: 'RCov Report'
-              ]
+              ] */
         }
         failure {
             echo 'FAILED'
