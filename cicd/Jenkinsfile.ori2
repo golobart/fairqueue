@@ -71,13 +71,13 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                kubernetesDeploy configs: 'cicd/jenkinsk8sdeployment.yml', kubeConfig: [path: ''], kubeconfigId: '7bf19a6f-6693-405a-a48e-93c33df14ca1', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+ /*               kubernetesDeploy configs: 'cicd/jenkinsk8sdeployment.yml', kubeConfig: [path: ''], kubeconfigId: '7bf19a6f-6693-405a-a48e-93c33df14ca1', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
 
-
-            /*    sh '''
+*/
+                sh '''
                    kubectl get pods
-                   kubectl apply -f cicd/deployment.yml
-                ''' */
+                   kubectl apply -f cicd/jenkinsk8sdeployment.yml
+                ''' 
             }
         }
     }
