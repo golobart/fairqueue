@@ -58,6 +58,7 @@ pipeline {
                     sh '''
                        docker login -u $USER -p $PASSWORD
                        docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}
+                       docker push ${DOCKER_IMAGE}:latest
                     '''
                 }
             }
