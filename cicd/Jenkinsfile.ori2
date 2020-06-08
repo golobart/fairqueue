@@ -1,9 +1,19 @@
 pipeline {
     agent any
+
+    environment {
+        DOCKER_IMG = 'golobart/django-fairqueue-jenkinsci'
+    }
+
+    options {
+        skipStagesAfterUnstable()
+        buildDiscarder(logRotator(numToKeepStr:'10'))
+    }
+
     stages {
         stage('Preparation') {
             steps {
-                sh 'echo "Preparation begins"'
+                echo "Preparation begins"
                 sh 'pwd'
                 sh '''
                    virtualenv -p python3 jenkinscienv
@@ -14,67 +24,78 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'echo "Tests begin"'
+                echo "Tests begin"
                 sh '''
                    . jenkinscienv/bin/activate
                    python manage.py makemigrations
                    python manage.py migrate
                    python manage.py test
                    deactivate
-                   rm -rf jenkinscienv
-                   rm -rf .semaphore
-                   rm -rf .git
                    rm  .gitignore
                 '''
+                dir("jenkinscienv"){deleteDir()}
+                dir(".semaphore"){deleteDir()}
+                dir(".git"){deleteDir()}
             }
         }
         stage('Build') {
             steps {
-                sh 'echo "Build steps begin"'
+                echo "Build steps begin"
                 sh '''
                    #!/bin/bash
                    ps
                    ls
                    docker info
-                   docker build -t golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER} -f cicd/Dockerfile .
-                   docker tag golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER} golobart/django-fairqueue-jenkinsci:latest
+                   docker build -t ${DOCKER_IMAGE}:${BUILD_NUMBER} -f cicd/Dockerfile .
+                   docker tag ${DOCKER_IMAGE}:${BUILD_NUMBER} ${DOCKER_IMAGE}:latest
                    docker images
                 '''
             }
         }
         stage('Delivery') {
             steps {
-                retry(2) {
-                    withCredentials([usernamePassword( credentialsId: 'mydockerhubcred', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+                withCredentials([usernamePassword( credentialsId: 'mydockerhubcred', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
                     sh '''
                        docker login -u $USER -p $PASSWORD
-                       docker push golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER}
+                       docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}
                     '''
-                    }
                 }
-
-                timeout(time: 3, unit: 'MINUTES') {
-                    sh 'ls -ltr'
+            }
+        }
+        stage('Promotion') {
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    input 'Deploy to Production?'
                 }
             }
         }
     }
     post {
         always {
-            echo 'This will always run'
+            echo 'ALWAYS'
         }
         success {
-            echo 'This will run only if successful'
+            echo 'SUCCESSFUL'
+            publishHTML target: [
+              allowMissing: false,
+              alwaysLinkToLastBuild: false,
+              keepAll: true,
+              reportDir: 'coverage',
+              reportFiles: 'index.html',
+              reportName: 'RCov Report'
+              ]
         }
         failure {
-            echo 'This will run only if failed'
+            echo 'FAILED'
+            mail to: 'golobart@gmail.com',
+                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                 body: "Something is wrong with ${env.BUILD_URL}"
         }
         unstable {
-            echo 'This will run only if the run was marked as unstable'
+            echo 'MARKED AS UNSTABLE'
         }
         changed {
-            echo 'This will run only if the state of the Pipeline has changed'
-            echo 'For example, if the Pipeline was previously failing but is now successful'
+            echo 'PIPELINE STATE CHANGED'
         }
     }
 }
