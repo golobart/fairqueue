@@ -77,7 +77,14 @@ pipeline {
         stage('Promotion') {
             steps {
                 timeout(time: 5, unit: 'MINUTES') {
-                    input 'Deploy to Production?'
+/*                    input 'Deploy to Production?'*/
+                    input id: 'Deploy', message: 'DEPLOY TO PRODUCTION? (kubesail)', ok: 'Deploy!'
+                }
+            }
+            post {
+                aborted{
+                    echo "stage has been aborted"
+                    setBuildStatus("Build complete", "ABORTED");
                 }
             }
         }
@@ -121,6 +128,10 @@ pipeline {
         }
         changed {
             echo 'PIPELINE STATE CHANGED'
+        }
+        aborted{
+            echo "pipeline has been aborted"
+            setBuildStatus("Build complete", "ABORTED");
         }
     }
 }
