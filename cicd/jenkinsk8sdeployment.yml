@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-fairqueue-jenkins-kubernetes
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django-fairqueue-jenkins-kubernetes
+  template:
+    metadata:
+      labels:
+        app: django-fairqueue-jenkins-kubernetes
+    spec:
+      containers:
+        - name: django-fairqueue-jenkins-kubernetes
+          image: golobart/django-fairqueue-jenkinsci:latest
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: django-fairqueue-jenkins-kubernetes-lb
+spec:
+  selector:
+    app: django-fairqueue-jenkins-kubernetes
+  type: ClusterIP
+  ports:
+    - port: 81
+      targetPort: 8000
