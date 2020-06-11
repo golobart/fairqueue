@@ -83,7 +83,7 @@ pipeline {
             }
             post {
                 aborted{
-                    echo "stage has been aborted"
+                    echo "Promotion stage has been aborted"
                     setBuildStatus("Build complete", "ABORTED");
                 }
             }
