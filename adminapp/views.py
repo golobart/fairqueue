@@ -38,7 +38,9 @@ def resources(request):
 # ----- RESOURCES VIEWS
 
 def change_or_view_resource(user):
-    return user.has_perm('adminapp.change_resource') or user.has_perm('adminapp.view_resource')
+    return user.groups.filter(name__in=['g_queue_dispatcher',]).exists() or \
+           user.has_perm('adminapp.change_resource') or \
+           user.has_perm('adminapp.view_resource')
 
 @login_required
 @user_passes_test(change_or_view_resource)
@@ -206,7 +208,9 @@ def search_resources_do(request):
 # ----- CALENDARS VIEWS
 
 def change_or_view_calendar(user):
-    return user.has_perm('adminapp.change_calendar') or user.has_perm('adminapp.view_calendar')
+    return user.groups.filter(name__in=['g_queue_dispatcher',]).exists() or \
+           user.has_perm('adminapp.change_calendar') or \
+           user.has_perm('adminapp.view_calendar')
 
 
 @login_required
@@ -389,7 +393,9 @@ def search_calendars_do(request):
 # ----- WORKING TIME VIEWS
 
 def change_or_view_workingtime(user):
-    return user.has_perm('adminapp.change_workingtime') or user.has_perm('adminapp.view_workingtime')
+    return user.groups.filter(name__in=['g_queue_dispatcher',]).exists() or \
+           user.has_perm('adminapp.change_workingtime') or \
+           user.has_perm('adminapp.view_workingtime')
 
 
 @login_required
@@ -579,7 +585,9 @@ def search_workingtimes_do(request):
 # ----- DAYS OFF VIEWS
 
 def change_or_view_daysoff(user):
-    return user.has_perm('adminapp.change_daysoff') or user.has_perm('adminapp.view_daysoff')
+    return user.groups.filter(name__in=['g_queue_dispatcher',]).exists() or \
+           user.has_perm('adminapp.change_daysoff') or \
+           user.has_perm('adminapp.view_daysoff')
 
 
 @login_required

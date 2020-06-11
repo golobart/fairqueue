@@ -1,5 +1,6 @@
 {% extends 'adminapp/adminbase.html' %}
 {% load i18n %}
+{% load tags_extras %}
 
 {% block alerts %}
 <!-- just remove default content -->
@@ -65,8 +66,10 @@
             <!--            <a href="{% url 'adminapp:workingtime' record.id %}"><span> <i class="fas fa-pencil-alt" title="{% trans 'Edit' %}"></i></span></a>-->
             <!--            <a href="{% url 'adminapp:deleteworkingtime' record.id %}"><span> <i class="far fa-trash-alt" title="{% trans 'Delete' %}"></i></span></a></td>-->
             <td>
+                {% if perms.adminapp.view_workingtime or user|has_group:"g_queue_dispatcher"  %}
                 <a href="{% url 'adminapp:workingtime' record.id %}?rd=t">
                     <span> <i class="material-icons" title="{% trans 'Read' %}">visibility</i></span></a>
+                {% endif %}
                 {% if perms.adminapp.change_workingtime %}
                 <a href="{% url 'adminapp:workingtime' record.id %}">
                     <span> <i class="material-icons" title="{% trans 'Edit' %}">edit</i></span></a>
