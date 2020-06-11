@@ -12,7 +12,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'golobart/django-fairqueue-jenkinsci'
+        DOCKER_IMAGE = 'golobart/django-fairqueue-'{$BRANCH_NAME}
     }
 
     options {
@@ -88,15 +88,25 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+        stage('Deploy jenkinsci') {
+            when { branch 'jenkinsci' }
             steps {
- /*               kubernetesDeploy configs: 'cicd/jenkinsk8sdeployment.yml', kubeConfig: [path: ''], kubeconfigId: '7bf19a6f-6693-405a-a48e-93c33df14ca1', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+ /*               kubernetesDeploy configs: 'cicd/jenkinsk8sdeployment2.yml', kubeConfig: [path: ''], kubeconfigId: '7bf19a6f-6693-405a-a48e-93c33df14ca1', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
 
 */
                 sh '''
                    kubectl get pods
                    kubectl apply -f cicd/jenkinsk8sdeployment.yml
                 ''' 
+            }
+        }
+        stage('Deploy '{$BRANCH_NAME}) {
+            when { branch 'form-resource' }
+            steps {
+                sh '''
+                   kubectl get pods
+                   kubectl apply -f cicd/jenkinsk8sdeployment.yml
+                '''
             }
         }
     }
