@@ -100,7 +100,7 @@ pipeline {
                 ''' 
             }
         }
-        stage('Deploy form-resource'}) {
+        stage('Deploy form-resource') {
             when { branch 'form-resource' }
             steps {
                 sh '''
