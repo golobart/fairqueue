@@ -9,10 +9,10 @@ void setBuildStatus(String message, String state) {
 }
 
 pipeline {
-    agent any
+    agent { label 'label1' }
 
     environment {
-        DOCKER_IMAGE = 'golobart/django-fairqueue-'{$BRANCH_NAME}
+        DOCKER_IMAGE = "golobart/django-fairqueue-$BRANCH_NAME"
     }
 
     options {
@@ -23,10 +23,9 @@ pipeline {
     stages {
         stage('Preparation') {
             steps {
-                echo '{$DOCKER_IMAGE}'
                 setBuildStatus('Build running', 'PENDING');
-                echo 'Preparation begins'
-                sh 'pwd'
+                echo '-----Preparation begins'
+                echo "-----DOCKER_IMAGE = $DOCKER_IMAGE"
                 sh '''
                    virtualenv -p python3 jenkinscienv
                    . jenkinscienv/bin/activate
@@ -36,7 +35,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Tests begin'
+                echo '-----Tests begin'
                 sh '''
                    . jenkinscienv/bin/activate
                    python manage.py makemigrations
@@ -52,11 +51,11 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo 'Build steps begin'
+                echo '-----Build begins'
                 sh '''
                    #!/bin/bash
-                   ps
-                   ls
+                   #ps
+                   #ls
                    docker info
                    docker build -t ${DOCKER_IMAGE}:${BUILD_NUMBER} -f cicd/Dockerfile .
                    docker tag ${DOCKER_IMAGE}:${BUILD_NUMBER} ${DOCKER_IMAGE}:latest
@@ -66,6 +65,7 @@ pipeline {
         }
         stage('Delivery') {
             steps {
+                echo '-----Delivery begins'
                 withCredentials([usernamePassword( credentialsId: 'mydockerhubcred', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
                     sh '''
                        docker login -u $USER -p $PASSWORD
@@ -77,6 +77,7 @@ pipeline {
         }
         stage('Promotion') {
             steps {
+                echo '-----Promotion begins'
                 timeout(time: 5, unit: 'MINUTES') {
                     /*input 'Deploy to Production?'*/
                     input id: 'Deploy', message: 'DEPLOY TO PRODUCTION? (kubesail)', ok: 'Deploy!'
@@ -84,14 +85,15 @@ pipeline {
             }
             post {
                 aborted{
-                    echo 'Promotion stage has been aborted'
+                    echo '-----Promotion stage has been aborted'
                     setBuildStatus('Build complete', 'ABORTED');
                 }
             }
         }
         stage('Deploy') {
-            when { branch 'form-resource' }
+            /*when { branch 'form-resource' }*/
             steps {
+                echo '-----Deploy begins'
                /* kubernetesDeploy configs: 'cicd/jenkinsk8sdeployment2.yml', kubeConfig: [path: ''], kubeconfigId: '7bf19a6f-6693-405a-a48e-93c33df14ca1', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
                */
 
@@ -104,10 +106,10 @@ pipeline {
     }
     post {
         always {
-            echo 'ALWAYS'
+            echo '-----ALWAYS'
         }
         success {
-            echo 'SUCCESSFUL'
+            echo '-----SUCCESSFUL'
             setBuildStatus('Build complete', 'SUCCESS');
             /*publishHTML target: [
               allowMissing: false,
@@ -119,20 +121,20 @@ pipeline {
               ] */
         }
         failure {
-            echo 'FAILED'
+            echo '-----FAILED'
             setBuildStatus('Build complete', 'FAILURE');
-            mail to: 'golobart@gmail.com',
+            /* mail to: 'xxx@gmail.com',
                  subject: 'Failed Pipeline: ${env.JOB_NAME} ${env.BRANCH_NAME} ${env.BUILD_NUMBER}',
-                 body: 'Something is wrong with ${env.BUILD_URL}'
+                 body: 'Something is wrong with ${env.BUILD_URL}' */
         }
         unstable {
-            echo 'MARKED AS UNSTABLE'
+            echo '-----MARKED AS UNSTABLE'
         }
         changed {
-            echo 'PIPELINE STATE CHANGED'
+            echo '-----PIPELINE STATE CHANGED'
         }
         aborted{
-            echo 'pipeline has been aborted'
+            echo '-----PIPELINE HAS BEEN ABORTED'
             setBuildStatus('Build complete', 'ABORTED');
         }
     }

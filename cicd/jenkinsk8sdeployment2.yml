@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: django-fairqueue-jenkins-kubernetes
-          image: golobart/django-fairqueue-jenkinsci:${BUILD_NUMBER}
+          image: golobart/django-fairqueue-${BRANCH_NAME}:${BUILD_NUMBER}
 
 ---
 
