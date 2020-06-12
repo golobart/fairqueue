@@ -23,8 +23,9 @@ pipeline {
     stages {
         stage('Preparation') {
             steps {
-                setBuildStatus("Build running", "PENDING");
-                echo "Preparation begins"
+                echo {$DOCKER_IMAGE}
+                setBuildStatus('Build running', 'PENDING');
+                echo 'Preparation begins'
                 sh 'pwd'
                 sh '''
                    virtualenv -p python3 jenkinscienv
@@ -35,7 +36,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo "Tests begin"
+                echo 'Tests begin'
                 sh '''
                    . jenkinscienv/bin/activate
                    python manage.py makemigrations
@@ -51,7 +52,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo "Build steps begin"
+                echo 'Build steps begin'
                 sh '''
                    #!/bin/bash
                    ps
@@ -77,23 +78,23 @@ pipeline {
         stage('Promotion') {
             steps {
                 timeout(time: 5, unit: 'MINUTES') {
-/*                    input 'Deploy to Production?'*/
+                    /*input 'Deploy to Production?'*/
                     input id: 'Deploy', message: 'DEPLOY TO PRODUCTION? (kubesail)', ok: 'Deploy!'
                 }
             }
             post {
                 aborted{
-                    echo "Promotion stage has been aborted"
-                    setBuildStatus("Build complete", "ABORTED");
+                    echo 'Promotion stage has been aborted'
+                    setBuildStatus('Build complete', 'ABORTED');
                 }
             }
         }
         stage('Deploy jenkinsci') {
             when { branch 'jenkinsci' }
             steps {
- /*               kubernetesDeploy configs: 'cicd/jenkinsk8sdeployment2.yml', kubeConfig: [path: ''], kubeconfigId: '7bf19a6f-6693-405a-a48e-93c33df14ca1', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+               /* kubernetesDeploy configs: 'cicd/jenkinsk8sdeployment2.yml', kubeConfig: [path: ''], kubeconfigId: '7bf19a6f-6693-405a-a48e-93c33df14ca1', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+               */
 
-*/
                 sh '''
                    kubectl get pods
                    kubectl apply -f cicd/jenkinsk8sdeployment.yml
@@ -116,8 +117,8 @@ pipeline {
         }
         success {
             echo 'SUCCESSFUL'
-            setBuildStatus("Build complete", "SUCCESS");
-/*            publishHTML target: [
+            setBuildStatus('Build complete', 'SUCCESS');
+            /*publishHTML target: [
               allowMissing: false,
               alwaysLinkToLastBuild: false,
               keepAll: true,
@@ -128,10 +129,10 @@ pipeline {
         }
         failure {
             echo 'FAILED'
-            setBuildStatus("Build complete", "FAILURE");
+            setBuildStatus('Build complete', 'FAILURE');
             mail to: 'golobart@gmail.com',
-                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-                 body: "Something is wrong with ${env.BUILD_URL}"
+                 subject: 'Failed Pipeline: ${env.JOB_NAME} ${env.BRANCH_NAME} ${env.BUILD_NUMBER}',
+                 body: 'Something is wrong with ${env.BUILD_URL}'
         }
         unstable {
             echo 'MARKED AS UNSTABLE'
@@ -140,8 +141,8 @@ pipeline {
             echo 'PIPELINE STATE CHANGED'
         }
         aborted{
-            echo "pipeline has been aborted"
-            setBuildStatus("Build complete", "ABORTED");
+            echo 'pipeline has been aborted'
+            setBuildStatus('Build complete', 'ABORTED');
         }
     }
 }
