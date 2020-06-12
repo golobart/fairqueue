@@ -1,0 +1,1836 @@
+[
+{
+  "model": "auth.group",
+  "pk": 1,
+  "fields": {
+    "name": "g_queue_creators",
+    "permissions": [
+      41,
+      42,
+      43,
+      44,
+      37,
+      38,
+      39,
+      40,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36
+    ]
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 2,
+  "fields": {
+    "name": "g_queue_booker",
+    "permissions": [
+      44,
+      40,
+      32,
+      36
+    ]
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 3,
+  "fields": {
+    "name": "g_queue_dispatcher",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$180000$x9QDdEjmUwii$2kGYVtTJxUKUvJWujuT6xDf1oJeZCMEAPvHZo584dFE=",
+    "last_login": "2020-06-04T20:40:06.238Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "golobart@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2020-04-25T08:24:18.810Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$180000$FBuV9q4GG4tl$N1Z6GvhWvfRgWmZPBmKKksIAHaKjKaj0DskZfxWQKvY=",
+    "last_login": "2020-06-04T20:42:28.297Z",
+    "is_superuser": false,
+    "username": "qcreator",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2020-05-22T15:44:21Z",
+    "groups": [
+      1
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$180000$KiUgWroqkNWS$s/6GCHBUqF8Nj8zbShXtWlfymaBax4UQ20wRB1am3lY=",
+    "last_login": "2020-06-04T20:41:47.945Z",
+    "is_superuser": false,
+    "username": "qbooker",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2020-05-22T15:45:04Z",
+    "groups": [
+      2
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$180000$6zBjPTl2MMOh$EOSlUXXXNf0lj75IrTke6Fgu+BgTDqYfyIIVNccPpXo=",
+    "last_login": "2020-06-04T20:41:19.922Z",
+    "is_superuser": false,
+    "username": "qdispatcher",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2020-05-22T15:45:22Z",
+    "groups": [
+      3
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 9,
+  "fields": {
+    "password": "!taDLBSQUCJNLp0a8wmYaYDAwsrlVuU6ts7DvagDq",
+    "last_login": "2020-06-03T15:37:44.137Z",
+    "is_superuser": false,
+    "username": "golobart",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2020-06-03T07:46:48.944Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 10,
+  "fields": {
+    "password": "!Aawx0EDwsMup7zq2ViRriztws9aGfTEFhqAj4Gmo",
+    "last_login": "2020-06-03T15:30:37.176Z",
+    "is_superuser": false,
+    "username": "miquel",
+    "first_name": "Miquel",
+    "last_name": "Golobart",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2020-06-03T11:33:32.432Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 11,
+  "fields": {
+    "password": "!l48tVXYQsSUtcq7gS58EkRgjs88Pfkiwqdsk3sc2",
+    "last_login": "2020-06-04T20:35:18.876Z",
+    "is_superuser": false,
+    "username": "daniel",
+    "first_name": "Daniel",
+    "last_name": "Callejas Golobart",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2020-06-04T20:35:18.738Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "64wjf13ptz7h9vpct2ic5ieiq2g1d898",
+  "fields": {
+    "session_data": "YmNiYjg4ZjhmOGY5YmY4ZTIyMGEwNGY4ODk5NjMxZDk3ODMxMmNhODp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJkZTU0MTViZmJhOTdhNzcwMGIxMDIwZDE5ZTRmYzU0Y2E1NzIwODliIn0=",
+    "expire_date": "2020-05-29T15:50:10.535Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "6u03dh41qz8rhszvluw2cii2ivp18005",
+  "fields": {
+    "session_data": "YmU0YTc0NTQ3MTliNjMzNTNlOTk1YjUxYWNlMjhiZDFmYWYxOTVjYzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJjYWQxZjQ4MDZmNTAyOWVkY2YwODM0ZWI1ZTQ4ZGNiNTU2MjYxMTY1In0=",
+    "expire_date": "2020-06-07T16:40:06.865Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "76xo0vj7zuihco5gc8463atebtxs91ae",
+  "fields": {
+    "session_data": "MjY2ODg0YjdlOTg5MGQ4NWYyMjQ2YTg4YjAyNDhmZjg1ZjVmNmFhZjp7InNvY2lhbGFjY291bnRfc3RhdGUiOlt7InByb2Nlc3MiOiJsb2dpbiIsInNjb3BlIjoiIiwiYXV0aF9wYXJhbXMiOiIifSwidUc1M0F6TzlmclF0Il19",
+    "expire_date": "2020-06-17T15:16:15.107Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "9mono20qghwoq4gbq0s7ylvt1osqszvi",
+  "fields": {
+    "session_data": "YmU0YTc0NTQ3MTliNjMzNTNlOTk1YjUxYWNlMjhiZDFmYWYxOTVjYzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJjYWQxZjQ4MDZmNTAyOWVkY2YwODM0ZWI1ZTQ4ZGNiNTU2MjYxMTY1In0=",
+    "expire_date": "2020-05-19T20:31:47.138Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "fbc8yn0rfjym15b06jqwefwkotbq7op7",
+  "fields": {
+    "session_data": "YmU0YTc0NTQ3MTliNjMzNTNlOTk1YjUxYWNlMjhiZDFmYWYxOTVjYzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJjYWQxZjQ4MDZmNTAyOWVkY2YwODM0ZWI1ZTQ4ZGNiNTU2MjYxMTY1In0=",
+    "expire_date": "2020-05-21T15:23:58.102Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "ih7eg5wvk34l1dzmudwq9l21a6yqv1n5",
+  "fields": {
+    "session_data": "YmU0YTc0NTQ3MTliNjMzNTNlOTk1YjUxYWNlMjhiZDFmYWYxOTVjYzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJjYWQxZjQ4MDZmNTAyOWVkY2YwODM0ZWI1ZTQ4ZGNiNTU2MjYxMTY1In0=",
+    "expire_date": "2020-06-14T08:54:29.656Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "owc1c3ad2u93983ydbstd5xyg21y3e6c",
+  "fields": {
+    "session_data": "YmU0YTc0NTQ3MTliNjMzNTNlOTk1YjUxYWNlMjhiZDFmYWYxOTVjYzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJjYWQxZjQ4MDZmNTAyOWVkY2YwODM0ZWI1ZTQ4ZGNiNTU2MjYxMTY1In0=",
+    "expire_date": "2020-05-15T09:38:25.144Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "w5u5c6hqeup9apkdthhn5qkq5d90jhxb",
+  "fields": {
+    "session_data": "YTcyNmQ1MjU5ZDFhZTllYjFmNmI1OWQ4NTE1M2JhYjRlYzg2ODljMzp7Il9hdXRoX3VzZXJfaWQiOiI2IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI4MDU5OGFlMDliMTViNTg5OWVmMDc2OTk1MGI2ZDA0YWUzMzFlOGFmIn0=",
+    "expire_date": "2020-06-09T14:04:39.947Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "xn4t921lv1lulwqo4ycs6uq3j0s31f4h",
+  "fields": {
+    "session_data": "YTcyNmQ1MjU5ZDFhZTllYjFmNmI1OWQ4NTE1M2JhYjRlYzg2ODljMzp7Il9hdXRoX3VzZXJfaWQiOiI2IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI4MDU5OGFlMDliMTViNTg5OWVmMDc2OTk1MGI2ZDA0YWUzMzFlOGFmIn0=",
+    "expire_date": "2020-06-18T20:42:28.348Z"
+  }
+},
+{
+  "model": "sites.site",
+  "pk": 1,
+  "fields": {
+    "domain": "127.0.0.1",
+    "name": "example.com"
+  }
+},
+{
+  "model": "adminapp.calendar",
+  "pk": 1,
+  "fields": {
+    "owner": "Pepe",
+    "name": "Pepe 2020",
+    "description": "",
+    "year": "2020",
+    "ini_day": "2020-04-26",
+    "end_day": "2020-06-26",
+    "template": false,
+    "next": null,
+    "prev": null,
+    "open": true
+  }
+},
+{
+  "model": "adminapp.calendar",
+  "pk": 2,
+  "fields": {
+    "owner": "miquel",
+    "name": "Juan 2020",
+    "description": "calendari de Juan",
+    "year": "2020",
+    "ini_day": "2020-05-06",
+    "end_day": "2020-05-23",
+    "template": false,
+    "next": 1,
+    "prev": 1,
+    "open": true
+  }
+},
+{
+  "model": "adminapp.calendar",
+  "pk": 4,
+  "fields": {
+    "owner": "cinta",
+    "name": "qazqaz",
+    "description": null,
+    "year": "2021",
+    "ini_day": "2020-01-01",
+    "end_day": "2021-07-15",
+    "template": false,
+    "next": null,
+    "prev": null,
+    "open": false
+  }
+},
+{
+  "model": "adminapp.calendar",
+  "pk": 5,
+  "fields": {
+    "owner": "cinta",
+    "name": "tiroliro",
+    "description": "description updated 2",
+    "year": null,
+    "ini_day": "2020-01-01",
+    "end_day": "2021-05-16",
+    "template": true,
+    "next": 4,
+    "prev": 2,
+    "open": true
+  }
+},
+{
+  "model": "adminapp.calendar",
+  "pk": 9,
+  "fields": {
+    "owner": "own 1",
+    "name": "cal pupupu",
+    "description": "lin chu",
+    "year": "2009",
+    "ini_day": "2020-01-26",
+    "end_day": "2023-01-02",
+    "template": false,
+    "next": null,
+    "prev": null,
+    "open": true
+  }
+},
+{
+  "model": "adminapp.calendar",
+  "pk": 10,
+  "fields": {
+    "owner": "ss",
+    "name": "qq",
+    "description": "fdgsdg",
+    "year": "1999",
+    "ini_day": "2020-01-01",
+    "end_day": "2021-01-23",
+    "template": false,
+    "next": null,
+    "prev": null,
+    "open": false
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 1,
+  "fields": {
+    "name": "wqwq",
+    "description": "wqwq",
+    "type": "DA",
+    "day": null,
+    "end_day": null,
+    "week_day": "TH",
+    "month_day": 2,
+    "month": "OCT",
+    "from_day": null,
+    "to_day": null
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 2,
+  "fields": {
+    "name": "wedre",
+    "description": null,
+    "type": "DA",
+    "day": null,
+    "end_day": null,
+    "week_day": "TU",
+    "month_day": null,
+    "month": null,
+    "from_day": "2021-12-25",
+    "to_day": null
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 3,
+  "fields": {
+    "name": "dffddsgfff",
+    "description": "d",
+    "type": "DA",
+    "day": null,
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": null,
+    "from_day": "2020-05-03",
+    "to_day": null
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 4,
+  "fields": {
+    "name": "zz",
+    "description": "zzz",
+    "type": "DR",
+    "day": null,
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": "JUL",
+    "from_day": "1978-03-22",
+    "to_day": null
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 5,
+  "fields": {
+    "name": "azaz",
+    "description": null,
+    "type": "DR",
+    "day": null,
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": null,
+    "from_day": "2020-05-11",
+    "to_day": null
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 6,
+  "fields": {
+    "name": "aazz",
+    "description": null,
+    "type": "DA",
+    "day": null,
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": null,
+    "from_day": "2020-05-28",
+    "to_day": null
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 7,
+  "fields": {
+    "name": "aaqq",
+    "description": null,
+    "type": "DA",
+    "day": null,
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": null,
+    "from_day": null,
+    "to_day": "2021-05-22"
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 9,
+  "fields": {
+    "name": "sss",
+    "description": null,
+    "type": "DA",
+    "day": null,
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": null,
+    "from_day": null,
+    "to_day": "2022-06-23"
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 10,
+  "fields": {
+    "name": "aaa",
+    "description": null,
+    "type": "DA",
+    "day": null,
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": null,
+    "from_day": "1965-12-25",
+    "to_day": null
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 11,
+  "fields": {
+    "name": "english",
+    "description": null,
+    "type": "DA",
+    "day": null,
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": null,
+    "from_day": "2020-05-27",
+    "to_day": "2023-05-27"
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 12,
+  "fields": {
+    "name": "catala",
+    "description": null,
+    "type": "DA",
+    "day": null,
+    "end_day": null,
+    "week_day": null,
+    "month_day": 5,
+    "month": null,
+    "from_day": null,
+    "to_day": "2024-04-21"
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 13,
+  "fields": {
+    "name": "qqqqqqq",
+    "description": null,
+    "type": "DA",
+    "day": null,
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": null,
+    "from_day": null,
+    "to_day": null
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 15,
+  "fields": {
+    "name": "aaaaaa",
+    "description": null,
+    "type": "DA",
+    "day": null,
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": null,
+    "from_day": null,
+    "to_day": "2022-06-23"
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 16,
+  "fields": {
+    "name": "qqqqqqqq",
+    "description": null,
+    "type": "DA",
+    "day": null,
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": null,
+    "from_day": null,
+    "to_day": "2021-02-25"
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 18,
+  "fields": {
+    "name": "saasssa",
+    "description": null,
+    "type": "DA",
+    "day": null,
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": null,
+    "from_day": null,
+    "to_day": "2021-03-25"
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 19,
+  "fields": {
+    "name": "vvvvvvvvvvv",
+    "description": null,
+    "type": "DA",
+    "day": null,
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": null,
+    "from_day": null,
+    "to_day": "2025-02-25"
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 20,
+  "fields": {
+    "name": "qqqq",
+    "description": null,
+    "type": "DA",
+    "day": null,
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": null,
+    "from_day": null,
+    "to_day": "2065-02-01"
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 21,
+  "fields": {
+    "name": "qqqq",
+    "description": null,
+    "type": "DA",
+    "day": null,
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": null,
+    "from_day": null,
+    "to_day": "1999-02-01"
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 22,
+  "fields": {
+    "name": "diaoff_1",
+    "description": "desc dia off 1",
+    "type": "DA",
+    "day": "2020-04-25",
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": null,
+    "from_day": null,
+    "to_day": null
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 23,
+  "fields": {
+    "name": "diaoff_2_week",
+    "description": null,
+    "type": "WD",
+    "day": null,
+    "end_day": null,
+    "week_day": "TU",
+    "month_day": null,
+    "month": null,
+    "from_day": "2020-01-12",
+    "to_day": "2020-03-12"
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 24,
+  "fields": {
+    "name": "diaoff2_week",
+    "description": "diaoff2_week",
+    "type": "WD",
+    "day": null,
+    "end_day": null,
+    "week_day": "MO",
+    "month_day": null,
+    "month": null,
+    "from_day": "2020-12-05",
+    "to_day": "2021-01-27"
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 25,
+  "fields": {
+    "name": "aaa",
+    "description": "dasfads",
+    "type": "WD",
+    "day": null,
+    "end_day": null,
+    "week_day": "TU",
+    "month_day": null,
+    "month": "FEB",
+    "from_day": null,
+    "to_day": null
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 26,
+  "fields": {
+    "name": "dfsasd",
+    "description": "dsfads",
+    "type": "DA",
+    "day": null,
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": null,
+    "from_day": null,
+    "to_day": null
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 27,
+  "fields": {
+    "name": "dfsasd",
+    "description": "dsfads",
+    "type": "DA",
+    "day": null,
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": null,
+    "from_day": null,
+    "to_day": null
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 28,
+  "fields": {
+    "name": "dthy",
+    "description": "hj",
+    "type": "DA",
+    "day": "2021-02-15",
+    "end_day": null,
+    "week_day": null,
+    "month_day": null,
+    "month": null,
+    "from_day": null,
+    "to_day": null
+  }
+},
+{
+  "model": "adminapp.daysoff",
+  "pk": 29,
+  "fields": {
+    "name": "fromapi",
+    "description": "api 1",
+    "type": "WD",
+    "day": "2020-05-21",
+    "end_day": null,
+    "week_day": "TU",
+    "month_day": null,
+    "month": "SEP",
+    "from_day": "2020-05-24",
+    "to_day": "2020-05-31"
+  }
+},
+{
+  "model": "adminapp.workingtime",
+  "pk": 1,
+  "fields": {
+    "name": "wt1",
+    "description": "wt1 desc",
+    "ini_hour": "01",
+    "end_hour": "08",
+    "type": "NO"
+  }
+},
+{
+  "model": "adminapp.workingtime",
+  "pk": 2,
+  "fields": {
+    "name": "wt2",
+    "description": "wt2 desc",
+    "ini_hour": "09",
+    "end_hour": "12",
+    "type": "NO"
+  }
+},
+{
+  "model": "adminapp.workingtime",
+  "pk": 3,
+  "fields": {
+    "name": "wt6",
+    "description": "fgdsfg",
+    "ini_hour": "3:0",
+    "end_hour": "13:09",
+    "type": "ID"
+  }
+},
+{
+  "model": "adminapp.workingtime",
+  "pk": 4,
+  "fields": {
+    "name": "wt4",
+    "description": null,
+    "ini_hour": "21:00",
+    "end_hour": "22:30",
+    "type": "NO"
+  }
+},
+{
+  "model": "adminapp.workingtime",
+  "pk": 5,
+  "fields": {
+    "name": "wt5",
+    "description": null,
+    "ini_hour": "12:10",
+    "end_hour": "23:00",
+    "type": "ID"
+  }
+},
+{
+  "model": "adminapp.workingtime",
+  "pk": 6,
+  "fields": {
+    "name": "wt3",
+    "description": "qq",
+    "ini_hour": "3:00",
+    "end_hour": "4:00",
+    "type": "ID"
+  }
+},
+{
+  "model": "adminapp.workingtime",
+  "pk": 7,
+  "fields": {
+    "name": "wt7",
+    "description": null,
+    "ini_hour": "0:2",
+    "end_hour": "2:0",
+    "type": "NO"
+  }
+},
+{
+  "model": "adminapp.workingtime",
+  "pk": 8,
+  "fields": {
+    "name": "wt8",
+    "description": null,
+    "ini_hour": "3:0",
+    "end_hour": "5:9",
+    "type": "ID"
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 1,
+  "fields": {
+    "name": "Dr. Pepe",
+    "description": "Consulta Dr. Pepe",
+    "text_title": "T\u00edtol PEPE",
+    "calendar": 1
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 2,
+  "fields": {
+    "name": "Dra. Massana",
+    "description": "Consulta Dra. Massana<b>",
+    "text_title": "sss",
+    "calendar": 2
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 3,
+  "fields": {
+    "name": "aaaDr. X2",
+    "description": "Doctor X",
+    "text_title": "Title Dr. Xx",
+    "calendar": 2
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 5,
+  "fields": {
+    "name": "Dr. Z",
+    "description": "Doctor Z",
+    "text_title": "Title Dr. Zza",
+    "calendar": 1
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 6,
+  "fields": {
+    "name": "Dr. W",
+    "description": "Doctor W updated again",
+    "text_title": "Title Dr. Ww",
+    "calendar": 1
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 8,
+  "fields": {
+    "name": "dr.qaz",
+    "description": "DR. QAZ",
+    "text_title": "Title dr. qaz",
+    "calendar": 2
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 9,
+  "fields": {
+    "name": "DR. wsxa",
+    "description": "Doctor WSX",
+    "text_title": "Title DR. WSX",
+    "calendar": 1
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 10,
+  "fields": {
+    "name": "dffddsgf",
+    "description": "dfhghg gfh h hg",
+    "text_title": "tt",
+    "calendar": 1
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 13,
+  "fields": {
+    "name": "res name",
+    "description": "res desc",
+    "text_title": "res ti",
+    "calendar": 1
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 14,
+  "fields": {
+    "name": "qqc",
+    "description": "desc vv",
+    "text_title": "tit h",
+    "calendar": 2
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 15,
+  "fields": {
+    "name": "jk",
+    "description": "ewing",
+    "text_title": "tytyty",
+    "calendar": 1
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 16,
+  "fields": {
+    "name": "popo",
+    "description": "",
+    "text_title": "",
+    "calendar": 1
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 17,
+  "fields": {
+    "name": "dfgh",
+    "description": "p\u00f2",
+    "text_title": "m.,n",
+    "calendar": 1
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 18,
+  "fields": {
+    "name": "tralara",
+    "description": "qpqpqpqp hh",
+    "text_title": "kjh kjh",
+    "calendar": 2
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 19,
+  "fields": {
+    "name": "abc",
+    "description": "poppo",
+    "text_title": "trtr",
+    "calendar": 1
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 20,
+  "fields": {
+    "name": "sd",
+    "description": "sx",
+    "text_title": "sw",
+    "calendar": 1
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 21,
+  "fields": {
+    "name": "istio",
+    "description": "",
+    "text_title": "qtitle",
+    "calendar": 2
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 22,
+  "fields": {
+    "name": "nrr",
+    "description": "ddrr",
+    "text_title": "ttrr",
+    "calendar": 1
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 23,
+  "fields": {
+    "name": "noJS",
+    "description": "desc",
+    "text_title": "updated",
+    "calendar": 2
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 25,
+  "fields": {
+    "name": "qqz",
+    "description": "ssw",
+    "text_title": "",
+    "calendar": 1
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 26,
+  "fields": {
+    "name": "kik",
+    "description": "jkk",
+    "text_title": "uktk",
+    "calendar": 1
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 27,
+  "fields": {
+    "name": "asdfasfdf",
+    "description": "",
+    "text_title": "",
+    "calendar": 2
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 28,
+  "fields": {
+    "name": "yytetyeyteyteyt",
+    "description": "desc updated",
+    "text_title": null,
+    "calendar": 1
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 29,
+  "fields": {
+    "name": "r1",
+    "description": "",
+    "text_title": "",
+    "calendar": 1
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 30,
+  "fields": {
+    "name": "r2",
+    "description": "",
+    "text_title": "",
+    "calendar": 2
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 31,
+  "fields": {
+    "name": "mazinguer",
+    "description": "zeta",
+    "text_title": "Mazinguer Z",
+    "calendar": 1
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 32,
+  "fields": {
+    "name": "qqqqqqqqq",
+    "description": "",
+    "text_title": "",
+    "calendar": 2
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 34,
+  "fields": {
+    "name": "new res",
+    "description": "res d",
+    "text_title": "f\u00f1lk",
+    "calendar": 4
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 35,
+  "fields": {
+    "name": "qq",
+    "description": "gg",
+    "text_title": null,
+    "calendar": 4
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 36,
+  "fields": {
+    "name": "res pupopo",
+    "description": "desc p",
+    "text_title": null,
+    "calendar": 2
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 37,
+  "fields": {
+    "name": "sdsa",
+    "description": "sdassd",
+    "text_title": null,
+    "calendar": 2
+  }
+},
+{
+  "model": "adminapp.resource",
+  "pk": 38,
+  "fields": {
+    "name": "sdfsadf",
+    "description": "sdfsd",
+    "text_title": "ff",
+    "calendar": 2
+  }
+},
+{
+  "model": "socialaccount.socialapp",
+  "pk": 1,
+  "fields": {
+    "provider": "github",
+    "name": "fairq",
+    "client_id": "9633bce8ef0b9335f6a5",
+    "secret": "49f0831192b1ff0cc7d748e44ecf32f5a67a045b",
+    "key": "",
+    "sites": [
+      1
+    ]
+  }
+},
+{
+  "model": "socialaccount.socialapp",
+  "pk": 2,
+  "fields": {
+    "provider": "linkedin_oauth2",
+    "name": "fairq",
+    "client_id": "776t61wotffmy2",
+    "secret": "BlyHjK4Np5rfu1nb",
+    "key": "",
+    "sites": [
+      1
+    ]
+  }
+},
+{
+  "model": "socialaccount.socialaccount",
+  "pk": 1,
+  "fields": {
+    "user": 9,
+    "provider": "github",
+    "uid": "42407900",
+    "last_login": "2020-06-03T15:37:44.106Z",
+    "date_joined": "2020-06-03T07:46:48.989Z",
+    "extra_data": "{\"login\": \"golobart\", \"id\": 42407900, \"node_id\": \"MDQ6VXNlcjQyNDA3OTAw\", \"avatar_url\": \"https://avatars2.githubusercontent.com/u/42407900?v=4\", \"gravatar_id\": \"\", \"url\": \"https://api.github.com/users/golobart\", \"html_url\": \"https://github.com/golobart\", \"followers_url\": \"https://api.github.com/users/golobart/followers\", \"following_url\": \"https://api.github.com/users/golobart/following{/other_user}\", \"gists_url\": \"https://api.github.com/users/golobart/gists{/gist_id}\", \"starred_url\": \"https://api.github.com/users/golobart/starred{/owner}{/repo}\", \"subscriptions_url\": \"https://api.github.com/users/golobart/subscriptions\", \"organizations_url\": \"https://api.github.com/users/golobart/orgs\", \"repos_url\": \"https://api.github.com/users/golobart/repos\", \"events_url\": \"https://api.github.com/users/golobart/events{/privacy}\", \"received_events_url\": \"https://api.github.com/users/golobart/received_events\", \"type\": \"User\", \"site_admin\": false, \"name\": null, \"company\": null, \"blog\": \"\", \"location\": null, \"email\": null, \"hireable\": null, \"bio\": null, \"twitter_username\": null, \"public_repos\": 2, \"public_gists\": 0, \"followers\": 0, \"following\": 0, \"created_at\": \"2018-08-15T11:02:20Z\", \"updated_at\": \"2020-06-03T15:37:43Z\"}"
+  }
+},
+{
+  "model": "socialaccount.socialaccount",
+  "pk": 2,
+  "fields": {
+    "user": 10,
+    "provider": "linkedin_oauth2",
+    "uid": "iss-SH6yzc",
+    "last_login": "2020-06-03T15:30:37.148Z",
+    "date_joined": "2020-06-03T11:33:32.470Z",
+    "extra_data": "{\"firstName\": {\"localized\": {\"en_US\": \"Miquel\", \"es_ES\": \"Miquel\"}, \"preferredLocale\": {\"country\": \"ES\", \"language\": \"es\"}}, \"lastName\": {\"localized\": {\"en_US\": \"Golobart\", \"es_ES\": \"Golobart\"}, \"preferredLocale\": {\"country\": \"ES\", \"language\": \"es\"}}, \"id\": \"iss-SH6yzc\"}"
+  }
+},
+{
+  "model": "socialaccount.socialaccount",
+  "pk": 3,
+  "fields": {
+    "user": 11,
+    "provider": "linkedin_oauth2",
+    "uid": "8R8KaAtC6e",
+    "last_login": "2020-06-04T20:35:18.785Z",
+    "date_joined": "2020-06-04T20:35:18.785Z",
+    "extra_data": "{\"firstName\": {\"localized\": {\"es_ES\": \"Daniel\"}, \"preferredLocale\": {\"country\": \"ES\", \"language\": \"es\"}}, \"lastName\": {\"localized\": {\"es_ES\": \"Callejas Golobart\"}, \"preferredLocale\": {\"country\": \"ES\", \"language\": \"es\"}}, \"id\": \"8R8KaAtC6e\"}"
+  }
+},
+{
+  "model": "socialaccount.socialtoken",
+  "pk": 1,
+  "fields": {
+    "app": 1,
+    "account": 1,
+    "token": "c04b7d03eb61de04c6d1c582e80fa068337b1c6a",
+    "token_secret": "",
+    "expires_at": null
+  }
+},
+{
+  "model": "socialaccount.socialtoken",
+  "pk": 2,
+  "fields": {
+    "app": 2,
+    "account": 2,
+    "token": "AQVideNM01Cvht4JL6lQkKXz3ULiWcsWNsJ6y8tQM58VuLujjEIDOBojLqc4xwBXp2IWg2FuDXd4SInECA19Lxtb6hKD4-qqFKYcOXyqvNiTW1nIVLNS7PV45T5C7pKtPElGcGLOZTDkP8IcJuDCgwuUcnZ3Vanw39IDcRU3YexUf-GMnVCr9OEsyPBobW9YPgRrHVHBybdLEx_fvTtqRtM76e3Zx8iAZrjuqEfBEa56GsIKMOkAR_yTq-vb9C5YX-3lvcc1BlDEK_xOO5O6_bLqGUzqRGoDBL_hlW16zuLvUdl0v1pCrHhKOyBdhy3Q5peFwIvFLD0PC3WMUQXklGnmyhBDHg",
+    "token_secret": "",
+    "expires_at": "2020-08-02T15:30:35.696Z"
+  }
+},
+{
+  "model": "socialaccount.socialtoken",
+  "pk": 3,
+  "fields": {
+    "app": 2,
+    "account": 3,
+    "token": "AQWeQR9gl4N0jXFKuJunWiaGHLoj8MEz0lZXpmb3a36YKbGZFrzDXFMr0KnsIVCQOn_RLroSyfQfoZWYSS6QVaihAIXtyyJRzMzHDbwJg4GQQTPSvYv-x_vUaxQdS8o5IoSi3dGkJUmldZ6bBAwQlwfdXWrMJImzlpYyPleI3U7zlLNfmz5qpIZ72zkLQ3-LbFDjhBZyQvj-ZkxmI-lx7qwCuJ_tUS9ZJlTELTtzl6FhbCCG05JpZ4_HeC9W1o1jmjToULnqEbpnh0lJKHkiasBqhf_bQY4fgJ7UMAiuXDiK0OGfy8Y5EeHdshFGMgoyVk-aP2Mkr6oteDQ3KfxrcD22WzmXBQ",
+    "token_secret": "",
+    "expires_at": "2020-08-03T20:35:17.235Z"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2020-04-26T09:04:49.607Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "1",
+    "object_repr": "Pepe 2020",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2020-04-26T09:04:59.420Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "1",
+    "object_repr": "Dr. Pepe",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2020-04-26T09:13:08.506Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "2",
+    "object_repr": "Dra. Massana",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2020-04-26T09:13:25.638Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "2",
+    "object_repr": "Dra. Massana",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Resource description\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2020-04-26T17:38:11.080Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "miquel",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2020-04-26T17:40:40.920Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "3",
+    "object_repr": "golobart",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2020-04-26T17:41:04.512Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "3",
+    "object_repr": "golobart",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Staff status\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2020-04-26T17:42:41.943Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "3",
+    "object_repr": "golobart",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"User permissions\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2020-04-28T13:48:07.988Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "miquel",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2020-04-28T13:48:34.344Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "miquel",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2020-04-28T13:48:49.638Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "3",
+    "object_repr": "golobart",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2020-04-29T07:42:20.554Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "miquel",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Email address\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2020-04-29T07:43:05.600Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "4",
+    "object_repr": "pepe",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\", \"Email address\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2020-05-06T13:17:36.866Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "3",
+    "object_repr": "Dr. X",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2020-05-06T13:18:15.598Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "4",
+    "object_repr": "Dr. Y",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2020-05-06T13:19:29.173Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "2",
+    "object_repr": "Juan 2020",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2020-05-06T13:19:32.123Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "4",
+    "object_repr": "Dr. Y",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Calendar\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2020-05-06T13:19:56.820Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "5",
+    "object_repr": "Dr. Z",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2020-05-06T13:20:32.488Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "6",
+    "object_repr": "Dr. W",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2020-05-06T13:20:51.307Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "7",
+    "object_repr": "Dr. V",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2020-05-21T09:37:24.927Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "3",
+    "object_repr": "golobart",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"User permissions\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2020-05-21T09:41:25.531Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "1",
+    "object_repr": "g_queue_creators",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2020-05-21T09:42:18.934Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "miquel",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Groups\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2020-05-21T09:44:08.956Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "4",
+    "object_repr": "pepe",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2020-05-21T14:27:31.877Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "2",
+    "object_repr": "g_queue_booker",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2020-05-21T14:28:10.088Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "3",
+    "object_repr": "g_queue_dispatcher",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2020-05-22T15:41:35.155Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "1",
+    "object_repr": "g_queue_creators",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2020-05-22T15:42:04.746Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "2",
+    "object_repr": "g_queue_booker",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 29,
+  "fields": {
+    "action_time": "2020-05-22T15:44:21.959Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "6",
+    "object_repr": "qcreator",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 30,
+  "fields": {
+    "action_time": "2020-05-22T15:44:37.898Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "6",
+    "object_repr": "qcreator",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Groups\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 31,
+  "fields": {
+    "action_time": "2020-05-22T15:45:04.345Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "7",
+    "object_repr": "qbooker",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 32,
+  "fields": {
+    "action_time": "2020-05-22T15:45:22.952Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "8",
+    "object_repr": "qdispatcher",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 33,
+  "fields": {
+    "action_time": "2020-05-22T15:45:33.108Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "8",
+    "object_repr": "qdispatcher",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Groups\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 34,
+  "fields": {
+    "action_time": "2020-05-22T15:45:46.266Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "7",
+    "object_repr": "qbooker",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Groups\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 35,
+  "fields": {
+    "action_time": "2020-05-22T15:46:49.713Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "3",
+    "object_repr": "golobart",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 36,
+  "fields": {
+    "action_time": "2020-05-22T15:46:49.720Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "miquel",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 37,
+  "fields": {
+    "action_time": "2020-05-22T15:46:49.725Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "4",
+    "object_repr": "pepe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 38,
+  "fields": {
+    "action_time": "2020-05-22T15:46:49.731Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "5",
+    "object_repr": "qwe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 39,
+  "fields": {
+    "action_time": "2020-05-24T16:41:03.150Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "1",
+    "object_repr": "g_queue_creators",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 40,
+  "fields": {
+    "action_time": "2020-05-24T16:41:46.254Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "2",
+    "object_repr": "g_queue_booker",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 41,
+  "fields": {
+    "action_time": "2020-06-03T06:56:36.775Z",
+    "user": 1,
+    "content_type": 13,
+    "object_id": "1",
+    "object_repr": "127.0.0.1",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Domain name\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 42,
+  "fields": {
+    "action_time": "2020-06-03T07:38:39.103Z",
+    "user": 1,
+    "content_type": 17,
+    "object_id": "1",
+    "object_repr": "fairq",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 43,
+  "fields": {
+    "action_time": "2020-06-03T10:36:31.071Z",
+    "user": 1,
+    "content_type": 17,
+    "object_id": "2",
+    "object_repr": "fairq",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+}
+]

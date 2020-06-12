@@ -1,0 +1,141 @@
+void setBuildStatus(String message, String state) {
+  step([
+      $class: "GitHubCommitStatusSetter",
+      reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/golobart/fairqueue"],
+      contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
+      errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+      statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
+  ]);
+}
+
+pipeline {
+    agent { label 'label1' }
+
+    environment {
+        DOCKER_IMAGE = "golobart/django-fairqueue-$BRANCH_NAME"
+    }
+
+    options {
+        skipStagesAfterUnstable()
+        buildDiscarder(logRotator(numToKeepStr:'10'))
+    }
+
+    stages {
+        stage('Preparation') {
+            steps {
+                setBuildStatus('Build running', 'PENDING');
+                echo '-----Preparation begins'
+                echo "-----DOCKER_IMAGE = $DOCKER_IMAGE"
+                sh '''
+                   virtualenv -p python3 jenkinscienv
+                   . jenkinscienv/bin/activate
+                   pip install -r cicd/requirements.txt
+                '''
+            }
+        }
+        stage('Test') {
+            steps {
+                echo '-----Tests begin'
+                sh '''
+                   . jenkinscienv/bin/activate
+                   python manage.py makemigrations
+                   python manage.py migrate
+                   python manage.py test
+                   deactivate
+                   rm  .gitignore
+                '''
+                dir("jenkinscienv"){deleteDir()}
+                dir(".semaphore"){deleteDir()}
+                dir(".git"){deleteDir()}
+            }
+        }
+        stage('Build') {
+            steps {
+                echo '-----Build begins'
+                sh '''
+                   #!/bin/bash
+                   #ps
+                   #ls
+                   docker info
+                   docker build -t ${DOCKER_IMAGE}:${BUILD_NUMBER} -f cicd/Dockerfile .
+                   docker tag ${DOCKER_IMAGE}:${BUILD_NUMBER} ${DOCKER_IMAGE}:latest
+                   docker images
+                '''
+            }
+        }
+        stage('Delivery') {
+            steps {
+                echo '-----Delivery begins'
+                withCredentials([usernamePassword( credentialsId: 'mydockerhubcred', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+                    sh '''
+                       docker login -u $USER -p $PASSWORD
+                       docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}
+                       docker push ${DOCKER_IMAGE}:latest
+                    '''
+                }
+            }
+        }
+        stage('Promotion') {
+            steps {
+                echo '-----Promotion begins'
+                timeout(time: 5, unit: 'MINUTES') {
+                    /*input 'Deploy to Production?'*/
+                    input id: 'Deploy', message: 'DEPLOY TO PRODUCTION? (kubesail)', ok: 'Deploy!'
+                }
+            }
+            post {
+                aborted{
+                    echo '-----Promotion stage has been aborted'
+                    setBuildStatus('Build complete', 'ABORTED');
+                }
+            }
+        }
+        stage('Deploy') {
+            /*when { branch 'form-resource' }*/
+            steps {
+                echo '-----Deploy begins'
+               /* kubernetesDeploy configs: 'cicd/jenkinsk8sdeployment2.yml', kubeConfig: [path: ''], kubeconfigId: '7bf19a6f-6693-405a-a48e-93c33df14ca1', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+               */
+
+                sh '''
+                   kubectl get pods
+                   kubectl apply -f cicd/jenkinsk8sdeployment.yml
+                ''' 
+            }
+        }
+    }
+    post {
+        always {
+            echo '-----ALWAYS'
+        }
+        success {
+            echo '-----SUCCESSFUL'
+            setBuildStatus('Build complete', 'SUCCESS');
+            /*publishHTML target: [
+              allowMissing: false,
+              alwaysLinkToLastBuild: false,
+              keepAll: true,
+              reportDir: 'coverage',
+              reportFiles: 'index.html',
+              reportName: 'RCov Report'
+              ] */
+        }
+        failure {
+            echo '-----FAILED'
+            setBuildStatus('Build complete', 'FAILURE');
+            /* mail to: 'xxx@gmail.com',
+                 subject: 'Failed Pipeline: ${env.JOB_NAME} ${env.BRANCH_NAME} ${env.BUILD_NUMBER}',
+                 body: 'Something is wrong with ${env.BUILD_URL}' */
+        }
+        unstable {
+            echo '-----MARKED AS UNSTABLE'
+        }
+        changed {
+            echo '-----PIPELINE STATE CHANGED'
+        }
+        aborted{
+            echo '-----PIPELINE HAS BEEN ABORTED'
+            setBuildStatus('Build complete', 'ABORTED');
+        }
+    }
+}
