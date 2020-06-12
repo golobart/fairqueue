@@ -89,8 +89,8 @@ pipeline {
                 }
             }
         }
-        stage('Deploy jenkinsci') {
-            when { branch 'jenkinsci' }
+        stage('Deploy') {
+            when { branch 'form-resource' }
             steps {
                /* kubernetesDeploy configs: 'cicd/jenkinsk8sdeployment2.yml', kubeConfig: [path: ''], kubeconfigId: '7bf19a6f-6693-405a-a48e-93c33df14ca1', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
                */
@@ -99,15 +99,6 @@ pipeline {
                    kubectl get pods
                    kubectl apply -f cicd/jenkinsk8sdeployment.yml
                 ''' 
-            }
-        }
-        stage('Deploy form-resource') {
-            when { branch 'form-resource' }
-            steps {
-                sh '''
-                   kubectl get pods
-                   kubectl apply -f cicd/jenkinsk8sdeployment.yml
-                '''
             }
         }
     }
