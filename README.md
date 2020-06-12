@@ -11,8 +11,9 @@ Phases:
 - User frontend development (work in progress).
 
 You can test the wip app downloading and executing a Docker image from hub.docker.com:
+```
 $ docker pull golobart/django-fairqueue:latest
 $ docker run -it -p 8000:8000 golobart/django-fairqueue:latest
-
-Point your browser to localhost:8000 and login with your Github or Linkedin account, 
+```
+Point your browser to `localhost:8000` and login with your GitHub or Linkedin account, 
 once in if you want more permissions get the pink note.
