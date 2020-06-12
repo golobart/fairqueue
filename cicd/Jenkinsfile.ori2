@@ -23,7 +23,7 @@ pipeline {
     stages {
         stage('Preparation') {
             steps {
-                echo {$DOCKER_IMAGE}
+                echo '{$DOCKER_IMAGE}'
                 setBuildStatus('Build running', 'PENDING');
                 echo 'Preparation begins'
                 sh 'pwd'
