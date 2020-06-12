@@ -6,7 +6,7 @@ in addition, to avoid that lack of punctuality of others penalises your time.
 Language: Django/Python.
 
 Phases:
-- Provide CI/CD pipeline to dockerize an deploy in Kubernetes cluster (done using semaphoreci, Docker Hub and KubeSail).
+- Provide CI/CD pipeline to dockerize an deploy in Kubernetes cluster (done using semaphoreci, Jenkins, Docker Hub and KubeSail).
 - Backend development (work in progress).
 - User frontend development (work in progress).
 
