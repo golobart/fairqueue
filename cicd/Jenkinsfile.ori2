@@ -11,6 +11,21 @@ void setBuildStatus(String message, String state) {
 pipeline {
     agent { label 'label1' }
 
+    parameters {
+        choice(
+            choices: ['kubesail', 'no deploy'],
+            description: 'Which K8s cluster deploy to',
+            name: 'K8S_DEPLOY')
+        booleanParam (
+            defaultValue: true,
+            description: 'Push to Docker Hub',
+            name : 'DOCKER_PUSH')
+        booleanParam (
+            defaultValue: false,
+            description: 'Should we ask for deploy or ',
+            name : 'ASK_TO_DEPLOY')
+    }
+
     environment {
         DOCKER_IMAGE = "golobart/django-fairqueue-$BRANCH_NAME"
     }
@@ -64,6 +79,12 @@ pipeline {
             }
         }
         stage('Delivery') {
+            when { expression { return params.DOCKER_PUSH }
+                /*allOf {
+                    branch 'xxx'
+                    environment name: 'DEPLOY_TO', value: 'production'
+                }*/
+            }
             steps {
                 echo '-----Delivery begins'
                 withCredentials([usernamePassword( credentialsId: 'mydockerhubcred', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
@@ -76,6 +97,7 @@ pipeline {
             }
         }
         stage('Promotion') {
+            when { expression { return params.ASK_TO_DEPLOY }  }
             steps {
                 echo '-----Promotion begins'
                 timeout(time: 5, unit: 'MINUTES') {
@@ -92,6 +114,7 @@ pipeline {
         }
         stage('Deploy') {
             /*when { branch 'form-resource' }*/
+            when { expression { params.K8S_DEPLOY == 'kubesail' } }
             steps {
                 echo '-----Deploy begins'
                /* kubernetesDeploy configs: 'cicd/jenkinsk8sdeployment2.yml', kubeConfig: [path: ''], kubeconfigId: '7bf19a6f-6693-405a-a48e-93c33df14ca1', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
