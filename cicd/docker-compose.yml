@@ -1,0 +1,44 @@
+version: '3'
+#project_name: "fairq"
+services:
+  fairq-web:
+    build:
+      context: ..
+      dockerfile: cicd/Dockerfile
+    image: golobart/django-fairqueue-compose:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - FAIRQ_ENV=development
+      - FAIRQ_COMPOSE=yes
+    depends_on:
+      - "fairq-db"
+  fairq-db:
+    image: "mysql:5.7.30"
+    restart: always
+#    command: mysqld --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: 'fairq_database'
+      # So you don't have to use root, this account has supersuser privileges
+      MYSQL_USER: 'fairq_user'
+      MYSQL_PASSWORD: 'fairq_pwd'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'password'
+      # Force password expiration at first login
+      MYSQL_ONE_TIME_PASSWORD: 'yes'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      # - ./cicd/firstmysqlinit:/docker-entrypoint-initdb.d
+      - fairq-vol:/var/lib/mysql
+volumes:
+    fairq-vol:
+networks:
+  default:
+#   name: fairq-net
+    driver: bridge

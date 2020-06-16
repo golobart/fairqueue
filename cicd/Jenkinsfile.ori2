@@ -22,7 +22,7 @@ pipeline {
             name : 'DOCKER_PUSH')
         booleanParam (
             defaultValue: false,
-            description: 'Should we ask for deploy or ',
+            description: 'Should we ask for deploy',
             name : 'ASK_TO_DEPLOY')
     }
 
