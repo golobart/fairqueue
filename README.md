@@ -17,3 +17,21 @@ $ docker run -it -p 8000:8000 golobart/django-fairqueue:latest
 ```
 Point your browser to `localhost:8000` and login with your GitHub or Linkedin account, 
 once in if you want more permissions get the pink note.
+This container doesn't persist data, it just runs an SQLite3 database embedded in itself.
+
+Stop container: ctrl-c
+
+To run fairq with mysql as docker compose services, follow instructions below:
+```
+$ mkdir cicd; cd cicd   # do not change directory name
+$ wget https://github.com/golobart/fairqueue/tree/form-resource/cicd/docker-compose.yml
+$ docker-compose pull   # Avoid container build
+$ docker-compose up
+```
+Again point your browser to `localhost:8000`. Now your data will be persisted between restarts.
+
+Stop services:
+```
+$ cd cicd
+$ docker-compose down
+```

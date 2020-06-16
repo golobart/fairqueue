@@ -123,3 +123,4 @@ dmypy.json
 # excloure directory de pycharm
 .idea/
 # End of https://www.gitignore.io/api/django
+/cicd/firstmysqlinit/init_fairq_database.shno

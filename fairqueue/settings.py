@@ -92,6 +92,20 @@ DATABASES = {
     }
 }
 
+XXXDATABASESXXX = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'fairq_database',
+        'USER': 'fairq_user',
+        'PASSWORD': 'fairq_pwd',
+        'HOST': 'cicd_fairq-db_1',
+        'PORT': '3306',
+        'OPTIONS': {
+#            'read_default_file': '/path/to/my.cnf',
+            'init_command': 'SET default_storage_engine=INNODB',
+        },
+   }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
