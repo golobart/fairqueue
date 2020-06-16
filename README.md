@@ -24,7 +24,7 @@ Stop container: ctrl-c
 To run fairq with mysql as docker compose services, follow instructions below:
 ```
 $ mkdir cicd; cd cicd   # do not change directory name
-$ wget https://github.com/golobart/fairqueue/tree/form-resource/cicd/docker-compose.yml
+$ curl -o docker-compose.yml https://raw.githubusercontent.com/golobart/fairqueue/master/cicd/docker-compose.yml
 $ docker-compose pull   # Avoid container build
 $ docker-compose up
 ```
