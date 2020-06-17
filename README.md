@@ -10,9 +10,9 @@ Phases:
 - Backend development (work in progress).
 - User frontend development (work in progress).
 
-You can test the wip app downloading and executing a Docker image from hub.docker.com:
+You can test the wip app downloading and executing a Docker image ![alt text](https://img.shields.io/docker/automated/golobart/django-fairqueue) from hub.docker.com:
 ```
-$ docker pull golobart/django-fairqueue:latest
+$ docker pull golobart/django-fairqueue:latest  
 $ docker run -it -p 8000:8000 golobart/django-fairqueue:latest
 ```
 Point your browser to `localhost:8000` and login with your GitHub or Linkedin account, 
@@ -21,7 +21,7 @@ This container doesn't persist data, it just runs an SQLite3 database embedded i
 
 Stop container: ctrl-c
 
-To run fairq with mysql as docker compose services, follow instructions below:
+To run fairq with mysql as docker compose services ![alt text](https://img.shields.io/docker/automated/golobart/django-fairqueue-compose), follow instructions below:
 ```
 $ mkdir cicd; cd cicd   # do not change directory name
 $ curl -o docker-compose.yml https://raw.githubusercontent.com/golobart/fairqueue/master/cicd/docker-compose.yml
