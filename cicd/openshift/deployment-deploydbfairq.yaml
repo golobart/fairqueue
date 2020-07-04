@@ -1,0 +1,52 @@
+﻿kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: deploydbfairq
+  namespace: project-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dbFairQ
+  template:
+    metadata:
+      labels:
+        app: dbFairQ
+    spec:
+      volumes:
+        - name: myvol-mysql
+          persistentVolumeClaim:
+            claimName: pvc-mysql
+      containers:
+        - name: fairq-db
+          env:
+            - name: MYSQL_DATABASE
+              value: fairq_database
+            - name: MYSQL_USER
+              value: fairq_user
+            - name: MYSQL_PASSWORD
+              value: fairq_pwd
+            - name: MYSQL_ROOT_PASSWORD
+              value: password
+            - name: MYSQL_ONE_TIME_PASSWORD
+              value: 'yes'
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+          volumeMounts:
+            - name: myvol-mysql
+              mountPath: /var/lib/mysql
+          terminationMessagePolicy: File
+          image: 'mysql:5.7.30'
+          args:
+            - '--ignore-db-dir=lost+found'
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+
+

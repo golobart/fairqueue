@@ -1,6 +1,7 @@
 # Dockerfile
 
 # FROM directive instructing base image to build upon
+# TODO change buster image for python:3.7-alpine about 10 times less size
 FROM python:3.6-buster
 
 RUN mkdir -p /opt/app

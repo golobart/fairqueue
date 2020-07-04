@@ -1,0 +1,14 @@
+﻿kind: Service
+apiVersion: v1
+metadata:
+  name: srvwebfairq
+  namespace: project-1
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  selector:
+    app: webFairQ
+  type: ClusterIP
+  sessionAffinity: None

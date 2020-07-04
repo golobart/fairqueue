@@ -13,7 +13,7 @@ Phases:
 You can test the wip app downloading and executing a Docker image ![alt text](https://img.shields.io/docker/automated/golobart/django-fairqueue) from hub.docker.com:
 ```
 $ docker pull golobart/django-fairqueue:latest  
-$ docker run -it -p 8000:8000 golobart/django-fairqueue:latest
+$ docker run -it --rm -p 8000:8000 golobart/django-fairqueue:latest
 ```
 Point your browser to `localhost:8000` and login with your GitHub or Linkedin account, 
 once in if you want more permissions get the pink note.
