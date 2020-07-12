@@ -15,8 +15,17 @@ COPY ./ /opt/app/fairqueue/
 # COPY django_queue_venv /opt/app/django_queue_venv/
 WORKDIR /opt/app
 RUN pip install -r requirements.txt
+#RUN chown -R 1002020000:www-data /opt/app
 RUN chown -R www-data:www-data /opt/app
 
 EXPOSE 8000
 STOPSIGNAL SIGTERM
+USER root
+RUN apt-get update && apt-get install -y \
+     lynx \
+     gettext \
+#     python-dev  \
+     default-libmysqlclient-dev \
+     python3-dev \
+    && rm -rf /var/lib/apt/lists/*
 CMD ["/opt/app/start-server.sh"]

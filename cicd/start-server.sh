@@ -11,11 +11,13 @@ if [ "$FAIRQ_COMPOSE" == "yes" ]; then
   # Wait mysql fairq_database to exists
   echo "Check if database exists"
   if [ "$FAIRQ_OPENSHIFT" == "yes" ]; then
-    DB_MYSQL_CONN = "srvdbfairq" # Openshift service
+    DB_MYSQL_CONN=srvdbfairq # Openshift service
   else
-    DB_MYSQL_CONN = "cicd_fairq-db_1" # Docker host
+    DB_MYSQL_CONN=cicd_fairq-db_1 # Docker host
   fi
+  echo "DB_MYSQL_CONN = $DB_MYSQL_CONN"
   testconn=`python fairqueue/cicd/pytestconn.py $DB_MYSQL_CONN`
+  echo "testconn = $testconn"
   while [[ ! -z "`echo $testconn`" ]]
 #  while [[  -z "`mysql --defaults-extra-file=mysql_extra_config.cnf -h cicd_fairq-db_1 -qfsNBe "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME='fairq_database'" 2>&1`" ]]
 #  while [[  -z "`mysql -h cicd_fairq-db_1 -u fairq_user -pfairq_pwd -Dfairq_database -qfsNBe "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME='fairq_database'" 2>&1`" ]]
@@ -25,6 +27,12 @@ if [ "$FAIRQ_COMPOSE" == "yes" ]; then
     testconn=`python fairqueue/cicd/pytestconn.py $DB_MYSQL_CONN`
   done
 
+  echo "Point settings.py to mysql"
+  sed -i "s/DATABASES = {/XDATABASESX = {/g" fairqueue/fairqueue/settings.py
+  sed -i "s/XXXDATABASESXXX = {/DATABASES = {/g" fairqueue/fairqueue/settings.py
+  if [ "$FAIRQ_OPENSHIFT" == "yes" ]; then # also point to openshift service, not to docker host
+    sed -i "s/cicd_fairq-db_1/srvdbfairq/g" fairqueue/fairqueue/settings.py
+  fi
 # check if tables exist or create them
   echo "Check if tables exist"
   testtable=`python fairqueue/cicd/pytesttable.py $DB_MYSQL_CONN`
@@ -35,12 +43,7 @@ if [ "$FAIRQ_COMPOSE" == "yes" ]; then
     (cd fairqueue; python manage.py makemigrations; python manage.py migrate;
     python manage.py loaddata fixtures/alldbdata.json)
   fi
-  echo "Point settings.py to mysql"
-  sed -i "s/DATABASES = {/XDATABASESX = {/g" fairqueue/fairqueue/settings.py
-  sed -i "s/XXXDATABASESXXX = {/DATABASES = {/g" fairqueue/fairqueue/settings.py
-  if [ "$FAIRQ_OPENSHIFT" == "yes" ]; then # also point to openshift service, not to docker host
-    sed -i "s/cicd_fairq-db_1/srvdbfairq/g" fairqueue/fairqueue/settings.py
-  fi
+
 else
 # for sqlite always create schema
   echo "sqlite3 tables never exist, making migrations...."
@@ -49,9 +52,9 @@ else
 fi
 echo "Installing gettext, messages and runserver"
 (cd fairqueue;
-apt-get update; apt-get install -y gettext;
-apt-get install -y python-dev default-libmysqlclient-dev;
-apt-get install -y python3-dev;
+#apt-get update; apt-get install -y gettext;
+#apt-get install -y python-dev default-libmysqlclient-dev;
+#apt-get install -y python3-dev;
 python manage.py compilemessages;
 python manage.py runserver 0.0.0.0:8000)
 #(. ./django_queue_venv/bin/activate; cd fairqueue; python manage.py runserver)

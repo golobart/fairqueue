@@ -35,3 +35,5 @@ Stop services:
 $ cd cicd
 $ docker-compose down
 ```
+
+[Play Openshift](cicd/openshift/README.md)
